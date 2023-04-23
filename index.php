@@ -23,7 +23,20 @@
 <?php
     require('menu.php');
 ?>
-    <main>
+<main class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <?php 
+                    if(isset($_SESSION['mensagem'])):
+                ?>
+                <div class="alert alert-info" role="alert">
+                    <?php echo $_SESSION['mensagem'];?>
+                </div>
+                <?php 
+                    endif;
+                ?>
+            </div>
+        </div>
         <section class="home">
             <div class="home-text">
                 <h4 class="text-h4">Bem vindo ao Whey Market</h4>

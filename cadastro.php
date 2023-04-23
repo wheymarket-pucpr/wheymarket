@@ -1,3 +1,35 @@
+<?php
+    session_start(); // informa ao PHP que iremos trabalhar com sessão
+    require 'conexao.php';
+    // Cria conexão
+    $conn = new mysqli($servername, $username, $password, $database);
+
+    // Verifica conexão
+    if ($conn->connect_error) {
+        die("<strong> Falha de conexão: </strong>" . $conn->connect_error);
+    }
+
+
+    if(!empty($_POST) && isset($_POST['email']) && isset($_POST['senha']) && isset($_POST['CNPJ'])) {
+        $nome = $conn->real_escape_string($_POST['Nome']);
+        $email    = $conn->real_escape_string($_POST['email']);
+        $cnpj   = $conn->real_escape_string($_POST['CNPJ']);
+        $senha   = $conn->real_escape_string($_POST['senha']);
+
+    $sql = "INSERT INTO lojista (CNPJ, email, Nome, senha, fk_Cadastro_Tipo_ID) VALUES ('$cnpj', '$email', '$nome', MD5('$senha'),'1')";
+        if($result = $conn->query($sql)){
+            $_SESSION['mensagem'] = "Cadastro efetuado com sucesso. Você já pode efetuar login.";
+            header('location: index.php');
+            exit();
+        }
+        else{
+            $_SESSION['mensagem'] = "Erro executando INSERT: " . $conn->error . " Tente novo cadastro.";
+            header('location: index.php');
+            exit();
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,8 +66,8 @@
                                 <input type="text" name="CNPJ" class="form-control" id="CNPJ" placeholder='XX.XXX.XXX/XXXX-XX'/>
                             </div>
                             <div class="mb-3">
-                                <label for="email" class="form-label">Nome</label>
-                                <input type="text" name="" class="form-control" id="email" placeholder="Nome da loja(ou proprio)"/>
+                                <label for="Nome" class="form-label">Nome</label>
+                                <input type="text" name="Nome" class="form-control" id="Nome" placeholder="Nome da loja(ou proprio)"/>
                             </div>
                             <div class="mb-3">
                                 <label for="senha" class="form-label">Senha</label>

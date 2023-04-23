@@ -1,7 +1,7 @@
 <header>
     <nav class="navigation ">
         <div class="flex-center-logo">
-            <img src="src/img/logo.jpg" width="100px" height="100px">
+            <img src="src/img/logo.png" width="100px" height="100px">
             <a href="index.php" class="logo">Whey <span>Market</span></a>
         </div>
         <div>
@@ -18,6 +18,7 @@
                 <?php
                 else:
                 ?>
+                <li class="nav-item"><span class='text-red'>Ola, <?php echo $_SESSION['Nome']?></span></li>
                 <li class="nav-item"><a href="logout.php">Sair</a></li>
                 <?php
                 endif;
