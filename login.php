@@ -1,7 +1,6 @@
 <?php
     session_start(); // informa ao PHP que iremos trabalhar com sessão
     require 'conexao.php';
-
     // Cria conexão
     $conn = new mysqli($servername, $username, $password, $database);
 
@@ -24,7 +23,7 @@
             $_SESSION ['id']  = $row['id'];
             $_SESSION ['logado'] = true;
             unset($_SESSION ['nao_autenticado']);
-            unset($_SESSION ['mensagem_header'] ); 
+            unset($_SESSION ['mensagem_header']); 
             unset($_SESSION ['mensagem'] ); 
             header('location: index.php'); // Redireciona para a página de funcionalidades.
             exit();
@@ -34,7 +33,7 @@
             $_SESSION ['nao_autenticado'] = true;         // Ativa ERRO nas variáveis de sessão
             $_SESSION ['mensagem_header'] = "Login";
             $_SESSION ['mensagem']        = "ERRO: Login ou Senha inválidos.";
-            //header('location: login.php'); // Redireciona para página inicial
+            header('location: index.php'); // Redireciona para página inicial
             exit();
         }
     }
@@ -50,25 +49,35 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
     <title>Login</title>
     <link rel="icon" href="https://cdn0.iconfinder.com/data/icons/fitness-filled/64/fitness-08-512.png"type="image/x-icon">
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="/css/cadastro.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h1>Acesse sua conta</h1>
-    <form action="" method="POST">
-        <p>
-            <label for="">Email</label>
-            <input type="text" name="email">
-        </p>
-        <p>
-            <label for="">Senha</label>
-            <input type="password" name="senha">
-        </p>
-        <p>
-            <button type="submit">Entrar</button>
-        </p>
-    </form>
+<div class='.container-fluid'>
+    <div class='row justify-content-center'>
+        <div class='col-4'>
+        <h1>Acesse sua conta</h1>
+        <form action="" method="POST">
+            <p>
+                <label for="">Email</label>
+                <input type="text" name="email">
+            </p>
+            <p>
+                <label for="">Senha</label>
+                <input type="password" name="senha">
+            </p>
+            <p>
+                <button class="btn btn-primary" type="submit">Entrar</button>
+                <a href="cadastro.php" class="link-primary">Nao sou cadastrado</a>
+            </p>
+        </form>
+        </div>
+    </div>
+    </div>
 </body>
 </html>
