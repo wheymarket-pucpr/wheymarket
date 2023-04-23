@@ -16,7 +16,8 @@
         $cnpj   = $conn->real_escape_string($_POST['CNPJ']);
         $senha   = $conn->real_escape_string($_POST['senha']);
 
-    $sql = "INSERT INTO lojista (CNPJ, email, Nome, senha, fk_Cadastro_Tipo_ID) VALUES ('$cnpj', '$email', '$nome', MD5('$senha'),'1')";
+        $sql = "INSERT INTO lojista (CNPJ, email, Nome, senha, fk_Cadastro_Tipo_ID) VALUES ('$cnpj', '$email', '$nome', MD5('$senha'),'1')";
+        
         if($result = $conn->query($sql)){
             $_SESSION['mensagem'] = "Cadastro efetuado com sucesso. Você já pode efetuar login.";
             header('location: index.php');
