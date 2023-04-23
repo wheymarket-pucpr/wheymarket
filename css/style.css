@@ -13,6 +13,10 @@
     --white:#fff;
     --dark:#1e1c2a;
 }
+.flex-center-logo{
+    display: flex;
+    align-items: center;
+}
 body{
     color: var(--dark);
     background: var(--white);
