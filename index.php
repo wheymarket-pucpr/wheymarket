@@ -1,3 +1,10 @@
+<?php
+    session_start();
+    $islogged = false;
+    if(session_status() === PHP_SESSION_ACTIVE){
+        $islogged = $_SESSION['logado'];
+    }
+?>
 <!DOCTYPE html>
 <html lang="Pt-br">
 <head>
@@ -20,7 +27,17 @@
                 <li class="nav-item"><a href="#">Produtos</a></li>
                 <li class="nav-item"><a href="#">Carrinho</a></li>
                 <li class="nav-item"><a href="#">Contato</a></li>
+                <?php
+                if(!$islogged):
+                ?>
                 <li class="nav-item"><a href="login.php">Login/Cadastro</a></li>
+                <?php
+                else:
+                ?>
+                <li class="nav-item"><a href="logout.php">Sair</a></li>
+                <?php
+                endif;
+                ?>
             </ul>
             <div class="menu">
                 <span class="bar"></span>

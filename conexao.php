@@ -1,12 +1,11 @@
 <?php
+global $servername ;
+global $username;
+global $password;
+global $database;
 
-$usuario = "root";
-$senha = "";
-$database = "login";
-$host = "localhost";
-
-$mysqli = new mysqli($host,$usuario,$senha,$database);
-
-if($mysqli->error) {
-    die("falha ao conectar ao banco de dados".$mysqli->error);
-}
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "bdwheymarket";
+?>
