@@ -1,7 +1,7 @@
 <header>
     <nav class="navigation ">
         <div class="flex-center-logo">
-            <img src="src/img/logo.png" width="100px" height="100px">
+            <a href="index.php"><img src="src/img/logo.png" width="100px" height="100px"></a>
             <a href="index.php" class="logo">Whey <span>Market</span></a>
         </div>
         <div>
