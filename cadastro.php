@@ -14,29 +14,42 @@
 </head>
 
 <body>
-    <div class='.container-fluid'>
-        <div class='row justify-content-center'>
-            <div class='col-4'>
-            <h1>Cadastre-se</h1>
-            <form action="" method="post"></form>
-            <p>
-                <label for="">Email</label>
-                <input type="email" name="email" placeholder="example@example.com"/>
-            </p>
-            <p>
-                <label for="">CNPJ</label>
-                <input type="text" name="CNPJ"placeholder='XX.XXX.XXX/0001-XX'>
-            </p>
-            <p>
-                <label for="">Senha</label>
-                <input type="password" name="email"placeholder='********'>
-            </p>
-            <p>
-                <button class='btn btn-primary'type="submit">Enviar</button>
-            </p>
-            </form>
+<?php
+    require('menu.php');
+?>
+<div class='.container-fluid'>
+    <div class="row justify-content-center pt-5">
+        <div class='col-3'>
+            <div class="card">
+                <h5 class="card-header text-dark">Cadastre-se</h5>
+                <div class="card-body">
+                    <div class='col'>
+                        <form action="" method="POST">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="text" name="email" class="form-control" id="email" placeholder="example@example.com"/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="CNPJ" class="form-label">CNPJ</label>
+                                <input type="text" name="CNPJ" class="form-control" id="CNPJ" placeholder='XX.XXX.XXX/XXXX-XX'/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Nome</label>
+                                <input type="text" name="" class="form-control" id="email" placeholder="Nome da loja(ou proprio)"/>
+                            </div>
+                            <div class="mb-3">
+                                <label for="senha" class="form-label">Senha</label>
+                                <input type="password" name="senha" class="form-control" id="senha" placeholder='********'>
+                            </div>
+                            <div class="d-grid gap-2 mb-3">
+                                <button class="btn btn-primary" type="submit">Enviar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+</div>
 </body>
 </html>
