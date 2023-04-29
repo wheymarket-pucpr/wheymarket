@@ -33,11 +33,11 @@ session_start()
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Preco</label>
-                            <input type="text" name="" class="form-control" id=""L placeholder='em R$'>
+                            <input type="text" name="" class="form-control" id=""L placeholder='Ex: R$60,00'>
                         <div>
                         <div class="mb-3">
                             <label for="" class="form-label">Peso</label>
-                            <input type="text" name="" class="form-control" id=""L>
+                            <input type="text" name="" class="form-control" id="" placeholder="Ex: 900g">
                         <div>
                         </form>
                     </div>
