@@ -39,7 +39,7 @@
 </head>
 <body>
 <?php
-    require('menu.php');
+    require('header.php');
 ?>
 <div class='.container-fluid'>
     <div class="row justify-content-center pt-5">

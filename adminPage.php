@@ -20,7 +20,7 @@
 </head>
 <body>
     <?php
-        require "menu.php"
+        require "header.php"
     ?>
 </body>
 </html>
