@@ -1,5 +1,7 @@
 <?php
 session_start()
+
+
 ?>
 
 <!DOCTYPE html>
@@ -29,18 +31,44 @@ session_start()
                         <form action="input" method="POST">
                         <div class="mb-1">
                             <label for="" class="form-label">Nome do produto</label> 
-                            <input type="text" name="" class="form-control" id="" placeholder = 'Ex: Creatina Growht'>
+                            <input type="text" name="Nome" class="form-control" id="Nome" placeholder = 'Ex: Creatina Growht'>
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Preco</label>
-                            <input type="text" name="" class="form-control" id=""L placeholder='Ex: R$60,00'>
+                            <input type="text" name="Preco" class="form-control" id="Preco"L placeholder='Ex: R$60,00'>
                         <div>
                         <div class="mb-3">
                             <label for="" class="form-label">Peso</label>
-                            <input type="text" name="" class="form-control" id="" placeholder="Ex: 900g">
+                            <input type="text" name="Peso" class="form-control" id="Peso" placeholder="Ex: 900g">
                         <div>
+                        <div class="mb-3">
+                            <p> </p>
+                        </div>
+                        <!-- Categoria -->
+                        <div class="mb-3">
+                            <select class="form-select" aria-label="Default select example">
+                            <option selected>Tipo produto</option>
+                            <option value="1">Termogênicos</option>
+                            <option value="2">Aminoácidos</option>
+                            <option value="3">Acessórios</option>
+                            </select>
+                        </div>
+                        <!-- Descricao-->
+                        <div class="mb-3">
+                            <p></p>
+                            <label for="Descricao" class="form-label">Descrição do produto</label>
+                            <textarea class="form-control" id="Descricao" rows="3"></textarea>
+                        </div>
+                        <!-- Selecao de foto -->
+                        <div class="mb-3">
+                        <p>Selecione uma foto do produto</p>
+                        <form action="" method="POST" enctype="multipart/form-data">
+                        <div class="input-group mb-3">
+                            <input name = 'upload' type="file" class="form-control" id="Foto">
+                            <label class="input-group-text" for="inputGroupFile02">Enviar</label>
+                        </div>
                         </form>
-                    </div>
+                        </div>
                 </div>
             </div>
         </div>
