@@ -1,13 +1,5 @@
 <?php
-    session_start(); // informa ao PHP que iremos trabalhar com sessão
-    require 'conexao.php';
-    // Cria conexão
-    $conn = new mysqli($servername, $username, $password, $database);
-
-    // Verifica conexão
-    if ($conn->connect_error) {
-        die("<strong> Falha de conexão: </strong>" . $conn->connect_error);
-    }
+    session_start(); 
 
     if(isset($_POST['email']) || isset($_POST['senha'])) {
 
@@ -31,10 +23,10 @@
 
         }else{
             $_SESSION ['logado'] = false;
-            $_SESSION ['nao_autenticado'] = true;         // Ativa ERRO nas variáveis de sessão
+            $_SESSION ['nao_autenticado'] = true;         
             $_SESSION ['mensagem_header'] = "Login";
             $_SESSION ['mensagem']        = "ERRO: Login ou Senha inválidos.";
-            header('location: index.php'); // Redireciona para página inicial
+            header('location: index.php');
             exit();
         }
     }
@@ -84,7 +76,7 @@
                             </div>
                             <div class="row">
                                 <div class="text-center">
-                                    <a href="cadastro.php" class="link-primary">Nao sou cadastrado</a>
+                                    <a href="cadastroConsumidor.php" class="link-primary">Nao sou cadastrado</a>
                                 </div>
                             </div>
                         </form>

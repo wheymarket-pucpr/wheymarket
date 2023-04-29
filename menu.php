@@ -10,7 +10,7 @@
                 <li class="nav-item"><a href="index.php">Home</a></li>
                 <li class="nav-item"><a href="#">Produtos</a></li>
                 <li class="nav-item"><a href="#">Carrinho</a></li>
-                <li class="nav-item"><a href="#">Contato</a></li>
+                <li class="nav-item"><a href="cadastroLojista.php">Quero vender</a></li>
                 <?php
                 if(!empty($_SESSION) && isset($_SESSION['logado']) && $_SESSION['logado'] == false):
                 ?>
