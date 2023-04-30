@@ -1,6 +1,47 @@
 <?php
 session_start()
+?>
+<?php // input e verificacao da imagem
+$img = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
+if(!empty($img['img'])){
+
+    $img = $_FILES['img'];
+
+    if($img['type'] == "application/png" || "application/jpeg"){
+
+        $imgBlob = file_get_contents($img['tmp_name']);
+
+    }
+    else{
+        echo "<p style='color: #f00;'>Erro: Extensão do arquivo inválido.";
+    }
+}
+
+    // input dos dados do produto 
+    if(!empty($_POST) && isset($_POST['Nome']) && isset($_POST['Preco']) && isset($_POST['Peso']) && isset($_POST['Quantidade']) && isset($_POST['fk_Categoria_Produto_ID'])&& isset($_POST['Descricao'])) {
+        $nome = $conn->real_escape_string($_POST['Nome']);
+        $preco    = $conn->real_escape_string($_POST['Preco']);
+        $quantidade    = $conn->real_escape_string($_POST['Quantidade']);
+        $peso   = $conn->real_escape_string($_POST['Peso']);
+        $categoria   = $conn->real_escape_string($_POST['fk_Categoria_Produto_ID']);
+        $descricao   = $conn->real_escape_string($_POST['Descricao']);
+        $id = $_SESSION['id'];
+        $sql = "INSERT INTO Produtos(fk_Lojista_ID, fk_Categoria_Produto_ID, Nome, Preco, Quantidade, Peso, Descricao) 
+                VALUES ('$id,'$categoria','$nome','$preco','$quantidade','$peso','$descricao')";
+        
+        if($result = $conn->query($sql)){
+            $_SESSION['mensagem'] = "Cadastro efetuado com sucesso. Você já pode comprar em nosso site! Basta realizar o login.";
+            header('location: index.php');
+            exit();
+        }
+        else{
+            $_SESSION['mensagem'] = "Erro executando INSERT: " . $conn->error . " Tente novo cadastro.";
+            header('location: index.php');
+            exit();
+        }
+    }
+?>
 
 ?>
 
@@ -38,6 +79,10 @@ session_start()
                             <input type="text" name="Preco" class="form-control" id="Preco"L placeholder='Ex: R$60,00'>
                         <div>
                         <div class="mb-3">
+                            <label for="" class="form-label">Quantidade</label>
+                            <input type="text" name="Quantidade" class="form-control" id="Quantidade"L placeholder='Ex: 50 produtos'>
+                        <div>                            
+                        <div class="mb-3">
                             <label for="" class="form-label">Peso</label>
                             <input type="text" name="Peso" class="form-control" id="Peso" placeholder="Ex: 900g">
                         <div>
@@ -46,7 +91,7 @@ session_start()
                         </div>
                         <!-- Categoria -->
                         <div class="mb-3">
-                            <select class="form-select" aria-label="Default select example">
+                            <select id = 'fk_Categoria_Produto_ID'class="form-select" aria-label="Default select example">
                             <option selected>Tipo produto</option>
                             <option value="1">Termogênicos</option>
                             <option value="2">Aminoácidos</option>
@@ -62,10 +107,15 @@ session_start()
                         <!-- Selecao de foto -->
                         <div class="mb-3">
                         <p>Selecione uma foto do produto</p>
+
+
                         <form action="" method="POST" enctype="multipart/form-data">
                         <div class="input-group mb-3">
-                            <input name = 'upload' type="file" class="form-control" id="Foto">
-                            <label class="input-group-text" for="inputGroupFile02">Enviar</label>
+                            
+                            <input name = 'img' type="file" class="form-control" id="img">
+                            <label class="input-group-text" for="img">Enviar</label>
+
+
                         </div>
                         </form>
                         </div>

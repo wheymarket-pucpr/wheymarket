@@ -1,5 +1,6 @@
 <?php
     session_start(); 
+    require 'conexao.php';
 
     if(isset($_POST['email']) || isset($_POST['senha'])) {
 
@@ -7,7 +8,7 @@
     $senha   = $conn->real_escape_string($_POST['senha']); // prepara a string recebida para ser utilizada em comando SQL
 
     // Faz Select na Base de Dados
-    $sql = "SELECT id, email, Nome FROM lojista WHERE email = '$email' AND senha = md5('$senha')";
+    $sql = "SELECT id, email, Nome, fk_Cadastro_Tipo_ID FROM lojista WHERE email = '$email' AND senha = md5('$senha')";
     if ($result = $conn->query($sql)) {
         if ($result->num_rows == 1) {
             $row = $result->fetch_assoc();
@@ -15,25 +16,39 @@
             $_SESSION['login']  = $row['email'];
             $_SESSION['id']  = $row['id'];
             $_SESSION['logado'] = true;
+            $_SESSION['tipoLogin'] = $row['fk_Cadastro_Tipo_ID'];
             unset($_SESSION ['nao_autenticado']);
             unset($_SESSION ['mensagem_header']);
             unset($_SESSION ['mensagem'] );
-            header('location: index.php');
-            exit();
-
-        }else{
-            $_SESSION ['logado'] = false;
-            $_SESSION ['nao_autenticado'] = true;         
-            $_SESSION ['mensagem_header'] = "Login";
-            $_SESSION ['mensagem']        = "ERRO: Login ou Senha inválidos.";
-            header('location: index.php');
-            exit();
+            
+            switch ($_SESSION['tipoLogin']) {
+                case 1:
+                    header('location: index.php');;
+                    break;
+                case 2:
+                    header('location: index.php');;
+                    break;
+                case 3:
+                    //SETAR PAGINA DO ADMIN AQUI;
+                    break;
+                exit();
+            }
         }
+    
+            else{
+                $_SESSION ['logado'] = false;
+                $_SESSION ['nao_autenticado'] = true;         
+                $_SESSION ['mensagem_header'] = "Login";
+                $_SESSION ['mensagem']        = "ERRO: Login ou Senha inválidos.";
+                header('location: index.php');
+                exit();
+            
+            }
     }
-    else {
-        echo "Erro ao acessar o BD: " . $conn ->error;
-    }
-    $conn->close();  //Encerra conexao com o BD
+        else {
+            echo "Erro ao acessar o BD: " . $conn ->error;
+        }
+        $conn->close();
     }
 ?>
 <!DOCTYPE html>
