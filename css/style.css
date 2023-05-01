@@ -13,6 +13,11 @@
     --white:#fff;
     --dark:#1e1c2a;
 }
+.carrossel{
+    width: 70%;
+    padding: 10%;
+
+}
 .flex-center-logo{
     display: flex;
     align-items: center;
@@ -174,4 +179,10 @@ body{
 
 .text-red {
     color:var(--red)
+}
+
+.imgcarrossel{
+    height: 400px;
+    width: 900;
+
 }

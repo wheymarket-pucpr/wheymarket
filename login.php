@@ -8,7 +8,7 @@
     $senha   = $conn->real_escape_string($_POST['senha']); // prepara a string recebida para ser utilizada em comando SQL
 
     // Faz Select na Base de Dados
-    $sql = "SELECT id, email, Nome, fk_Cadastro_Tipo_ID FROM lojista WHERE email = '$email' AND senha = md5('$senha')";
+    $sql = "SELECT id, email, Nome, fk_Cadastro_Tipo_ID from lojista join consumidor on id,email, senha, id_cadastro_tipo join where email = '$email' AND senha = md5('$senha')";
     if ($result = $conn->query($sql)) {
         if ($result->num_rows == 1) {
             $row = $result->fetch_assoc();
@@ -16,7 +16,7 @@
             $_SESSION['login']  = $row['email'];
             $_SESSION['id']  = $row['id'];
             $_SESSION['logado'] = true;
-            $_SESSION['tipoLogin'] = $row['fk_Cadastro_Tipo_ID'];
+            $_SESSION['tipoLogin'] = $row['fk_Cadastro_Tipo_ID'] || $row['id_cadastro_tipo'];
             unset($_SESSION ['nao_autenticado']);
             unset($_SESSION ['mensagem_header']);
             unset($_SESSION ['mensagem'] );
