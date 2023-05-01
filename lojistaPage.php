@@ -28,7 +28,7 @@ session_start()
                 <i class='bx bx-search'></i>
                 <li class="nav-item"><a href="lojistaPage.php">Inicio</a></li>
                 <li class="nav-item"><a href="#">Minhas vendas</a></li>
-                <li class="nav-item"><a href="#">Meus produtos</a></li>
+                <li class="nav-item"><a href="listarProdutos.php">Meus produtos</a></li>
                 <li class="nav-item"><a href="cadastroProduto.php">Cadastrar produto</a></li>
                 <?php
                 ?>
@@ -45,6 +45,6 @@ session_start()
         </div>
     </nav>
 </header>
-    
+    <H1>TO DO </H1>
     </body>
 </html>

@@ -1,5 +1,13 @@
 <?php
-session_start()
+session_start();
+
+require('conexao.php');
+$idLojista = $_SESSION['id'];
+$sql = "select * from produto where fk_Lojista_ID = '$idLojista'";
+if ($result = $conn->query($sql)) {
+} else {
+    // criar mensagem caso falhe o sql
+}
 ?>
 
 <!DOCTYPE html>
@@ -26,7 +34,7 @@ session_start()
         ?>
     </header>
     <!-- slider -->
-    <div class= "container">
+    <div style="justify-content: center, padding = 30px">
         <div id="carouselExampleIndicators" class="carousel slide">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -35,13 +43,13 @@ session_start()
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img class = "imgcarrossel"src="src/img/slider1.jpg" class="d-block w-100" alt="...">
+                    <img src="src/img/slider1.jpg" width="70%" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img class = "imgcarrossel" src="src/img/slider2.jpg" class="d-block w-100" alt="...">
+                    <img src="src/img/slider2.jpg" width="70%" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img class = "imgcarrossel" src="src/img/slider3.jpg" class="d-block w-100" alt="...">
+                    <img src="src/img/slider3.jpg" width="70%" class="d-block w-100" alt="...">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -54,14 +62,29 @@ session_start()
             </button>
         </div>
     </div>
-    <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="..." alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+            <?php
+            while ($produto = mysqli_fetch_assoc($result)) :
+            ?>
+                <div class="card" style="width: 18rem;">
+                    <img width="50px" class="card-img-top" src="data:image/jpeg;image/png;base64,<?php echo base64_encode($produto['imagem']) ?>" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo $produto['Nome'] ?></h5>
+                        <h4 class="card-title">R$ <?php echo $produto['Preco'] ?></h4>
+                        <p class="card-text"><?php echo $produto['Descricao'] ?></p>
+                        <a href="#" class="btn btn-primary">Comprar</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+<?php
+endwhile;
+?>
 </body>
 
 </html>
