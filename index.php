@@ -1,12 +1,13 @@
 <?php
-    session_start();
-    $islogged = false;
-    if(!empty($_SESSION) && $_SESSION['logado'] == true){
-        $islogged = $_SESSION['logado'];
-    }
+session_start();
+$islogged = false;
+if (!empty($_SESSION) && $_SESSION['logado'] == true) {
+    $islogged = $_SESSION['logado'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="Pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,23 +18,24 @@
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="css/style.css">
     <title>WheyMarket</title>
-    <link rel = "icon" href ="https://cdn0.iconfinder.com/data/icons/fitness-filled/64/fitness-08-512.png" type = "image/x-icon">
+    <link rel="icon" href="https://cdn0.iconfinder.com/data/icons/fitness-filled/64/fitness-08-512.png" type="image/x-icon">
 </head>
+
 <body>
-<?php
+    <?php
     require('header.php');
-?>
-<main class="container-fluid">
+    ?>
+    <main class="container-fluid">
         <div class="row">
             <div class="col-md-6">
-                <?php 
-                    if(isset($_SESSION['mensagem'])):
+                <?php
+                if (isset($_SESSION['mensagem'])) :
                 ?>
-                <div class="alert alert-info" role="alert">
-                    <?php echo $_SESSION['mensagem'];?>
-                </div>
-                <?php 
-                    endif;
+                    <div class="alert alert-info" role="alert">
+                        <?php echo $_SESSION['mensagem']; ?>
+                    </div>
+                <?php
+                endif;
                 ?>
             </div>
         </div>
@@ -48,4 +50,5 @@
         </section>
     </main>
 </body>
+
 </html>
