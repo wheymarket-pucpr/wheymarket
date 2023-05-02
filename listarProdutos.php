@@ -82,7 +82,7 @@ if ($result = $conn->query($sql)) {
                                 <td><?php echo $produto['Quantidade'] ?></td>
                                 <td><?php echo $produto['Peso'] ?></td>
                                 <td><?php echo $produto['Descricao'] ?></td>
-                                <td><img width="50px" src="data:image/jpeg;image/png;base64,<?php echo base64_encode($produto['imagem']) ?>"></td>
+                                <td><img width="75px" height="100px" src="data:image/jpeg;image/png;base64,<?php echo base64_encode($produto['imagem']) ?>"></td>
                                 <td>
                                     <a class='btn btn-sm btn-primary' href='editProduto.php?&id=<?php echo $produto['idProduto'] ?>' title='Editar'>
                                         <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pencil' viewBox='0 0 16 16'>

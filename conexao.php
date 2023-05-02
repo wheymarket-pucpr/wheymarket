@@ -4,7 +4,7 @@ global $username;
 global $password;
 global $database;
 
-$servername = "localhost";
+$servername = "localhost:3307";
 $username = "root";
 $password = "";
 $database = "bdwheymarket";

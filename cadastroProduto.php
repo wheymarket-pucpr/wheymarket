@@ -31,8 +31,8 @@ if (!empty($_POST) && isset($_POST['Nome']) && isset($_POST['Preco']) && isset($
                 VALUES ('$id','$categoria','$nome','$preco','$quantidade','$peso','$descricao', '$imgBlob')";
 
     if ($result = $conn->query($sql)) {
-        $_SESSION['mensagem'] = "Cadastro efetuado com sucesso. Você já pode vender em nosso site! Basta realizar o login.";
-        header('location: lojistaPage.php');
+        $_SESSION['mensagem'] = "Cadastro efetuado com sucesso. Você já pode vender em nosso site! ";
+        header('location: listarProdutos.php');
         exit();
     } else {
         $_SESSION['mensagem'] = "Erro executando INSERT: " . $conn->error . " Tente novo cadastro.";

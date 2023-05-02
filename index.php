@@ -35,6 +35,8 @@ if (!empty($_SESSION) && $_SESSION['logado'] == true) {
                         <?php echo $_SESSION['mensagem']; ?>
                     </div>
                 <?php
+                    unset($_SESSION['mensagem']);
+                
                 endif;
                 ?>
             </div>
