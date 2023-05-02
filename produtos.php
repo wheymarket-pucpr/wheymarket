@@ -2,8 +2,7 @@
 session_start();
 
 require('conexao.php');
-$idLojista = $_SESSION['id'];
-$sql = "select * from produto where fk_Lojista_ID = '$idLojista'";
+$sql = "select * from produto";
 if ($result = $conn->query($sql)) {
 } else {
     // criar mensagem caso falhe o sql
@@ -66,25 +65,25 @@ if ($result = $conn->query($sql)) {
 
     <div class="container">
         <div class="row">
-            <div class="col-6">
             <?php
             while ($produto = mysqli_fetch_assoc($result)) :
             ?>
-                <div class="card" style="width: 18rem;">
-                    <img width="50px" class="card-img-top" src="data:image/jpeg;image/png;base64,<?php echo base64_encode($produto['imagem']) ?>" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title"><?php echo $produto['Nome'] ?></h5>
-                        <h4 class="card-title">R$ <?php echo $produto['Preco'] ?></h4>
-                        <p class="card-text"><?php echo $produto['Descricao'] ?></p>
-                        <a href="#" class="btn btn-primary">Comprar</a>
+                <div class="col">
+                    <div class="card p-4" style="width: 15rem;">
+                        <img width="10px" class="card-img-top" src="data:image/jpeg;image/png;base64,<?php echo base64_encode($produto['imagem']) ?>" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $produto['Nome'] ?></h5>
+                            <h4 class="card-title">R$ <?php echo $produto['Preco'] ?></h4>
+                            <p class="card-text"><?php echo $produto['Descricao'] ?></p>
+                            <a href="#" class="btn btn-primary">Comprar</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            <?php
+            endwhile;
+            ?>
         </div>
     </div>
-<?php
-endwhile;
-?>
 </body>
 
 </html>

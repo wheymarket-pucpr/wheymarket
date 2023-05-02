@@ -8,7 +8,7 @@
         $cpf   = $conn->real_escape_string($_POST['CPF']);
         $senha   = $conn->real_escape_string($_POST['senha']);
 
-        $sql = "INSERT INTO consumidor (Nome, CPF, senha, email) VALUES ('$nome','$cpf',md5('$senha'),'$email')";
+        $sql = "INSERT INTO consumidor (Nome, CPF, senha, email, fk_Cadastro_Tipo_ID) VALUES ('$nome','$cpf',md5('$senha'),'$email', 2)";
         
         if($result = $conn->query($sql)){
             $_SESSION['mensagem'] = "Cadastro efetuado com sucesso. Você já pode comprar em nosso site! Basta realizar o login.";

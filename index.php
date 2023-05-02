@@ -44,7 +44,7 @@ if (!empty($_SESSION) && $_SESSION['logado'] == true) {
                 <h4 class="text-h4">Bem vindo ao Whey Market</h4>
                 <h1 class="text-h1">Seu marketplace segmentado para suplementos</h1>
                 <p>Homepage do projeto de Experiencia Crativa</p>
-                <a href="#" class="home-btn">Veja nosso catalogo</a>
+                <a href="produtos.php" class="home-btn">Veja nosso catalogo</a>
             </div>
             <div><img src="src/img/fundohome.png" alt="" width="500"></div>
         </section>
