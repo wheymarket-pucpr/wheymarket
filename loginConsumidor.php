@@ -8,7 +8,7 @@ if (isset($_POST['email']) || isset($_POST['senha'])) {
     $senha   = $conn->real_escape_string($_POST['senha']); // prepara a string recebida para ser utilizada em comando SQL
 
     // Faz Select na Base de Dados
-    $sql = "SELECT id, email, Nome, fk_Cadastro_Tipo_ID from lojista where email = '$email' AND senha = md5('$senha')";
+    $sql = "SELECT id, email, Nome, fk_Cadastro_Tipo_ID from consumidor where email = '$email' AND senha = md5('$senha')";
     if ($result = $conn->query($sql)) {
         if ($result->num_rows == 1) {
             $row = $result->fetch_assoc();
@@ -16,24 +16,11 @@ if (isset($_POST['email']) || isset($_POST['senha'])) {
             $_SESSION['login']  = $row['email'];
             $_SESSION['id']  = $row['id'];
             $_SESSION['logado'] = true;
-            $_SESSION['tipoLogin'] = $row['fk_Cadastro_Tipo_ID'] || $row['id_cadastro_tipo'];
+            $_SESSION['tipoLogin'] = $row['fk_Cadastro_Tipo_ID'];
             unset($_SESSION['nao_autenticado']);
             unset($_SESSION['mensagem_header']);
-
-            switch ($_SESSION['tipoLogin']) {
-                case 1:
-                    //pagina do lojista
-                    header('location: lojistaPage.php');;
-                    break;
-                case 2:
-                    //index pro consumidor
-                    header('location: index.php');;
-                    break;
-                case 3:
-                    //SETAR PAGINA DO ADMIN AQUI;
-                    break;
-                    exit();
-            }
+            header('location: index.php');
+                    
         } else {
             $_SESSION['logado'] = false;
             $_SESSION['nao_autenticado'] = true;

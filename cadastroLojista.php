@@ -56,7 +56,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="CNPJ" class="form-label">CNPJ</label>
-                                <input type="text" name="CNPJ" class="form-control" id="CNPJ" placeholder='XX.XXX.XXX/XXXX-XX'/>
+                                <input type="text" name="CNPJ" class="form-control" id="CNPJ" placeholder='XX.XXX.XXX/XXXX-XX' pattern ='\d{2}.?\d{3}.?\d{3}/?\d{4}-?\d{2}' required/>
                             </div>
                             <div class="mb-3">
                                 <label for="Nome" class="form-label">Nome</label>
