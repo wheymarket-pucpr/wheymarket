@@ -2,7 +2,8 @@
 session_start();
 
 require('conexao.php');
-$sql = "select * from produto";
+$busca = $_POST['busca'];
+$sql = "SELECT * FROM produto WHERE nome LIKE '%$busca%'";
 if ($result = $conn->query($sql)) {
 } else {
     // criar mensagem caso falhe o sql
