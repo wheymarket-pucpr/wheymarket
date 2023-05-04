@@ -11,11 +11,10 @@
             <a href="index.php" class="logo">Whey <span>Market</span></a>
         </div>
         <div>
-            <ul class="nav-menu">
-                <i class='bx bx-search'style="display:flex"> 
+            <ul class="nav-menu"> 
                     <form action="produtoBusca.php" method="POST" style="display:flex;height:25px">
                         <input type="text" name="busca" placeholder="Pesquisar...">
-                        <button class = "btn btn-primary"type="submit">IR</button>
+                        <button class = "btn btn-primary"type="submit"  style="align-items: center;"><i class='bx bx-search'style="display:flex"></button>
                     </form>
                 </i>
                 <li class="nav-item"><a href="index.php">Home</a></li>

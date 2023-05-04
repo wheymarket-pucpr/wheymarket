@@ -33,7 +33,7 @@ if ($result = $conn->query($sql)) {
         ?>
     </header>
     <!-- slider -->
-    <div style="justify-content: center, padding = 30px">
+    <div style="justify-content: center;padding: 25px 25px 25px">
         <div id="carouselExampleIndicators" class="carousel slide">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -42,13 +42,13 @@ if ($result = $conn->query($sql)) {
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="src/img/slider1.jpg" width="70%" class="d-block w-100" alt="...">
+                    <img src="src/img/slider1.jpg" height="550px" class="d-block w-100" style="object-fit: cover;" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="src/img/slider2.jpg" width="70%" class="d-block w-100" alt="...">
+                    <img src="src/img/slider2.jpg" height="550px" class="d-block w-100" style="object-fit: cover;" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="src/img/slider3.jpg" width="70%" class="d-block w-100" alt="...">
+                    <img src="src/img/slider3.jpg" height="550px" class="d-block w-100" style="object-fit: cover;" alt="...">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -69,18 +69,38 @@ if ($result = $conn->query($sql)) {
             while ($produto = mysqli_fetch_assoc($result)) :
             ?>
                 <div class="col">
-                    <div class="card p-4" style="width: 15rem;">
-                        <img width="10px" class="card-img-top" src="data:image/jpeg;image/png;base64,<?php echo base64_encode($produto['imagem']) ?>" alt="Card image cap">
+                    <div class="card p-4" style="width: 17rem;">
+                        <img width="10px" class="card-img-top" height="300px" style="object-fit: scale-down; " src="data:image/jpeg;image/png;base64,<?php echo base64_encode($produto['imagem']) ?>" alt="Card image cap">
                         <div class="card-body">
-                            <h5 class="card-title"><?php echo $produto['Nome'] ?></h5>
+                            <h5 class="card-title" style='display: -webkit-box;height:2.5em;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;'><?php echo $produto['Nome'] ?></h5>
                             <h4 class="card-title">R$ <?php echo $produto['Preco'] ?></h4>
                             <p class="card-text"><?php echo $produto['Descricao'] ?></p>
-                            <div>
+                            <div style="display:flex;flex-direction: column-reverse;flex-wrap: wrap;justify-content: center;gap:10px">
                                 <a href="#" class="btn btn-primary">Comprar</a>
-                                
-                                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModal<?php echo $produto['id']; ?>">Visualizar</button> </a>
+
+                                <a href="" class="btn btn-primary" data-toggle="modal" data-target="myModal<?php echo $produto['idProduto']; ?>">Visualizar</button></a>
                             </div>
-                            
+                            <!--  -->
+                            <div class="modal" id="myModal<?php echo $produto['idProduto']; ?>" tabindex="-1" role="dialog">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Leo vc e muito viado</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>fala meu agentiii.</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--  -->
 
                         </div>
                     </div>
