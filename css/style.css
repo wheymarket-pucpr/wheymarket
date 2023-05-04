@@ -8,6 +8,10 @@
     list-style: none;
     text-decoration: none;
 }
+
+::placeholder{
+    font-family: 'Roboto', sans-serif;
+}
 :root{
     --red:#d63a25;
     --white:#fff;
