@@ -1,5 +1,9 @@
 <?php
 ?>
+<head>
+    <link rel="stylesheet" href="css/buscar.css">
+    <meta charset="utf-8">
+</head>
 <header>
     <nav class="navigation ">
         <div class="flex-center-logo">
@@ -8,7 +12,12 @@
         </div>
         <div>
             <ul class="nav-menu">
-                <i class='bx bx-search'></i>
+                <i class='bx bx-search'> 
+                    <form action="busca.php" method="post">
+                        <input type="text" name="busca" placeholder="Pesquisar...">
+                        <button type="submit">Pesquisar</button>
+                    </form>
+                </i>
                 <li class="nav-item"><a href="index.php">Home</a></li>
                 <li class="nav-item"><a href="produtos.php">Produtos</a></li>
                 <li class="nav-item"><a href="#">Carrinho</a></li>
