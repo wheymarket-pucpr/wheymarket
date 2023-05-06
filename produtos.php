@@ -78,31 +78,10 @@ if ($result = $conn->query($sql)) {
                             <div style="display:flex;flex-direction: column-reverse;flex-wrap: wrap;justify-content: center;gap:10px">
                                 <a href="#" class="btn btn-primary">Comprar</a>
 
-                                <a href="" class="btn btn-primary" data-toggle="modal" data-target="myModal<?php echo $produto['idProduto']; ?>">Visualizar</button></a>
+                                <a href="" class="btn btn-primary">Visualizar</a>
                             </div>
-                            <!--  -->
-                            <div class="modal" id="myModal<?php echo $produto['idProduto']; ?>" tabindex="-1" role="dialog">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title">Leo vc e muito viado</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p>fala meu agentiii.</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-primary">Save changes</button>
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--  -->
-
                         </div>
+                        
                     </div>
                 </div>
             <?php

@@ -97,7 +97,7 @@ if (!empty($_POST) && isset($_POST['Nome']) && isset($_POST['Preco']) && isset($
                             <form action="" method="POST" enctype="multipart/form-data">
                                 <div class="mb-3">
                                     <label for="Nome" class="form-label">Nome do produto</label>
-                                    <input type="text" name="Nome" class="form-control" id="Nome" placeholder='Ex: Creatina Growht'>
+                                    <input type="text" name="Nome" class="form-control" id="Nome" placeholder='Ex: Creatina Growth'>
                                 </div>
                                 <div class="mb-3">
                                     <label for="Preco" class="form-label">Preco</label>
