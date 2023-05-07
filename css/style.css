@@ -4,13 +4,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Roboto Mono', monospace;
+    /*font-family: 'Roboto Mono', monospace;*/
     list-style: none;
     text-decoration: none;
 }
 
 ::placeholder{
-    font-family: 'Roboto', sans-serif;
+    /* font-family: 'Roboto', sans-serif; */
 }
 :root{
     --red:#d63a25;
@@ -210,8 +210,8 @@ body{
 
 .imagem{
     justify-content: space-between;
-    width: 750px;
-    height: 250px;
+    width: 250px;
+    height: 400px;
     display: flex;
     border-right: 3px solid black;
    

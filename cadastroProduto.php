@@ -12,11 +12,9 @@ if (!empty($_FILES['imgProduto'])) {
     if ($img['type'] == "application/png" || "application/jpeg") {
 
         $imgBlob = addslashes(file_get_contents($img['tmp_name']));
-        
     } else {
         echo "<p style='color: #f00;'>Erro: Extensão do arquivo inválido.";
     }
-
 }
 
 
@@ -60,35 +58,37 @@ if (!empty($_POST) && isset($_POST['Nome']) && isset($_POST['Preco']) && isset($
 </head>
 
 <body>
-<header>
-    <nav class="navigation ">
-        <div class="flex-center-logo">
-            <a href="lojistaPage.php"><img src="src/img/logo.png" width="100px" height="100px"></a>
-            <a href="lojistaPage.php" class="logo">Whey <span>Market</span><h6>Area do vendedor</h6></a>
+    <header>
+        <nav class="navigation ">
+            <div class="flex-center-logo">
+                <a href="lojistaPage.php"><img src="src/img/logo.png" width="100px" height="100px"></a>
+                <a href="lojistaPage.php" class="logo">Whey <span>Market</span>
+                    <h6>Area do vendedor</h6>
+                </a>
 
-        </div>
-        <div>
-            <ul class="nav-menu">
-                <i class='bx bx-search'></i>
-                <li class="nav-item"><a href="lojistaPage.php">Inicio</a></li>
-                <li class="nav-item"><a href="#">Minhas vendas</a></li>
-                <li class="nav-item"><a href="listarProdutos.php">Meus produtos</a></li>
-                <li class="nav-item"><a href="cadastroProduto.php">Cadastrar produto</a></li>
-                <?php
-                ?>
-                <li class="nav-item"><span class='text-red'>Ola, <?php echo $_SESSION['Nome']?></span></li>
-                <li class="nav-item"><a href="logout.php">Sair</a></li>
-                <?php
-                ?>
-            </ul>
-        </div>
-        <div class="menu">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-        </div>
-    </nav>
-</header>
+            </div>
+            <div>
+                <ul class="nav-menu">
+                    <i class='bx bx-search'></i>
+                    <li class="nav-item"><a href="lojistaPage.php">Inicio</a></li>
+                    <li class="nav-item"><a href="#">Minhas vendas</a></li>
+                    <li class="nav-item"><a href="listarProdutos.php">Meus produtos</a></li>
+                    <li class="nav-item"><a href="cadastroProduto.php">Cadastrar produto</a></li>
+                    <?php
+                    ?>
+                    <li class="nav-item"><span class='text-red'>Ola, <?php echo $_SESSION['Nome'] ?></span></li>
+                    <li class="nav-item"><a href="logout.php">Sair</a></li>
+                    <?php
+                    ?>
+                </ul>
+            </div>
+            <div class="menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
     <div class='.container-fluid'>
         <div class="row justify-content-center pt-5">
             <div class='col-10'>
@@ -109,9 +109,12 @@ if (!empty($_POST) && isset($_POST['Nome']) && isset($_POST['Preco']) && isset($
                                 <!-- Preco -->
                                 <div class="mb-3" style="display:block">
                                     <label for="Preco" class="form-label">Preco<span style="color: red;">*</span></label>
-                                    <input type="text" name="Preco" class="form-control" id="Preco" placeholder='Ex: R$60,00' required>
-                                    <div class="invalid-feedback">
-                                        Este campo precisa ser preenchido.
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">R$</span>
+                                        <input type="text" name="Preco" class="form-control Preco" id="Preco" placeholder='Ex: R$60,00' required>
+                                        <div class="invalid-feedback">
+                                            Este campo precisa ser preenchido.
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- Quantidade -->
@@ -132,7 +135,7 @@ if (!empty($_POST) && isset($_POST['Nome']) && isset($_POST['Preco']) && isset($
                                 </div>
                                 <!-- Categoria -->
                                 <div class="mb-3">
-                                <h6>Tipo produto (Categoria)<span style="color: red;">*</span></h6>
+                                    <h6>Tipo produto (Categoria)<span style="color: red;">*</span></h6>
                                     <select id='fk_Categoria_Produto_ID' class="form-select" name="fk_Categoria_Produto_ID" aria-label="Default select example" required>
                                         <option selected></option>
                                         <option value="1">Termogênicos</option>
@@ -146,7 +149,7 @@ if (!empty($_POST) && isset($_POST['Nome']) && isset($_POST['Preco']) && isset($
                                 <!-- Descricao-->
                                 <div class="mb-3">
                                     <label for="Descricao" class="form-label">Descrição do produto</label>
-                                    <textarea name="Descricao" class="form-control" id="Descricao" rows="3"></textarea >
+                                    <textarea name="Descricao" class="form-control" id="Descricao" rows="3"></textarea>
                                 </div>
                                 <!-- Selecao de foto -->
                                 <div class="mb-3">
@@ -167,29 +170,26 @@ if (!empty($_POST) && isset($_POST['Nome']) && isset($_POST['Preco']) && isset($
 </body>
 <script type="text/javascript">
     // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  const forms = document.querySelectorAll('.needs-validation')
+    const forms = document.querySelectorAll('.needs-validation')
 
-  // Loop over them and prevent submission
-  Array.from(forms).forEach(form => {
-    form.addEventListener('submit', event => {
-      if (!form.checkValidity()) {
-        event.preventDefault()
-        event.stopPropagation()
-      }
+    // Loop over them and prevent submission
+    Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
 
-      form.classList.add('was-validated')
-    }, false)
-  });
+            form.classList.add('was-validated')
+        }, false)
+    });
 </script>
-<script src="https://cdn.jsdelivr.net/gh/plentz/jquery-maskmoney@master/dist/jquery.maskMoney.min.js">
-    $(document).ready(function()
-{
-     $(".Preco").maskMoney({
-         prefix: "R$:",
-         decimal: ",",
-         thousands: "."
-     });
-});
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="js/jquery.mask.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.Preco').mask('000.000.000.000.000,00', {reverse: true});
+    });
 </script>
 
 </html>

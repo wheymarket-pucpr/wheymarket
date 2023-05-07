@@ -73,25 +73,24 @@ if (!empty($_POST) && isset($_POST['email']) && isset($_POST['senha']) && isset(
                                 </div>
                                 <div class="mb-3">
                                     <label for="senha" class="form-label">Senha</label>
-                                    <input type="password" name="senha" class="form-control" id="senha" placeholder='********' maxlength="20" required onchange="confereSenha()">
+                                    <input type="password" name="senha" class="form-control" id="senha" placeholder='********' pattern="^(?=.*[A-Z])(?=.*[0-9])(?=\S{8,20}$).*"
+                                    minlength="8" maxlength="20" onkeyup="confereSenha()" required>
                                     <div class="invalid-feedback">
                                         Informe uma senha válida.
                                     </div>
-                                    <div id="passwordHelpBlock" class="form-text">
-                                        Sua senha deve ter 8-20 caracteres, conter letras e numeros, e não deve conter espaços, ou emoji.
+                                    <div id="MensagemPassword" class="form-text">
+                                        Sua senha deve ter 8-20 caracteres, no mínimo uma letra maiscula, no mínimo um número, e não deve conter espaços.
                                     </div>
                                 </div>
-                                <div class="mb-3">
+                                <div class="mb-3 position-relative">
                                     <label for="senha" class="form-label">Confirmar Senha</label>
-                                    <input type="password" name="confirma" class="form-control" id="confimar-senha" placeholder='********' maxlength="15" required onchange="confereSenha()">
-                                    <div class="invalid-feedback">
-                                        Informe uma senha válido.
-                                    </div>
-                                    <div id="passwordHelpBlock" class="form-text">
-                                        Sua senha deve ser identica a informada acima.
+                                    <input type="password" name="confirma" class="form-control" id="confimar-senha" placeholder='********' pattern="^(?=.*[A-Z])(?=.*[0-9])(?=\S{8,20}$).*"
+                                    minlength="8" maxlength="20" onkeyup="confereSenha()" required>
+                                    <div class="invalid-tooltip">
+                                        Senhas não conferem. Sua senha deve ser identica a informada acima.
                                     </div>
                                 </div>
-                                <div class="d-grid gap-2 mb-3">
+                                <div class="d-grid gap-2 mb-3 mt-3">
                                     <button class="btn btn-primary" type="submit">Enviar</button>
                                 </div>
                             </form>
@@ -119,20 +118,30 @@ if (!empty($_POST) && isset($_POST['email']) && isset($_POST['senha']) && isset(
   });
 
   function confereSenha() {
-    const senha = document.querySelector('input[name=senha]');
-    const confirma = document.querySelector('input[name=confirma]');
+    console.log("chamou a função confereSenha");
+    const senha = document.getElementById('senha');
+    const confirma = document.getElementById('confimar-senha');
+    const divPasswordMessage = document.getElementById('passwordHelpBlock');
 
-    if (confirma.value === senha.value){
-        confirma.setCustomValidity('');
+    var classValidSenha = senha.value == confirma.value;
 
-    }
-    else{
-        confirma.setCustomValidity('As senhas nao conferem');
+    if(!classValidSenha) {
+        confirma.classList.add("is-invalid");
+        confirma.classList.remove("is-valid");
+        //A linha abaixo só serve para que o campo seja consederado sem erro no core do input HTML refletindo na cor do campo em verde pelo bootstrap.
+        confirma.setCustomValidity("Erro!");
+        divPasswordMessage.classList.remove("d-none");
+    } else {
+        confirma.classList.remove("is-invalid");
+        confirma.classList.add("is-valid");
+        //A linha abaixo só serve para que o campo seja consederado com erro no core do input HTML refletindo na cor do campo em vermelho pelo bootstrap.
+        confirma.setCustomValidity("");
+        divPasswordMessage.classList.add("d-none");
     }
 }
 
-    function senhaOK(){
-        alert("As senhas conferem!")
-    }
+function senhaOK(){
+    alert("As senhas conferem!")
+}
 </script>
 </html>
