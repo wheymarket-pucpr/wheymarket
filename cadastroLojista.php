@@ -73,7 +73,7 @@ if (!empty($_POST) && isset($_POST['email']) && isset($_POST['senha']) && isset(
                                 </div>
                                 <div class="mb-3">
                                     <label for="senha" class="form-label">Senha</label>
-                                    <input type="password" name="senha" class="form-control" id="senha" placeholder='********' maxlength="20" required>
+                                    <input type="password" name="senha" class="form-control" id="senha" placeholder='********' maxlength="20" required onchange="confereSenha()">
                                     <div class="invalid-feedback">
                                         Informe uma senha válida.
                                     </div>
@@ -83,7 +83,7 @@ if (!empty($_POST) && isset($_POST['email']) && isset($_POST['senha']) && isset(
                                 </div>
                                 <div class="mb-3">
                                     <label for="senha" class="form-label">Confirmar Senha</label>
-                                    <input type="password" name="senha" class="form-control" id="confimar-senha" placeholder='********' maxlength="15" required>
+                                    <input type="password" name="confirma" class="form-control" id="confimar-senha" placeholder='********' maxlength="15" required onchange="confereSenha()">
                                     <div class="invalid-feedback">
                                         Informe uma senha válido.
                                     </div>
@@ -117,5 +117,22 @@ if (!empty($_POST) && isset($_POST['email']) && isset($_POST['senha']) && isset(
       form.classList.add('was-validated')
     }, false)
   });
+
+  function confereSenha() {
+    const senha = document.querySelector('input[name=senha]');
+    const confirma = document.querySelector('input[name=confirma]');
+
+    if (confirma.value === senha.value){
+        confirma.setCustomValidity('');
+
+    }
+    else{
+        confirma.setCustomValidity('As senhas nao conferem');
+    }
+}
+
+    function senhaOK(){
+        alert("As senhas conferem!")
+    }
 </script>
 </html>

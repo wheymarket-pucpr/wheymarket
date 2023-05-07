@@ -74,14 +74,14 @@ if ($result = $conn->query($sql)) {
                         <div class="card-body">
                             <h5 class="card-title" style='display: -webkit-box;height:2.5em;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;'><?php echo $produto['Nome'] ?></h5>
                             <h4 class="card-title">R$ <?php echo $produto['Preco'] ?></h4>
-                            <p class="card-text"><?php echo $produto['Descricao'] ?></p>
                             <div style="display:flex;flex-direction: column-reverse;flex-wrap: wrap;justify-content: center;gap:10px">
                                 <a href="#" class="btn btn-primary">Comprar</a>
 
-                                <a href="" class="btn btn-primary">Visualizar</a>
+                                <a target="_blank" href='visualizaProduto.php?&id=<?php echo $produto['idProduto'] ?> 'name="idProduto" class="btn btn-primary">Visualizar</a>
+                                
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             <?php

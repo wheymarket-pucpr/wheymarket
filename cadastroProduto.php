@@ -17,9 +17,7 @@ if (!empty($_FILES['imgProduto'])) {
         echo "<p style='color: #f00;'>Erro: Extensão do arquivo inválido.";
     }
 
-}   else{
-        echo "campo nao preenchido";
-    }
+}
 
 
 // input dos dados do produto 
@@ -96,32 +94,37 @@ if (!empty($_POST) && isset($_POST['Nome']) && isset($_POST['Preco']) && isset($
             <div class='col-10'>
                 <div class="card">
                     <h3 class="card-header text-dark">Cadastre um produto</h3>
+                    <h6><span style="color: red;">* Campos Obrigatórios</span></h6>
                     <div class="card-body">
                         <div class='col'>
                             <form action="" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+                                <!-- Nome -->
                                 <div class="mb-3">
-                                    <label for="Nome" class="form-label">Nome do produto</label>
+                                    <label for="Nome" class="form-label">Nome do produto <span style="color: red;">*</span></label>
                                     <input type="text" name="Nome" class="form-control" id="Nome" placeholder='Ex: Creatina Growth' required>
                                     <div class="invalid-feedback">
                                         Este campo precisa ser preenchido.
                                     </div>
                                 </div>
+                                <!-- Preco -->
                                 <div class="mb-3" style="display:block">
-                                    <label for="Preco" class="form-label">Preco</label><label>R$</label>
+                                    <label for="Preco" class="form-label">Preco<span style="color: red;">*</span></label>
                                     <input type="text" name="Preco" class="form-control" id="Preco" placeholder='Ex: R$60,00' required>
                                     <div class="invalid-feedback">
                                         Este campo precisa ser preenchido.
                                     </div>
                                 </div>
+                                <!-- Quantidade -->
                                 <div class="mb-3">
-                                    <label for="Quantidade" class="form-label">Quantidade</label>
+                                    <label for="Quantidade" class="form-label">Quantidade<span style="color: red;">*</span></label>
                                     <input type="number" name="Quantidade" class="form-control" id="Quantidade" L placeholder='Ex: 50 produtos' required>
                                     <div class="invalid-feedback">
                                         Este campo precisa ser preenchido.
                                     </div>
                                 </div>
+                                <!-- Peso -->
                                 <div class="mb-3">
-                                    <label for="Peso" class="form-label">Peso</label>
+                                    <label for="Peso" class="form-label">Peso<span style="color: red;">*</span></label>
                                     <input type="number" name="Peso" class="form-control" id="Peso" placeholder="Ex: 900g" required>
                                     <div class="invalid-feedback">
                                         Este campo precisa ser preenchido.
@@ -129,8 +132,9 @@ if (!empty($_POST) && isset($_POST['Nome']) && isset($_POST['Preco']) && isset($
                                 </div>
                                 <!-- Categoria -->
                                 <div class="mb-3">
+                                <h6>Tipo produto (Categoria)<span style="color: red;">*</span></h6>
                                     <select id='fk_Categoria_Produto_ID' class="form-select" name="fk_Categoria_Produto_ID" aria-label="Default select example" required>
-                                        <option selected>Tipo produto</option>
+                                        <option selected></option>
                                         <option value="1">Termogênicos</option>
                                         <option value="2">Aminoácidos</option>
                                         <option value="3">Acessórios</option>
@@ -146,7 +150,7 @@ if (!empty($_POST) && isset($_POST['Nome']) && isset($_POST['Preco']) && isset($
                                 </div>
                                 <!-- Selecao de foto -->
                                 <div class="mb-3">
-                                    <label for="imgProduto" class="form-label">Selecione uma foto do produto</label>
+                                    <label for="imgProduto" class="form-label">Selecione uma foto do produto<span style="color: red;">*</span></label>
                                     <input class="form-control" type="file" id="imgProduto" name="imgProduto" required>
                                 </div>
                                 <div class="mb-3">
@@ -161,8 +165,31 @@ if (!empty($_POST) && isset($_POST['Nome']) && isset($_POST['Preco']) && isset($
     </div>
 
 </body>
-<script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js">
-    $('.Preco').mask('#.##0,00', {reverse: true});
-</script> 
+<script type="text/javascript">
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  const forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.classList.add('was-validated')
+    }, false)
+  });
+</script>
+<script src="https://cdn.jsdelivr.net/gh/plentz/jquery-maskmoney@master/dist/jquery.maskMoney.min.js">
+    $(document).ready(function()
+{
+     $(".Preco").maskMoney({
+         prefix: "R$:",
+         decimal: ",",
+         thousands: "."
+     });
+});
+</script>
 
 </html>
