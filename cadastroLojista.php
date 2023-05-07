@@ -49,27 +49,47 @@ if (!empty($_POST) && isset($_POST['email']) && isset($_POST['senha']) && isset(
                     <h5 class="card-header text-dark">Cadastre-se como Lojista</h5>
                     <div class="card-body">
                         <div class='col'>
-                            <form action="" method="POST">
+                            <form action="" method="POST" class="needs-validation" novalidate>
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email</label>
-                                    <input type="text" name="email" class="form-control" id="email" placeholder="example@example.com" maxlength="50" pattern="^\S+@\S+\.\S+$" required />
+                                    <input type="email" name="email" class="form-control" id="email" placeholder="example@example.com" maxlength="50" required />
+                                    <div class="invalid-feedback">
+                                        Informe um e-mail válido.
+                                    </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="CNPJ" class="form-label">CNPJ</label>
-                                    <input type="text" name="CNPJ" class="form-control" id="CNPJ" placeholder='XX.XXX.XXX/XXXX-XX' maxlength="14" pattern="\d{2}.?\d{3}.?\d{3}/?\d{4}-?\d{2}" required />
+                                    <input type="text" name="CNPJ" class="form-control cnpj" id="CNPJ" maxlength="14" pattern="\d{2}.?\d{3}.?\d{3}/?\d{4}-?\d{2}" data-inputmask-inputformat="dd/mm/yyyy" required />
+                                    <div class="invalid-feedback">
+                                        Informe um CNPJ válido.
+                                    </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="Nome" class="form-label">Nome</label>
-                                    <input type="text" name="Nome" class="form-control" id="Nome" placeholder="Nome da loja" maxlength="100" pattern="[A-Z][a-z].* [A-Z][a-z].*" required />
+                                    <input type="text" name="Nome" class="form-control" id="Nome" placeholder="Nome da loja" maxlength="100" required />
+                                    <div class="invalid-feedback">
+                                        Informe um nome válido.
+                                    </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="senha" class="form-label">Senha</label>
                                     <input type="password" name="senha" class="form-control" id="senha" placeholder='********' maxlength="15" required>
+                                    <div class="invalid-feedback">
+                                        Informe uma senha válido.
+                                    </div>
+                                    <div id="passwordHelpBlock" class="form-text">
+                                        Sua senha deve ter 8-20 caracteres, conter letras e numeros, e não deve conter espaços, ou emoji.
+                                    </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="senha" class="form-label">Confirmar Senha</label>
                                     <input type="password" name="senha" class="form-control" id="confimar-senha" placeholder='********' maxlength="15" required>
-
+                                    <div class="invalid-feedback">
+                                        Informe uma senha válido.
+                                    </div>
+                                    <div id="passwordHelpBlock" class="form-text">
+                                        Sua senha deve ser identica a informada acima.
+                                    </div>
                                 </div>
                                 <div class="d-grid gap-2 mb-3">
                                     <button class="btn btn-primary" type="submit">Enviar</button>
@@ -82,5 +102,20 @@ if (!empty($_POST) && isset($_POST['email']) && isset($_POST['senha']) && isset(
         </div>
     </div>
 </body>
+<script type="text/javascript">
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  const forms = document.querySelectorAll('.needs-validation')
 
+  // Loop over them and prevent submission
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.classList.add('was-validated')
+    }, false)
+  });
+</script>
 </html>
