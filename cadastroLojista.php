@@ -73,9 +73,9 @@ if (!empty($_POST) && isset($_POST['email']) && isset($_POST['senha']) && isset(
                                 </div>
                                 <div class="mb-3">
                                     <label for="senha" class="form-label">Senha</label>
-                                    <input type="password" name="senha" class="form-control" id="senha" placeholder='********' maxlength="15" required>
+                                    <input type="password" name="senha" class="form-control" id="senha" placeholder='********' maxlength="20" required>
                                     <div class="invalid-feedback">
-                                        Informe uma senha válido.
+                                        Informe uma senha válida.
                                     </div>
                                     <div id="passwordHelpBlock" class="form-text">
                                         Sua senha deve ter 8-20 caracteres, conter letras e numeros, e não deve conter espaços, ou emoji.

@@ -16,7 +16,11 @@ if (!empty($_FILES['imgProduto'])) {
     } else {
         echo "<p style='color: #f00;'>Erro: Extensão do arquivo inválido.";
     }
-}
+
+}   else{
+        echo "campo nao preenchido";
+    }
+
 
 // input dos dados do produto 
 if (!empty($_POST) && isset($_POST['Nome']) && isset($_POST['Preco']) && isset($_POST['Peso']) && isset($_POST['Quantidade']) && isset($_POST['Descricao'])) {
@@ -94,44 +98,56 @@ if (!empty($_POST) && isset($_POST['Nome']) && isset($_POST['Preco']) && isset($
                     <h3 class="card-header text-dark">Cadastre um produto</h3>
                     <div class="card-body">
                         <div class='col'>
-                            <form action="" method="POST" enctype="multipart/form-data">
+                            <form action="" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
                                 <div class="mb-3">
                                     <label for="Nome" class="form-label">Nome do produto</label>
-                                    <input type="text" name="Nome" class="form-control" id="Nome" placeholder='Ex: Creatina Growth'>
+                                    <input type="text" name="Nome" class="form-control" id="Nome" placeholder='Ex: Creatina Growth' required>
+                                    <div class="invalid-feedback">
+                                        Este campo precisa ser preenchido.
+                                    </div>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="Preco" class="form-label">Preco</label>
-                                    <input type="text" name="Preco" class="form-control" id="Preco" L placeholder='Ex: R$60,00'>
+                                <div class="mb-3" style="display:block">
+                                    <label for="Preco" class="form-label">Preco</label><label>R$</label>
+                                    <input type="text" name="Preco" class="form-control" id="Preco" placeholder='Ex: R$60,00' required>
+                                    <div class="invalid-feedback">
+                                        Este campo precisa ser preenchido.
+                                    </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="Quantidade" class="form-label">Quantidade</label>
-                                    <input type="text" name="Quantidade" class="form-control" id="Quantidade" L placeholder='Ex: 50 produtos'>
+                                    <input type="number" name="Quantidade" class="form-control" id="Quantidade" L placeholder='Ex: 50 produtos' required>
+                                    <div class="invalid-feedback">
+                                        Este campo precisa ser preenchido.
+                                    </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="Peso" class="form-label">Peso</label>
-                                    <input type="text" name="Peso" class="form-control" id="Peso" placeholder="Ex: 900g">
-                                    <div class="mb-3">
-                                        <p> </p>
+                                    <input type="number" name="Peso" class="form-control" id="Peso" placeholder="Ex: 900g" required>
+                                    <div class="invalid-feedback">
+                                        Este campo precisa ser preenchido.
                                     </div>
                                 </div>
                                 <!-- Categoria -->
                                 <div class="mb-3">
-                                    <select id='fk_Categoria_Produto_ID' class="form-select" name="fk_Categoria_Produto_ID" aria-label="Default select example">
+                                    <select id='fk_Categoria_Produto_ID' class="form-select" name="fk_Categoria_Produto_ID" aria-label="Default select example" required>
                                         <option selected>Tipo produto</option>
                                         <option value="1">Termogênicos</option>
                                         <option value="2">Aminoácidos</option>
                                         <option value="3">Acessórios</option>
                                     </select>
+                                    <div class="invalid-feedback">
+                                        Selecione uma categoria.
+                                    </div>
                                 </div>
                                 <!-- Descricao-->
                                 <div class="mb-3">
                                     <label for="Descricao" class="form-label">Descrição do produto</label>
-                                    <textarea name="Descricao" class="form-control" id="Descricao" rows="3"></textarea>
+                                    <textarea name="Descricao" class="form-control" id="Descricao" rows="3"></textarea >
                                 </div>
                                 <!-- Selecao de foto -->
                                 <div class="mb-3">
                                     <label for="imgProduto" class="form-label">Selecione uma foto do produto</label>
-                                    <input class="form-control" type="file" id="imgProduto" name="imgProduto">
+                                    <input class="form-control" type="file" id="imgProduto" name="imgProduto" required>
                                 </div>
                                 <div class="mb-3">
                                     <button type="submit" class="btn btn-primary">Salvar</button>
@@ -145,4 +161,8 @@ if (!empty($_POST) && isset($_POST['Nome']) && isset($_POST['Preco']) && isset($
     </div>
 
 </body>
+<script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js">
+    $('.Preco').mask('#.##0,00', {reverse: true});
+</script> 
+
 </html>
