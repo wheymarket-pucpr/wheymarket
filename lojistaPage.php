@@ -42,7 +42,7 @@ if ($result = $conn->query($sql)) {
             <div>
                 <ul class="nav-menu">
                     <i class='bx bx-search'></i>
-                    <li class="nav-item"><a href="index.php">Inicio</a></li>
+                    <li class="nav-item"><a href="lojistaPage.php">Inicio</a></li>
                     <li class="nav-item"><a href="#">Minhas vendas</a></li>
                     <li class="nav-item"><a href="listarProdutos.php">Meus produtos</a></li>
                     <li class="nav-item"><a href="cadastroProduto.php">Cadastrar produto</a></li>

@@ -86,7 +86,7 @@ if (isset($_POST['email']) || isset($_POST['senha'])) {
                                     <input type="password" name="senha" class="form-control" id="senha">
                                 </div>
                                 <div class="d-grid gap-2 mb-3">
-                                    <button class="btn btn-primary" type="submit">Entrar</button>
+                                    <button class="btn btn-outline-primary" type="submit">Entrar</button>
                                 </div>
                                 <div class="row">
                                     <div class="text-center">

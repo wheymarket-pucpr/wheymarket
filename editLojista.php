@@ -94,7 +94,8 @@ if (!empty($_GET['id'])) {
                                 </div>
                                 <div class="d-grid gap-2 mb-3 mt-3">
                                     <input name="ID" type="hidden" value="<?php echo $lojista['ID'] ?>"> 
-                                    <button name="update" class="btn btn-primary" type="update">Enviar</button>
+                                    <button name="update" class="btn btn-outline-primary" type="update">Enviar</button>
+                                    <a class = "btn btn-outline-secondary"href="lojistaPage.php">Cancelar</a>
                                 </div>
                             </form>
                         </div>

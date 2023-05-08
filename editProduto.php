@@ -90,7 +90,7 @@ session_start()
                                     <H5>A imagem nao pode ser alterada</H5>
                                 </div>
                                 <div class="mb-3">
-                                    <button name ="update" type="update" class="btn btn-primary">Alterar</button>
+                                    <button name ="update" type="update" class="btn btn-outline-primary">Alterar</button>
                                 </div>
                             </form>
                         </div>

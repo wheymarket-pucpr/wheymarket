@@ -22,9 +22,6 @@
                 <li class="nav-item"><a href="loginLojista.php">Área do Lojista</a></li>
                 <?php if (!empty($_SESSION) && isset($_SESSION['Nome'])) : ?>
                     <li class="nav-item"><span class='text-red'>Ola, <?php echo $_SESSION['Nome'] ?></span></li>
-                    <?php if ($_SESSION['tipoLogin']== 1): ?>
-                    <li class="nav-item "><a href="lojistaPage.php"><span class='text-red'>Pag lojista</span></a></li>
-                    <?php endif ?>
                     <li class="nav-item"><a href="logout.php">Sair</a></li>
 
 
