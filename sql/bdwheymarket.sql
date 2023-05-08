@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 02, 2023 at 04:24 PM
+-- Generation Time: May 08, 2023 at 04:37 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 7.4.30
 
@@ -130,7 +130,7 @@ INSERT INTO `lojista` (`ID`, `CNPJ`, `email`, `Nome`, `senha`, `fk_Cadastro_Tipo
 (5, '8915753000157', 'julio@gmail.com', 'Julio lins', 'aa1bf4646de67fd9086cf6c79007026c', 1),
 (10, '12345678901234', 'eduardo@moura.com', 'Loja CSGO', 'aa1bf4646de67fd9086cf6c79007026c', 1),
 (19, '12345634523414', 'nova@loja.com', 'Loja teste', '81dc9bdb52d04dc20036dbd8313ed055', 1),
-(20, '99999999999999', 'teste@gmail.com', 'Tester', '698dc19d489c4e4db73e28a713eab07b', 1);
+(20, '99999999999999', 'lojista@gmail.com', 'Loja Teste', '09663b4a39660a5459b350a1811e7b6f', 1);
 
 -- --------------------------------------------------------
 
@@ -247,13 +247,13 @@ ALTER TABLE `consumidor`
 -- AUTO_INCREMENT for table `lojista`
 --
 ALTER TABLE `lojista`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `produto`
 --
 ALTER TABLE `produto`
-  MODIFY `idProduto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idProduto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables
