@@ -15,6 +15,7 @@ if(!empty($_GET['id']))
             $resultDelete = $conn->query($sqlDelete);
         }
     }
-    // Colocar logout e redirecionar para index
+    require('logout.php');
+    header('location: index.php');
 
 ?>
