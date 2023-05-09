@@ -6,7 +6,6 @@ $busca = $_POST['busca'];
 $sql = "SELECT * FROM produto WHERE nome LIKE '%$busca%'";
 if ($result = $conn->query($sql)) {
 } else {
-    // criar mensagem caso falhe o sql
 }
 ?>
 
@@ -34,56 +33,27 @@ if ($result = $conn->query($sql)) {
         ?>
     </header>
     <!-- slider -->
-    <div style="justify-content: center, padding = 30px">
-        <div id="carouselExampleIndicators" class="carousel slide">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            </div>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="src/img/slider1.jpg" width="70%" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="src/img/slider2.jpg" width="70%" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="src/img/slider3.jpg" width="70%" class="d-block w-100" alt="...">
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Anterior</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Proxima</span>
-            </button>
-        </div>
-    </div>
 
 
-    <div class="container">
+    <div class="container" style="padding:15px">
         <div class="row">
             <?php
             while ($produto = mysqli_fetch_assoc($result)) :
             ?>
                 <div class="col">
-                    <div class="card p-4" style="width: 15rem;">
-                        <img width="10px" class="card-img-top" src="data:image/jpeg;image/png;base64,<?php echo base64_encode($produto['imagem']) ?>" alt="Card image cap">
+                    <div class="card p-4" style="width: 17rem;">
+                        <img width="10px" class="card-img-top" height="300px" style="object-fit: scale-down; " src="data:image/jpeg;image/png;base64,<?php echo base64_encode($produto['imagem']) ?>" alt="Card image cap">
                         <div class="card-body">
-                            <h5 class="card-title"><?php echo $produto['Nome'] ?></h5>
+                            <h5 class="card-title" style='display: -webkit-box;height:2.5em;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;'><?php echo $produto['Nome'] ?></h5>
                             <h4 class="card-title">R$ <?php echo $produto['Preco'] ?></h4>
-                            <p class="card-text"><?php echo $produto['Descricao'] ?></p>
-                            <div>
+                            <div style="display:flex;flex-direction: column-reverse;flex-wrap: wrap;justify-content: center;gap:10px">
                                 <a href="#" class="btn btn-primary">Comprar</a>
-                                
-                                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModal<?php echo $produto['id']; ?>">Visualizar</button> </a>
-                            </div>
-                            
 
+                                <a target="_blank" href='visualizaProduto.php?&id=<?php echo $produto['idProduto'] ?> 'name="idProduto" class="btn btn-primary">Visualizar</a>
+                                
+                            </div>
                         </div>
+
                     </div>
                 </div>
             <?php
