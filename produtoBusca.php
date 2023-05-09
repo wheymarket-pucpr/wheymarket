@@ -36,7 +36,7 @@ if ($result = $conn->query($sql)) {
 
 
     <div class="container" style="padding:15px">
-        <div class="row">
+        <div class="row" style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr">
             <?php
             while ($produto = mysqli_fetch_assoc($result)) :
             ?>
