@@ -7,6 +7,8 @@ $sql = "SELECT * FROM produto WHERE nome LIKE '%$busca%'";
 if ($result = $conn->query($sql)) {
 } else {
 }
+
+$rows = mysqli_num_rows($result);
 ?>
 
 <!DOCTYPE html>
@@ -32,9 +34,7 @@ if ($result = $conn->query($sql)) {
         require 'header.php';
         ?>
     </header>
-    <!-- slider -->
-
-
+<?php if ($rows >= 1): ?>
     <div class="container" style="padding:15px">
         <div class="row" style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr">
             <?php
@@ -61,6 +61,15 @@ if ($result = $conn->query($sql)) {
             ?>
         </div>
     </div>
+    <?php else: ?>
+        <div style="padding: 20px;">
+        <h4>Nenhum produto foi encontrado na busca.</h4>
+        <a class="btn btn-primary" href="produtos.php">Voltar</a>
+    </div>
+
+    <?php endif; ?>
 </body>
+
+
 
 </html>
