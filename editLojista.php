@@ -1,5 +1,27 @@
 <?php
-session_start()
+
+include_once('conexao.php');
+session_start();    
+
+if (!empty($_GET['id'])) {
+    $id = $_GET['id'];
+    $sqlSelect = "SELECT * FROM lojista WHERE ID=$id";
+    $result = $conn->query($sqlSelect);
+    if ($result->num_rows > 0) {
+        $lojista = mysqli_fetch_assoc($result);
+        $nome = $lojista['Nome'];
+        $email = $lojista['email'];
+        $cnpj = $lojista['CNPJ'];
+    }
+} else {
+    
+    header('Location: listarProdutos.php');
+
+
+}
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="Pt-br">
@@ -17,23 +39,6 @@ session_start()
     <link rel="icon" href="https://cdn0.iconfinder.com/data/icons/fitness-filled/64/fitness-08-512.png" type="image/x-icon">
 </head>
 
-<?php
-include_once('conexao.php');
-
-if (!empty($_GET['id'])) {
-    $id = $_GET['id'];
-    $sqlSelect = "SELECT * FROM lojista WHERE ID=$id";
-    $result = $conn->query($sqlSelect);
-    if ($result->num_rows > 0) {
-        $lojista = mysqli_fetch_assoc($result);
-        $nome = $lojista['Nome'];
-        $email = $lojista['email'];
-        $cnpj = $lojista['CNPJ'];
-    }
-} else {
-    header('Location: listarProdutos.php');
-}
-?>
 
 <body>
     <?php
@@ -147,5 +152,12 @@ if (!empty($_GET['id'])) {
 function senhaOK(){
     alert("As senhas conferem!")
 }
+
+
+function alerta() {
+  alert("Ocorreu algum erro ou voce nao tem permissoes para acessar esta pagina");
+}
+
+
 </script>
 </html>

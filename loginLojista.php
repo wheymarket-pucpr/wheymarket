@@ -16,7 +16,7 @@ if (isset($_POST['email']) || isset($_POST['senha'])) {
             $_SESSION['login']  = $row['email'];
             $_SESSION['id']  = $row['id'];
             $_SESSION['logado'] = true;
-            $_SESSION['tipoLogin'] = $row['fk_Cadastro_Tipo_ID'] || $row['id_cadastro_tipo'];
+            $_SESSION['tipoLogin'] = $row['fk_Cadastro_Tipo_ID'];
             unset($_SESSION['nao_autenticado']);
             unset($_SESSION['mensagem_header']);
 

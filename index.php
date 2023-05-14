@@ -1,9 +1,5 @@
 <?php
 session_start();
-$islogged = false;
-if (!empty($_SESSION) && $_SESSION['logado'] == true) {
-    $islogged = $_SESSION['logado'];
-}
 ?>
 <!DOCTYPE html>
 <html lang="Pt-br">
