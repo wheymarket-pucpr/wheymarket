@@ -1,4 +1,5 @@
 <?php
+session_start();
 ?>
 <head>
     <link rel="stylesheet" href="css/buscar.css">
