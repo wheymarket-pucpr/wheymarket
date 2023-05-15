@@ -59,7 +59,7 @@ if (!empty($_POST) && isset($_POST['email']) && isset($_POST['senha']) && isset(
                                 </div>
                                 <div class="mb-3">
                                     <label for="CNPJ" class="form-label">CNPJ</label>
-                                    <input type="text" name="CNPJ" class="form-control cnpj" id="CNPJ" maxlength="14" pattern="\d{2}\.?\d{3}\.?\d{3}\/?\d{4}\-?\d{2}" required />
+                                    <input type="text" name="CNPJ" class="form-control cnpj" id="CNPJ" maxlength="" pattern="\d{2}\.?\d{3}\.?\d{3}\/?\d{4}\-?\d{2}" required />
                                     <div class="invalid-feedback">
                                         Informe um CNPJ válido.
                                     </div>
@@ -73,7 +73,7 @@ if (!empty($_POST) && isset($_POST['email']) && isset($_POST['senha']) && isset(
                                 </div>
                                 <div class="mb-3">
                                     <label for="senha" class="form-label">Senha</label>
-                                    <input type="password" name="senha" class="form-control" id="senha" placeholder='********' pattern="^(?=.*[A-Z])(?=.*[0-9])(?=\S{8,20}$).*"
+                                    <input type="password" name="senha" class="form-control" id="senha" placeholder='********' pattern="^\d{2}\.?\d{3}\.?\d{3}\/?\d{4}\-?\d{2}"
                                     minlength="8" maxlength="20" onkeyup="confereSenha()" required>
                                     <div class="invalid-feedback">
                                         Informe uma senha válida.

@@ -141,6 +141,7 @@ if (!empty($_POST) && isset($_POST['Nome']) && isset($_POST['Preco']) && isset($
                                         <option value="1">Termogênicos</option>
                                         <option value="2">Aminoácidos</option>
                                         <option value="3">Acessórios</option>
+                                        <option value="4">Whey</option>
                                     </select>
                                     <div class="invalid-feedback">
                                         Selecione uma categoria.

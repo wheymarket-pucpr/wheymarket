@@ -78,9 +78,10 @@ $rows = mysqli_num_rows($result);
 
                 <!-- FILTROS -->
 <div class="container d-flex justify-content-evenly p-3">
-<a class ="btn btn-outline-dark"href="produtos.php?&categoria=1">Termogenicos</a>
-<a class ="btn btn-outline-dark"href="produtos.php?&categoria=2">Aminoacidos</a>
-<a class ="btn btn-outline-dark"href="produtos.php?&categoria=3">Acessorios</a>
+<a class ="btn btn-outline-dark"href="produtos.php?&categoria=1">Termogênicos</a>
+<a class ="btn btn-outline-dark"href="produtos.php?&categoria=2">Aminoácidos</a>
+<a class ="btn btn-outline-dark"href="produtos.php?&categoria=3">Acessórios</a>
+<a class ="btn btn-outline-dark"href="produtos.php?&categoria=4">Whey</a>
 </div>
 
     <!-- /FILTROS -->
@@ -99,7 +100,7 @@ $rows = mysqli_num_rows($result);
                 <?php
                 while ($produto = mysqli_fetch_assoc($result)) :
                 ?>
-                    <div class="col">
+                    <div class="col d-flex justify-content-center p-4">
                         <div class="card p-4" style="width: 17rem;">
                             <img width="10px" class="card-img-top" height="300px" style="object-fit: scale-down; " src="data:image/jpeg;image/png;base64,<?php echo base64_encode($produto['imagem']) ?>" alt="Card image cap">
                             <div class="card-body">
@@ -121,9 +122,9 @@ $rows = mysqli_num_rows($result);
             </div>
         </div>
         <!-- Se nao foi encontrado produto com o nome buscado -->
-    <?php else : ?>
+    <?php elseif($rows === 0): ?>
         <div style="padding: 20px;">
-            <h4>Nenhum produto foi encontrado na busca.</h4>
+            <h4>Nenhum produto foi encontrado na busca/filtro.</h4>
             <a class="btn btn-primary" href="produtos.php">Voltar</a>
         </div>
     <?php endif; ?>
