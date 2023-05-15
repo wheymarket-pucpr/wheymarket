@@ -9,6 +9,19 @@ if ($result = $conn->query($sql)) {
 }
 ?>
 
+<?php
+session_start();
+
+require('conexao.php');
+$busca = $_POST['busca'];
+$sql2 = "SELECT * FROM categoria_produto WHERE nome LIKE '%$busca%'";
+if ($result2 = $conn->query($sql)) {
+} else {
+}
+
+$rows = mysqli_num_rows($result2);
+?>
+
 <!DOCTYPE html>
 <html lang="Pt-br">
 
@@ -61,6 +74,25 @@ if ($result = $conn->query($sql)) {
             </button>
         </div>
     </div>
+    <form method="POST">
+        <label for="item">Selecione um item:</label>
+        <select name="item" id="item">
+            <option value="item1">Termogênicos</option>
+            <option value="item2">Aminoácidos</option>
+            <option value="item3">Acessórios</option>
+            <option value="item4">Item 4</option>
+        </select>
+        <input type="submit" value="Selecionar">
+    </form>
+
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Recuperar o valor selecionado
+        $selectedItem = $_POST["item"];
+        echo "Item selecionado: " . $selectedItem;
+    }
+    ?>
+
 
 
     <div class="container">

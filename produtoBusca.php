@@ -68,6 +68,41 @@ $rows = mysqli_num_rows($result);
     </div>
 
     <?php endif; ?>
+
+    <?php if ($rows >= 1): ?>
+        <div class="container" style="padding:15px">
+            <div class="row" style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr">
+                <?php
+                while ($produto = mysqli_fetch_assoc($result)) :
+                    ?>
+                    <div class="col">
+                        <div class="card p-4" style="width: 17rem;">
+                            <img width="10px" class="card-img-top" height="300px" style="object-fit: scale-down; " src="data:image/jpeg;image/png;base64,<?php echo base64_encode($produto['imagem']) ?>" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title" style='display: -webkit-box;height:2.5em;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;'><?php echo $produto['Nome'] ?></h5>
+                                <h4 class="card-title">R$ <?php echo $produto['Preco'] ?></h4>
+                                <div style="display:flex;flex-direction: column-reverse;flex-wrap: wrap;justify-content: center;gap:10px">
+                                    <a href="#" class="btn btn-primary">Comprar</a>
+
+                                    <a target="_blank" href='visualizaProduto.php?&id=<?php echo $produto['idProduto'] ?> 'name="idProduto" class="btn btn-primary">Visualizar</a>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                <?php
+                endwhile;
+                ?>
+            </div>
+        </div>
+    <?php else: ?>
+        <div style="padding: 20px;">
+            <h4>Nenhum produto foi encontrado na busca.</h4>
+            <a class="btn btn-primary" href="produtos.php">Voltar</a>
+        </div>
+
+    <?php endif; ?>
 </body>
 
 
