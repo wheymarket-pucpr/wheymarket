@@ -5,7 +5,13 @@ require('conexao.php');
 if (!empty($_POST) && isset($_POST['busca']) && $_POST['busca'] != "") {
     $busca = $_POST['busca'];
     $sql = "SELECT * FROM produto WHERE nome LIKE '%$busca%'";
-} else {
+}
+elseif(!empty($_GET['categoria'])){
+    $categoria = $_GET['categoria'];
+    $sql = "SELECT * FROM PRODUTO WHERE fk_Categoria_Produto_ID = $categoria";
+
+}
+else {
     $sql = "SELECT * FROM produto";
 }
 $result = $conn->query($sql);
@@ -36,12 +42,13 @@ $rows = mysqli_num_rows($result);
         require 'header.php';
         ?>
     </header>
+
     <?php if ($rows >= 1) : ?>
+        <!-- Se nao tiver nada digitado na barra ou pesquisa vazia -->
         <!-- slider -->
-        <!-- Se n tiver settado / ta settado mas n foi digitado nada -->
-        <?php if (!isset($_POST['busca']) || (isset($_POST['busca']) && $_POST['busca']==="")): ?>
+        <?php if (!isset($_POST['busca']) || (isset($_POST['busca']) && $_POST['busca'] === "")) : ?>
             <div style="justify-content: center;padding: 25px 25px 25px">
-                <div id="carouselExampleIndicators" class="carousel slide">
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-indicators">
                         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -68,7 +75,17 @@ $rows = mysqli_num_rows($result);
                     </button>
                 </div>
             </div>
-        <?php elseif(isset($_POST['busca']) && $_POST['busca'] != "") : ?>
+
+                <!-- FILTROS -->
+<div class="container d-flex justify-content-evenly p-3">
+<a class ="btn btn-outline-dark"href="produtos.php?&categoria=1">Termogenicos</a>
+<a class ="btn btn-outline-dark"href="produtos.php?&categoria=2">Aminoacidos</a>
+<a class ="btn btn-outline-dark"href="produtos.php?&categoria=3">Acessorios</a>
+</div>
+
+    <!-- /FILTROS -->
+            <!-- Se a pesquisa estiver com algo -->
+        <?php elseif (isset($_POST['busca']) && $_POST['busca'] != "") : ?>
             <div style="padding: 20px;">
                 <h4>Resultados da busca:</h4>
             </div>
@@ -103,6 +120,7 @@ $rows = mysqli_num_rows($result);
                 ?>
             </div>
         </div>
+        <!-- Se nao foi encontrado produto com o nome buscado -->
     <?php else : ?>
         <div style="padding: 20px;">
             <h4>Nenhum produto foi encontrado na busca.</h4>
@@ -110,5 +128,23 @@ $rows = mysqli_num_rows($result);
         </div>
     <?php endif; ?>
 </body>
+<!-- funcao para rodar os slides do carrossel -->
+<script>
+    const myCarouselElement = document.querySelector('carouselExampleIndicators')
+
+    const carousel = new bootstrap.Carousel(myCarouselElement, {
+        interval: 1700,
+        touch: false
+    })
+
+    $(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $(".dropdown-menu li").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
 
 </html>
