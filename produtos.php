@@ -2,24 +2,15 @@
 session_start();
 
 require('conexao.php');
-$sql = "select * from produto";
-if ($result = $conn->query($sql)) {
+if (!empty($_POST) && isset($_POST['busca']) && $_POST['busca'] != "") {
+    $busca = $_POST['busca'];
+    $sql = "SELECT * FROM produto WHERE nome LIKE '%$busca%'";
 } else {
-    // criar mensagem caso falhe o sql
+    $sql = "SELECT * FROM produto";
 }
-?>
+$result = $conn->query($sql);
+$rows = mysqli_num_rows($result);
 
-<?php
-session_start();
-
-require('conexao.php');
-$busca = $_POST['busca'];
-$sql2 = "SELECT * FROM categoria_produto WHERE nome LIKE '%$busca%'";
-if ($result2 = $conn->query($sql)) {
-} else {
-}
-
-$rows = mysqli_num_rows($result2);
 ?>
 
 <!DOCTYPE html>
@@ -45,82 +36,79 @@ $rows = mysqli_num_rows($result2);
         require 'header.php';
         ?>
     </header>
-    <!-- slider -->
-    <div style="justify-content: center;padding: 25px 25px 25px">
-        <div id="carouselExampleIndicators" class="carousel slide">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            </div>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="src/img/slider1.jpg" height="550px" class="d-block w-100" style="object-fit: cover;" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="src/img/slider2.jpg" height="550px" class="d-block w-100" style="object-fit: cover;" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="src/img/slider3.jpg" height="550px" class="d-block w-100" style="object-fit: cover;" alt="...">
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Anterior</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Proxima</span>
-            </button>
-        </div>
-    </div>
-    <form method="POST">
-        <label for="item">Selecione um item:</label>
-        <select name="item" id="item">
-            <option value="item1">Termogênicos</option>
-            <option value="item2">Aminoácidos</option>
-            <option value="item3">Acessórios</option>
-            <option value="item4">Item 4</option>
-        </select>
-        <input type="submit" value="Selecionar">
-    </form>
-
-    <?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Recuperar o valor selecionado
-        $selectedItem = $_POST["item"];
-        echo "Item selecionado: " . $selectedItem;
-    }
-    ?>
-
-
-
-    <div class="container">
-        <div class="row">
-            <?php
-            while ($produto = mysqli_fetch_assoc($result)) :
-            ?>
-                <div class="col">
-                    <div class="card p-4" style="width: 17rem;">
-                        <img width="10px" class="card-img-top" height="300px" style="object-fit: scale-down; " src="data:image/jpeg;image/png;base64,<?php echo base64_encode($produto['imagem']) ?>" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title" style='display: -webkit-box;height:2.5em;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;'><?php echo $produto['Nome'] ?></h5>
-                            <h4 class="card-title">R$ <?php echo $produto['Preco'] ?></h4>
-                            <div style="display:flex;flex-direction: column-reverse;flex-wrap: wrap;justify-content: center;gap:10px">
-                                <a href="#" class="btn btn-primary">Comprar</a>
-
-                                <a target="_blank" href='visualizaProduto.php?&id=<?php echo $produto['idProduto'] ?> 'name="idProduto" class="btn btn-primary">Visualizar</a>
-                                
-                            </div>
-                        </div>
-
+    <?php if ($rows >= 1) : ?>
+        <!-- slider -->
+        <!-- Se n tiver settado / ta settado mas n foi digitado nada -->
+        <?php if (!isset($_POST['busca']) || (isset($_POST['busca']) && $_POST['busca']==="")): ?>
+            <div style="justify-content: center;padding: 25px 25px 25px">
+                <div id="carouselExampleIndicators" class="carousel slide">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
                     </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="src/img/slider1.jpg" height="550px" class="d-block w-100" style="object-fit: cover;" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="src/img/slider2.jpg" height="550px" class="d-block w-100" style="object-fit: cover;" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="src/img/slider3.jpg" height="550px" class="d-block w-100" style="object-fit: cover;" alt="...">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Anterior</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Proxima</span>
+                    </button>
                 </div>
-            <?php
-            endwhile;
-            ?>
+            </div>
+        <?php elseif(isset($_POST['busca']) && $_POST['busca'] != "") : ?>
+            <div style="padding: 20px;">
+                <h4>Resultados da busca:</h4>
+            </div>
+        <?php
+        endif;
+        ?>
+
+
+        <div class="container">
+            <div class="row">
+                <?php
+                while ($produto = mysqli_fetch_assoc($result)) :
+                ?>
+                    <div class="col">
+                        <div class="card p-4" style="width: 17rem;">
+                            <img width="10px" class="card-img-top" height="300px" style="object-fit: scale-down; " src="data:image/jpeg;image/png;base64,<?php echo base64_encode($produto['imagem']) ?>" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title" style='display: -webkit-box;height:2.5em;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;'><?php echo $produto['Nome'] ?></h5>
+                                <h4 class="card-title">R$ <?php echo $produto['Preco'] ?></h4>
+                                <div style="display:flex;flex-direction: column-reverse;flex-wrap: wrap;justify-content: center;gap:10px">
+                                    <a href="#" class="btn btn-primary">Comprar</a>
+
+                                    <a target="_blank" href='visualizaProduto.php?&id=<?php echo $produto['idProduto'] ?> ' name="idProduto" class="btn btn-primary">Visualizar</a>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                <?php
+                endwhile;
+                ?>
+            </div>
         </div>
-    </div>
+    <?php else : ?>
+        <div style="padding: 20px;">
+            <h4>Nenhum produto foi encontrado na busca.</h4>
+            <a class="btn btn-primary" href="produtos.php">Voltar</a>
+        </div>
+    <?php endif; ?>
 </body>
 
 </html>

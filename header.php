@@ -12,7 +12,7 @@
         </div>
         <div>
             <ul class="nav-menu"> 
-                    <form action="produtoBusca.php" method="POST" style="display:flex;height:25px;gap:10px;align-items:center">
+                    <form action="produtos.php" method="POST" style="display:flex;height:25px;gap:10px;align-items:center">
                         <input type="text" name="busca" placeholder="Pesquisar..." style="padding: 5px;border-radius: 15px">
                         <button class = "btn btn-primary"type="submit"  style="border:none;background-color: grey;align-items: center;display:flex;border-radius: 10px;height:30px"><i class='bx bx-search'></i></button>
                     </form>
