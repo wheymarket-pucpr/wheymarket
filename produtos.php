@@ -4,7 +4,7 @@ if(isset($_SESSION['tipoLogin']) && $_SESSION['tipoLogin'] == 1 ){
     header('Location: lojistaPage.php');;
 }
 require('conexao.php');
-$sql = "SELECT * FROM produto WHERE 1 = 1 ";
+$sql = "SELECT * FROM produto WHERE Anuncio = 1";
 
 if (!empty($_POST) && isset($_POST['busca']) && $_POST['busca'] != "") {
     $busca = $_POST['busca'];

@@ -35,6 +35,7 @@ session_start()
                 $tipo = $produto['fk_Categoria_Produto_ID'];
                 $descricao = $produto['Descricao'];
                 $imagem = $produto['imagem'];
+                $anuncio = $produto['Anuncio'];
             }
         }
         else
@@ -85,6 +86,20 @@ session_start()
                                     <label for="Descricao" class="form-label">Descrição do produto</label>
                                     <textarea name="Descricao" class="form-control" id="Descricao" rows="3" value = <?php echo $descricao?> ><?php echo $descricao?></textarea>
                                 </div>
+                                <!-- Anunciar ou nao -->
+                                <div class="form-check">
+                                    <input class="form-check-input" value= "1" type="radio" name="anunciar" id="flexRadioDefault1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Anunciar produto
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" value="0" type="radio" name="anunciar" id="flexRadioDefault2" checked>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Não anunciar produto
+                                    </label>
+                                </div>
+                                <br>   
                                 <!-- Selecao de foto -->
                                 <div class="mb-3">
                                     <H5>A imagem nao pode ser alterada</H5>

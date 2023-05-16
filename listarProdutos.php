@@ -1,7 +1,6 @@
 <?php
 session_start();
 require('conexao.php');
-
 $idLojista = $_SESSION['id'];
 
 $sql = "select * from produto where fk_Lojista_ID = '$idLojista'";
@@ -68,7 +67,10 @@ if ($result = $conn->query($sql)) {
                             <th scope="col">Quantidade</th>
                             <th scope="col">Peso</th>
                             <th scope="col">Descrição</th>
+                            <th scope="col">Anunciado</th>
                             <th scope="col">Imagem</th>
+                           
+                            
                             <th></th>
                         </tr>
                     </thead>
@@ -82,6 +84,18 @@ if ($result = $conn->query($sql)) {
                                 <td><?php echo $produto['Quantidade'] ?></td>
                                 <td><?php echo $produto['Peso'] ?></td>
                                 <td><?php echo $produto['Descricao'] ?></td>
+                                <td><?php 
+                                $value = $produto['Anuncio'];
+                                
+                                switch($value){
+                                    case "1": echo "Sim";
+                                    break;
+                                    case "0": echo "Não";
+                                    break;
+                                }
+                                
+                                
+                                ?></td>
                                 <td><img width="75px" height="100px" src="data:image/jpeg;image/png;base64,<?php echo base64_encode($produto['imagem']) ?>"></td>
                                 <td>
                                     <a class='btn btn-sm btn-primary' href='editProduto.php?&id=<?php echo $produto['idProduto'] ?>' title='Editar'>

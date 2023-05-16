@@ -123,6 +123,7 @@ if (!empty($_POST) && isset($_POST['email']) && isset($_POST['senha']) && isset(
     function confereSenha() {
         const senha = document.getElementById('senha');
         const confirma = document.getElementById('confimar-senha');
+        // sumir dica de como fazer a senha caso ela seja validada
         const divPasswordMessage = document.getElementById('MensagemPassword');
 
         var isSenhaValida = senha.value == confirma.value;

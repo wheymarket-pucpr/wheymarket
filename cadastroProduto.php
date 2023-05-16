@@ -5,6 +5,9 @@ require 'conexao.php';
 // input e verificacao da imagem
 $img = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
+var_dump($_POST);
+
+
 if (!empty($_FILES['imgProduto'])) {
 
     $img = $_FILES['imgProduto'];
@@ -17,18 +20,18 @@ if (!empty($_FILES['imgProduto'])) {
     }
 }
 
-
 // input dos dados do produto 
-if (!empty($_POST) && isset($_POST['Nome']) && isset($_POST['Preco']) && isset($_POST['Peso']) && isset($_POST['Quantidade']) && isset($_POST['Descricao'])) {
+if (!empty($_POST) && isset($_POST['Nome']) && isset($_POST['Preco']) && isset($_POST['Peso']) && isset($_POST['Quantidade']) && isset($_POST['Descricao']) && isset($_POST['anunciar'])) {
     $nome = $conn->real_escape_string($_POST['Nome']);
     $preco    = $conn->real_escape_string($_POST['Preco']);
     $quantidade    = $conn->real_escape_string($_POST['Quantidade']);
     $peso   = $conn->real_escape_string($_POST['Peso']);
     $categoria   = $conn->real_escape_string($_POST['fk_Categoria_Produto_ID']);
     $descricao   = $conn->real_escape_string($_POST['Descricao']);
+    $anuncio = $conn->real_escape_string($_POST['anunciar']);
     $id = $_SESSION['id'];
-    $sql = "INSERT INTO Produto(fk_Lojista_ID, fk_Categoria_Produto_ID, Nome, Preco, Quantidade, Peso, Descricao, imagem) 
-                VALUES ('$id','$categoria','$nome','$preco','$quantidade','$peso','$descricao', '$imgBlob')";
+    $sql = "INSERT INTO Produto(fk_Lojista_ID, fk_Categoria_Produto_ID, Nome, Preco, Quantidade, Peso, Descricao, imagem, Anuncio) 
+                VALUES ('$id','$categoria','$nome','$preco','$quantidade','$peso','$descricao', '$imgBlob', '$anuncio')";
 
     if ($result = $conn->query($sql)) {
         $_SESSION['mensagem'] = "Cadastro efetuado com sucesso. Você já pode vender em nosso site! ";
@@ -152,11 +155,26 @@ if (!empty($_POST) && isset($_POST['Nome']) && isset($_POST['Preco']) && isset($
                                     <label for="Descricao" class="form-label">Descrição do produto</label>
                                     <textarea name="Descricao" class="form-control" id="Descricao" rows="3"></textarea>
                                 </div>
+                                <!-- Anunciar produto ou nao -->
+                                <div class="form-check">
+                                    <input class="form-check-input" value= "1" type="radio" name="anunciar" id="flexRadioDefault1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        Anunciar produto
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" value= "0" type="radio" name="anunciar" id="flexRadioDefault2" checked>
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        Não anunciar produto
+                                    </label>
+                                </div>
+                                <br>   
                                 <!-- Selecao de foto -->
                                 <div class="mb-3">
                                     <label for="imgProduto" class="form-label">Selecione uma foto do produto<span style="color: red;">*</span></label>
                                     <input class="form-control" type="file" id="imgProduto" name="imgProduto" required>
                                 </div>
+                               
                                 <div class="mb-3">
                                     <button type="submit" class="btn btn-primary">Salvar</button>
                                 </div>
@@ -189,7 +207,9 @@ if (!empty($_POST) && isset($_POST['Nome']) && isset($_POST['Preco']) && isset($
 <script src="js/jquery.mask.min.js"></script>
 <script>
     $(document).ready(function() {
-        $('.Preco').mask('000.000.000.000.000,00', {reverse: true});
+        $('.Preco').mask('000.000.000.000.000,00', {
+            reverse: true
+        });
     });
 </script>
 
