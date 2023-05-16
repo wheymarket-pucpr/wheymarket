@@ -2,18 +2,25 @@
 session_start();
 
 require('conexao.php');
+$sql = "SELECT * FROM produto WHERE 1 = 1 ";
+
 if (!empty($_POST) && isset($_POST['busca']) && $_POST['busca'] != "") {
     $busca = $_POST['busca'];
-    $sql = "SELECT * FROM produto WHERE nome LIKE '%$busca%'";
+    $sql .= " AND nome LIKE '%$busca%'";
 }
-elseif(!empty($_GET['categoria'])){
-    $categoria = $_GET['categoria'];
-    $sql = "SELECT * FROM PRODUTO WHERE fk_Categoria_Produto_ID = $categoria";
+
+if (!empty($_GET['categorias'])) {
+    $categorias = implode(',', $_GET['categorias']);
+    $sql .= " AND fk_Categoria_Produto_ID in ($categorias)";
 
 }
-else {
-    $sql = "SELECT * FROM produto";
+
+// Deve ser o ultimo filtro da query por ser um order by.
+if(!empty($_GET['Ordem']) && $_GET['Ordem'] != "0") {
+    $orderByType = $_GET['Ordem'];
+    $sql .= " order by preco $orderByType";
 }
+
 $result = $conn->query($sql);
 $rows = mysqli_num_rows($result);
 
@@ -43,48 +50,41 @@ $rows = mysqli_num_rows($result);
         ?>
     </header>
 
-    <?php if ($rows >= 1) : ?>
+    
         <!-- Se nao tiver nada digitado na barra ou pesquisa vazia -->
         <!-- slider -->
         <?php if (!isset($_POST['busca']) || (isset($_POST['busca']) && $_POST['busca'] === "")) : ?>
             <div style="justify-content: center;padding: 25px 25px 25px">
-        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                <div id="carouselExampleIndicators" class="carousel slide">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="src/img/slider1.jpg" height="550px" class="d-block w-100" style="object-fit: cover;" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="src/img/slider2.jpg" height="550px" class="d-block w-100" style="object-fit: cover;" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="src/img/slider3.jpg" height="550px" class="d-block w-100" style="object-fit: cover;" alt="...">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Anterior</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Proxima</span>
+                    </button>
+                </div>
             </div>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="src/img/slider1.jpg" height="550px" class="d-block w-100" style="object-fit: cover;" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="src/img/slider2.jpg" height="550px" class="d-block w-100" style="object-fit: cover;" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="src/img/slider3.jpg" height="550px" class="d-block w-100" style="object-fit: cover;" alt="...">
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Anterior</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Proxima</span>
-            </button>
-        </div>
-    </div>
 
-                <!-- FILTROS -->
-<div class="container d-flex justify-content-evenly p-3">
-<a class ="btn btn-outline-dark"href="produtos.php?&categoria=1">Termogênicos</a>
-<a class ="btn btn-outline-dark"href="produtos.php?&categoria=2">Aminoácidos</a>
-<a class ="btn btn-outline-dark"href="produtos.php?&categoria=3">Acessórios</a>
-<a class ="btn btn-outline-dark"href="produtos.php?&categoria=4">Whey</a>
-</div>
 
-    <!-- /FILTROS -->
+            <!-- /FILTROS -->
             <!-- Se a pesquisa estiver com algo -->
         <?php elseif (isset($_POST['busca']) && $_POST['busca'] != "") : ?>
             <div style="padding: 20px;">
@@ -95,13 +95,40 @@ $rows = mysqli_num_rows($result);
         ?>
 
 
-        <div class="container">
+        <div class="container" id="produtosContainer">
+            <div class="row pb-3">
+                <form action="#produtosContainer" method="GET" id="formFiltrosProduto">
+                    <div class="row justify-content-between">
+                        <div class="col">
+                            <input type="checkbox" class="btn-check" name="categorias[]" value="1" id="option1" autocomplete="off" <?php echo (!empty($_GET['categorias']) && isset($_GET['categorias']) && in_array('1', $_GET['categorias'])) ? "checked" : "" ?>>
+                            <label class="btn btn-outline-primary" for="option1">Termogenicos</label>
+
+                            <input type="checkbox" class="btn-check" name="categorias[]" value="2" id="option2" autocomplete="off" <?php echo (!empty($_GET['categorias']) && isset($_GET['categorias']) && in_array('2', $_GET['categorias'])) ? "checked" : "" ?>>
+                            <label class="btn btn-outline-primary" for="option2">Aminoacidos</label>
+
+                            <input type="checkbox" class="btn-check" name="categorias[]" value="3" id="option3" autocomplete="off" <?php echo (!empty($_GET['categorias']) && isset($_GET['categorias']) && in_array('3', $_GET['categorias'])) ? "checked" : "" ?>>
+                            <label class="btn btn-outline-primary" for="option3">Acessórios</label>
+
+                            <input type="checkbox" class="btn-check" name="categorias[]" value="4" id="option4" autocomplete="off" <?php echo (!empty($_GET['categorias']) && isset($_GET['categorias']) && in_array('4', $_GET['categorias'])) ? "checked" : "" ?>>
+                            <label class="btn btn-outline-primary" for="option4">Whey</label>
+                        </div>
+                        <div class="col">
+                            <select name="Ordem" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                                <option value="0">Ordenar por...</option>
+                                <option value="DESC" <?php echo (!empty($_GET['Ordem']) && isset($_GET['Ordem']) && $_GET['Ordem'] == 'DESC') ? "selected" : "" ?>>Maior Preço</option>
+                                <option value="ASC" <?php echo (!empty($_GET['Ordem']) && isset($_GET['Ordem']) && $_GET['Ordem'] == 'ASC') ? "selected" : "" ?>>Menor Preço</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
             <div class="row">
                 <?php
+                if ($rows >= 1) :
                 while ($produto = mysqli_fetch_assoc($result)) :
                 ?>
-                    <div class="col d-flex justify-content-center p-4">
-                        <div class="card p-4" style="width: 17rem;">
+                    <div class="col-3 pb-3">
+                        <div class="card p-4 h-100">
                             <img width="10px" class="card-img-top" height="300px" style="object-fit: scale-down; " src="data:image/jpeg;image/png;base64,<?php echo base64_encode($produto['imagem']) ?>" alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="card-title" style='display: -webkit-box;height:2.5em;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;'><?php echo $produto['Nome'] ?></h5>
@@ -118,34 +145,43 @@ $rows = mysqli_num_rows($result);
                     </div>
                 <?php
                 endwhile;
+                else :
                 ?>
+                <div style="padding: 20px;">
+                    <h4>Nenhum produto encontrado.</h4>
+                    <a class="btn btn-primary" href="produtos.php">Voltar</a>
+                </div>
+                <?php endif; ?>
             </div>
         </div>
         <!-- Se nao foi encontrado produto com o nome buscado -->
-    <?php elseif($rows === 0): ?>
-        <div style="padding: 20px;">
-            <h4>Nenhum produto foi encontrado na busca/filtro.</h4>
-            <a class="btn btn-primary" href="produtos.php">Voltar</a>
-        </div>
-    <?php endif; ?>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <!-- funcao para rodar os slides do carrossel -->
 <script>
     const myCarouselElement = document.querySelector('carouselExampleIndicators')
 
-    const carousel = new bootstrap.Carousel(myCarouselElement, {
+    /*const carousel = new bootstrap.Carousel(myCarouselElement, {
         interval: 1700,
         touch: false
-    })
+    })*/
 
-    $(document).ready(function(){
-  $("#myInput").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $(".dropdown-menu li").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    $(document).ready(function() {
+        $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $(".dropdown-menu li").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+
+        $('#formFiltrosProduto input').on("click", function(){
+           $('#formFiltrosProduto').submit(); 
+        });
+
+        $('#formFiltrosProduto select').on("change", function(){
+            $('#formFiltrosProduto').submit(); 
+        });
     });
-  });
-});
 </script>
 
 </html>

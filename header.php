@@ -1,7 +1,6 @@
 <?php
 ?>
 <head>
-    <link rel="stylesheet" href="css/buscar.css">
     <meta charset="utf-8">
 </head>
 <header>
