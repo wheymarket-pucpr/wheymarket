@@ -49,7 +49,7 @@ if (!empty($_POST) && isset($_POST['email']) && isset($_POST['senha']) && isset(
                     <h5 class="card-header text-dark">Cadastre-se como Lojista</h5>
                     <div class="card-body">
                         <div class='col'>
-                            <form action="" method="POST" class="needs-validation" novalidate>
+                            <form action="" method="POST" id="formLojista" class="needs-validation" novalidate>
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email</label>
                                     <input type="email" name="email" class="form-control" id="email" placeholder="example@example.com" maxlength="50" required />
@@ -59,7 +59,7 @@ if (!empty($_POST) && isset($_POST['email']) && isset($_POST['senha']) && isset(
                                 </div>
                                 <div class="mb-3">
                                     <label for="CNPJ" class="form-label">CNPJ</label>
-                                    <input type="text" name="CNPJ" class="form-control cnpj" id="CNPJ" maxlength="" pattern="\d{2}\.?\d{3}\.?\d{3}\/?\d{4}\-?\d{2}" required />
+                                    <input type="text" name="CNPJ" class="form-control cnpj" id="CNPJ" maxlength="14" pattern="^\d{2}.?\d{3}.?\d{3}\/?\d{4}-?\d{2}$" required />
                                     <div class="invalid-feedback">
                                         Informe um CNPJ válido.
                                     </div>
@@ -73,8 +73,7 @@ if (!empty($_POST) && isset($_POST['email']) && isset($_POST['senha']) && isset(
                                 </div>
                                 <div class="mb-3">
                                     <label for="senha" class="form-label">Senha</label>
-                                    <input type="password" name="senha" class="form-control" id="senha" placeholder='********' pattern="^\d{2}\.?\d{3}\.?\d{3}\/?\d{4}\-?\d{2}"
-                                    minlength="8" maxlength="20" onkeyup="confereSenha()" required>
+                                    <input type="password" name="senha" class="form-control" id="senha" placeholder='********' pattern="^(?=.*[A-Z])(?=.*[0-9])(?=\S{8,20}$).*" minlength="8" maxlength="20" onkeyup="confereSenha()" required>
                                     <div class="invalid-feedback">
                                         Informe uma senha válida.
                                     </div>
@@ -84,8 +83,7 @@ if (!empty($_POST) && isset($_POST['email']) && isset($_POST['senha']) && isset(
                                 </div>
                                 <div class="mb-3 position-relative">
                                     <label for="senha" class="form-label">Confirmar Senha</label>
-                                    <input type="password" name="confirma" class="form-control" id="confimar-senha" placeholder='********' pattern="^(?=.*[A-Z])(?=.*[0-9])(?=\S{8,20}$).*"
-                                    minlength="8" maxlength="20" onkeyup="confereSenha()" required>
+                                    <input type="password" name="confirma" class="form-control" id="confimar-senha" placeholder='********' pattern="^(?=.*[A-Z])(?=.*[0-9])(?=\S{8,20}$).*" minlength="8" maxlength="20" onkeyup="confereSenha()" required>
                                     <div class="invalid-tooltip">
                                         Senhas não conferem. Sua senha deve ser identica a informada acima.
                                     </div>
@@ -101,44 +99,133 @@ if (!empty($_POST) && isset($_POST['email']) && isset($_POST['senha']) && isset(
         </div>
     </div>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="js/jquery.mask.min.js"></script>
 <script type="text/javascript">
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  const forms = document.querySelectorAll('.needs-validation')
+    // Buscando form do lojista
+    const form = document.getElementById('formLojista');
 
-  // Loop over them and prevent submission
-  Array.from(forms).forEach(form => {
+    // Proibindo do forme fazer submit caso tenha inputs do form com valores inválidos.
     form.addEventListener('submit', event => {
-      if (!form.checkValidity()) {
-        event.preventDefault()
-        event.stopPropagation()
-      }
+        if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+        }
 
-      form.classList.add('was-validated')
-    }, false)
-  });
+        form.classList.add('was-validated')
+    }, false);
 
-  function confereSenha() {
-    console.log("chamou a função confereSenha");
-    const senha = document.getElementById('senha');
-    const confirma = document.getElementById('confimar-senha');
-    const divPasswordMessage = document.getElementById('passwordHelpBlock');
+    /**
+     * #################################################################
+     * VALIDAÇÃO DA SENHA E CONFIRMAÇÃO DE SENHA
+     * #################################################################
+     */
+    function confereSenha() {
+        const senha = document.getElementById('senha');
+        const confirma = document.getElementById('confimar-senha');
+        const divPasswordMessage = document.getElementById('MensagemPassword');
 
-    var classValidSenha = senha.value == confirma.value;
+        var isSenhaValida = senha.value == confirma.value;
 
-    if(!classValidSenha) {
-        confirma.classList.add("is-invalid");
-        confirma.classList.remove("is-valid");
-        //A linha abaixo só serve para que o campo seja consederado sem erro no core do input HTML refletindo na cor do campo em verde pelo bootstrap.
-        confirma.setCustomValidity("Erro!");
-        divPasswordMessage.classList.remove("d-none");
-    } else {
-        confirma.classList.remove("is-invalid");
-        confirma.classList.add("is-valid");
         //A linha abaixo só serve para que o campo seja consederado com erro no core do input HTML refletindo na cor do campo em vermelho pelo bootstrap.
-        confirma.setCustomValidity("");
-        divPasswordMessage.classList.add("d-none");
-    }
-}
+        isSenhaValida ? confirma.setCustomValidity("") : confirma.setCustomValidity("Erro!");
 
+        if (form.classList.contains('was-validated')) {
+            if (!isSenhaValida) {
+                confirma.classList.add("is-invalid");
+                confirma.classList.remove("is-valid");
+                //A linha abaixo só serve para que o campo seja consederado sem erro no core do input HTML refletindo na cor do campo em verde pelo bootstrap.
+                divPasswordMessage.classList.remove("d-none");
+            } else {
+                confirma.classList.remove("is-invalid");
+                confirma.classList.add("is-valid");
+                divPasswordMessage.classList.add("d-none");
+            }
+        }
+    }
+
+    /**
+     * #################################################################
+     * INICIO VALIDAÇÃO CNPJ
+     * #################################################################
+     */
+    var options = {
+        onComplete: function(cnpj) {
+            tratarHtmlCNPJ(validarCNPJ(cnpj));
+        }
+    };
+
+    $(document).ready(function() {
+        $('.cnpj').mask('00.000.000/0000-00', options, {
+            placeholder: "__.___.___/____-__"
+        });
+    });
+
+    function tratarHtmlCNPJ(isCnpjValido) {
+        const cnpjInput = document.getElementById('CNPJ');
+        isCnpjValido ? cnpjInput.setCustomValidity("") : cnpjInput.setCustomValidity("Erro!");
+
+        if (form.classList.contains('was-validated')) {
+            if (isCnpjValido) {
+                cnpjInput.classList.add("is-valid");
+                cnpjInput.classList.remove("is-invalid");
+            } else {
+                cnpjInput.classList.add("is-invalid");
+                cnpjInput.classList.remove("is-valid");
+            }
+        }
+    }
+
+    function validarCNPJ(cnpj) {
+        cnpj = cnpj.replace(/[^\d]+/g, '');
+
+        if (cnpj == '') return false;
+
+        if (cnpj.length != 14)
+            return false;
+
+        // Elimina CNPJs invalidos conhecidos
+        if (cnpj == "00000000000000" ||
+            cnpj == "11111111111111" ||
+            cnpj == "22222222222222" ||
+            cnpj == "33333333333333" ||
+            cnpj == "44444444444444" ||
+            cnpj == "55555555555555" ||
+            cnpj == "66666666666666" ||
+            cnpj == "77777777777777" ||
+            cnpj == "88888888888888" ||
+            cnpj == "99999999999999")
+            return false;
+
+        tamanho = cnpj.length - 2
+        numeros = cnpj.substring(0, tamanho);
+        digitos = cnpj.substring(tamanho);
+        soma = 0;
+        pos = tamanho - 7;
+        for (i = tamanho; i >= 1; i--) {
+            soma += numeros.charAt(tamanho - i) * pos--;
+            if (pos < 2)
+                pos = 9;
+        }
+        resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+        if (resultado != digitos.charAt(0))
+            return false;
+
+        tamanho = tamanho + 1;
+        numeros = cnpj.substring(0, tamanho);
+        soma = 0;
+        pos = tamanho - 7;
+        for (i = tamanho; i >= 1; i--) {
+            soma += numeros.charAt(tamanho - i) * pos--;
+            if (pos < 2)
+                pos = 9;
+        }
+        resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+        if (resultado != digitos.charAt(1))
+            return false;
+
+        return true;
+    }
 </script>
+
 </html>
