@@ -1,6 +1,8 @@
 <?php
 session_start();
-
+if(isset($_SESSION['tipoLogin']) && $_SESSION['tipoLogin'] == 1 ){
+    header('Location: lojistaPage.php');;
+}
 require('conexao.php');
 $sql = "SELECT * FROM produto WHERE 1 = 1 ";
 

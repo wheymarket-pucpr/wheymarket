@@ -40,23 +40,26 @@ require('header.php');
 ?>
 
 <body>
-    <div>
-        <div class="content-container">
-            <div class="imagem">
-                <img src="data:image/jpeg;image/png;base64,<?php echo base64_encode($produto['imagem']) ?>" class="imagem-img">
+    <div class="d-flex justify-content-center pt-5">
+        <div class="col-3 pb-3">
+            <div class="card p-4 h-100">
+                <img width="10px" class="card-img-top" height="300px" style="object-fit: scale-down; " src="data:image/jpeg;image/png;base64,<?php echo base64_encode($produto['imagem']) ?>" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title" style='display: -webkit-box;height:2.5em;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;'><?php echo $produto['Nome'] ?></h5>
+                    <h4 class="card-title">R$ <?php echo $produto['Preco'] ?></h4>
+                    <p><b>Vendido por: </b><?php echo $lojista['Nome'] ?></p>
+                    <p><b>Descrição:</b></p>
+                    <p><?php echo $produto['Descricao'] ?></p>
+                    <div style="display:flex;flex-direction: column-reverse;flex-wrap: wrap;justify-content: center;gap:10px">
+                    <a href='produtos.php' class="btn btn-primary">Voltar</a>
+                        <a href="#" class="btn btn-primary">Comprar</a>
+
+                       
+
+                    </div>
+                </div>
+
             </div>
-
-            <div class="info">
-                <!-- informacoes -->
-                <div> <?php echo $produto['Nome'] ?></div>
-                <div><b>Vendido por:</b> <?php echo $lojista['Nome'] ?></div>
-            </div>
-
-            <div>
-                <?php echo $produto['Descricao'] ?>
-
-            </div>
-
         </div>
     </div>
 </body>
