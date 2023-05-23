@@ -25,7 +25,7 @@
 
 
                 <?php else : ?>
-                    <li class="nav-item"><a href="loginConsumidor.php">Login/Cadastro</a></li>
+                    <li class="nav-item"><a href="consumidorLogin.php">Login/Cadastro</a></li>
                 <?php endif; ?>
             </ul>
 
