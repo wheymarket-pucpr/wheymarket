@@ -14,6 +14,6 @@
         $result = $conn->query($sqlInsert);
         print_r($result);
     }
-    header('Location: listarProdutos.php');
+    header('Location: produtosListar.php');
 
 ?>

@@ -18,7 +18,7 @@
                 <li class="nav-item"><a href="index.php">Home</a></li>
                 <li class="nav-item"><a href="produtos.php">Produtos</a></li>
                 <li class="nav-item"><a href="#">Carrinho</a></li>
-                <li class="nav-item"><a href="loginLojista.php">Área do Lojista</a></li>
+                <li class="nav-item"><a href="lojistaLogin.php">Área do Lojista</a></li>
                 <?php if (!empty($_SESSION) && isset($_SESSION['Nome'])) : ?>
                     <li class="nav-item"><span class='text-red'>Ola, <?php echo $_SESSION['Nome'] ?></span></li>
                     <li class="nav-item"><a href="logout.php">Sair</a></li>

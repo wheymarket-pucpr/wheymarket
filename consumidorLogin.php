@@ -66,7 +66,7 @@ if (isset($_POST['email']) || isset($_POST['senha'])) {
                                 </div>
                                 <div class="row">
                                     <div class="text-center">
-                                        <a href="cadastroConsumidor.php" class="link-primary">Nao sou cadastrado</a>
+                                        <a href="consumidorCadastro.php" class="link-primary">Nao sou cadastrado</a>
                                     </div>
                                 </div>
                             </form>

@@ -99,7 +99,7 @@ if (!empty($_POST) && isset($_POST['Nome']) && isset($_POST['Preco']) && isset($
                                     </div>
                                 </div>
                                 <!-- Preco -->
-                                <div class="mb-3" style="display:block">
+                                <div class="mb-3 d-block">
                                     <label for="Preco" class="form-label">Preco<span style="color: red;">*</span></label>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text">R$</span>
