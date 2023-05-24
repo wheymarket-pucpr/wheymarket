@@ -6,14 +6,14 @@ session_start();
 <html lang="Pt-br">
 
 <?php include('htmlhead.php'); ?>
-<link rel="stylesheet" href="css/carrinhoStyle.css">
+<link rel="stylesheet" href="css/carrinho.css">
 <header>
     <?php
     require 'header.php';
     ?>
 </header>
 <body>
-<h1>OIIII</h1>
+<h1>Hello World!</h1>
 </body>
 </html>
 
