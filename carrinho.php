@@ -35,28 +35,86 @@ session_start();
                         Total
                     </th>
                     <th>
-                        -
+
                     </th>
                 </tr>
                 </thead>
                 <tbody>
-                <td>
-                    <img class="product-image" src="./src/img/wheyn.webp">
-                </td>
-                <td>R$ 120,00</td>
-                <td>
-                    <div class="qty">
-                        <button>-</button>
-                        <span></span>
-                        <button>+</button>
-                    </div>
-                </td>
-                <td>R$ 240,00</td>
-                <td>
-                    <button>
-                        <i class='bx bx-x'></i>
-                    </button>
-                </td>
+                <tr>
+                    <td>
+                        <div class="product">
+                            <img class="product-image" src="./src/img/wheyn.webp">
+                            <div class="product-info">
+                                <div class="info-title">Nome do produto</div>
+                                <div class="info-category">Categoria</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>R$ 120,00</td>
+                    <td>
+                        <div class="qty">
+                            <button>-</button>
+                            <span></span>
+                            <button>+</button>
+                        </div>
+                    </td>
+                    <td>R$ 240,00</td>
+                    <td>
+                        <button>
+                            <i class='bx bx-x'></i>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="product">
+                            <img class="product-image" src="./src/img/wheyn.webp">
+                            <div class="product-info">
+                                <div class="info-title">Nome do produto</div>
+                                <div class="info-category">Categoria</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>R$ 120,00</td>
+                    <td>
+                        <div class="qty">
+                            <button>-</button>
+                            <span></span>
+                            <button>+</button>
+                        </div>
+                    </td>
+                    <td>R$ 240,00</td>
+                    <td>
+                        <button>
+                            <i class='bx bx-x'></i>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="product">
+                            <img class="product-image" src="./src/img/wheyn.webp">
+                            <div class="product-info">
+                                <div class="info-title">Nome do produto</div>
+                                <div class="info-category">Categoria</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>R$ 120,00</td>
+                    <td>
+                        <div class="qty">
+                            <button>-</button>
+                            <span></span>
+                            <button>+</button>
+                        </div>
+                    </td>
+                    <td>R$ 240,00</td>
+                    <td>
+                        <button>
+                            <i class='bx bx-x'></i>
+                        </button>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </section>
