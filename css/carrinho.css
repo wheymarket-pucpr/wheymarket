@@ -29,3 +29,11 @@ main{
 
 }
 
+.product-image {
+    max-width: 10rem;
+}
+
+table {
+    width: 100%;
+}
+

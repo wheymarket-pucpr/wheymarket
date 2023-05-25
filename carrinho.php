@@ -40,11 +40,23 @@ session_start();
                 </tr>
                 </thead>
                 <tbody>
-                <td></td>
+                <td>
+                    <img class="product-image" src="./src/img/wheyn.webp">
+                </td>
                 <td>R$ 120,00</td>
-                <td></td>
+                <td>
+                    <div class="qty">
+                        <button>-</button>
+                        <span></span>
+                        <button>+</button>
+                    </div>
+                </td>
                 <td>R$ 240,00</td>
-                <td></td>
+                <td>
+                    <button>
+                        <i class='bx bx-x'></i>
+                    </button>
+                </td>
                 </tbody>
             </table>
         </section>
