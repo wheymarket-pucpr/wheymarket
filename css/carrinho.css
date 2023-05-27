@@ -1,4 +1,4 @@
-body {
+body > header {
 
 }
 
@@ -23,20 +23,41 @@ main {
 
 }
 
-.content aside {
-    background: rebeccapurple;
-    min-width: 15.62rem;
-    color: #dbdbdb;
+/*.content aside {*/
+/*    background: rebeccapurple;*/
+/*    min-width: 15.62rem;*/
+/*    color: #dbdbdb;*/
 
-}
+/*}*/
 
-button{
+.qty-sub-button {
     width: 1.8rem;
     color: #ff0101;
     background: rgba(161, 161, 161, 0.55);
     border-radius: 4px;
     font-size: 16px;
-    border:none;
+    border: none;
+    cursor: pointer;
+}
+
+.qty-sum-button {
+    width: 1.8rem;
+    color: #ff0101;
+    background: rgba(161, 161, 161, 0.55);
+    border-radius: 4px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.remove-button {
+    width: 1.8rem;
+    color: #ff0101;
+    background: rgba(161, 161, 161, 0.55);
+    border-radius: 4px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
 }
 
 table {
@@ -64,7 +85,7 @@ tbody {
 
 }
 
-td{
+td {
     padding: 2rem 0;
 }
 
@@ -94,5 +115,57 @@ td{
 
 }
 
+aside {
+    width: 21.8rem;
+    margin-top: 2.5rem;
 
+
+}
+
+.box-header {
+    padding: 0.9rem 1.25rem;
+    font-size: 1.25rem;
+    border-bottom: 1px solid #ccc;
+
+}
+
+.box {
+    margin-bottom: 0.9rem;
+    border: 1px solid #ccc;
+    background: #ddd;
+
+
+}
+
+.box-info {
+    padding: 1.25rem;
+    margin-top: 10px;
+
+}
+
+.box-info > div {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.box-footer {
+    padding: 1.25rem;
+    background: #ccc;
+    font-size: 1.25rem;
+
+}
+
+.box-button {
+    background: #4a7e2c;
+    color: #ffffff;
+    border-radius: 3px;
+    display: block;
+    width: 100%;
+    border: 0;
+    padding: 0.9rem 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+}
 

@@ -53,14 +53,14 @@ session_start();
                     <td>R$ 120,00</td>
                     <td>
                         <div class="qty">
-                            <button>-</button>
-                            <span></span>
-                            <button>+</button>
+                            <button class="qty-sub-button">-</button>
+                            <span>4</span>
+                            <button class="qty-sum-button">+</button>
                         </div>
                     </td>
                     <td>R$ 240,00</td>
                     <td>
-                        <button>
+                        <button class="remove-button">
                             <i class='bx bx-x'></i>
                         </button>
                     </td>
@@ -78,39 +78,14 @@ session_start();
                     <td>R$ 120,00</td>
                     <td>
                         <div class="qty">
-                            <button>-</button>
-                            <span></span>
-                            <button>+</button>
+                            <button class="qty-sub-button">-</button>
+                            <span>4</span>
+                            <button class="qty-sum-button">+</button>
                         </div>
                     </td>
                     <td>R$ 240,00</td>
                     <td>
-                        <button>
-                            <i class='bx bx-x'></i>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="product">
-                            <img class="product-image" src="./src/img/wheyn.webp">
-                            <div class="product-info">
-                                <div class="info-title">Nome do produto</div>
-                                <div class="info-category">Categoria</div>
-                            </div>
-                        </div>
-                    </td>
-                    <td>R$ 120,00</td>
-                    <td>
-                        <div class="qty">
-                            <button>-</button>
-                            <span></span>
-                            <button>+</button>
-                        </div>
-                    </td>
-                    <td>R$ 240,00</td>
-                    <td>
-                        <button>
+                        <button class="remove-button">
                             <i class='bx bx-x'></i>
                         </button>
                     </td>
@@ -119,7 +94,28 @@ session_start();
             </table>
         </section>
 
-        <aside>Resumo das compras</aside>
+        <aside>
+            <div class="box">
+                <header class="box-header">Resumo da compra</header>
+                <div class="box-info">
+                    <div>
+                        <span>Sub-total</span>
+                        <span>R$ 418,00</span>
+                    </div>
+                    <div>
+                        <span>Frete</span>
+                        <span>Gratuito</span>
+                    </div>
+
+                </div>
+                <footer class="box-footer">
+                    <span>Total</span>
+                    <span>R$ 418,00 </span>
+                </footer>
+            </div>
+            <button class="box-button">Finalizar Compra</button>
+
+        </aside>
     </div>
 </main>
 </body>
