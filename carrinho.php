@@ -90,6 +90,56 @@ session_start();
                         </button>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <div class="product">
+                            <img class="product-image" src="./src/img/wheyn.webp">
+                            <div class="product-info">
+                                <div class="info-title">Nome do produto</div>
+                                <div class="info-category">Categoria</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>R$ 120,00</td>
+                    <td>
+                        <div class="qty">
+                            <button class="qty-sub-button">-</button>
+                            <span>4</span>
+                            <button class="qty-sum-button">+</button>
+                        </div>
+                    </td>
+                    <td>R$ 240,00</td>
+                    <td>
+                        <button class="remove-button">
+                            <i class='bx bx-x'></i>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="product">
+                            <img class="product-image" src="./src/img/wheyn.webp">
+                            <div class="product-info">
+                                <div class="info-title">Nome do produto</div>
+                                <div class="info-category">Categoria</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>R$ 120,00</td>
+                    <td>
+                        <div class="qty">
+                            <button class="qty-sub-button">-</button>
+                            <span>4</span>
+                            <button class="qty-sum-button">+</button>
+                        </div>
+                    </td>
+                    <td>R$ 240,00</td>
+                    <td>
+                        <button class="remove-button">
+                            <i class='bx bx-x'></i>
+                        </button>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </section>
