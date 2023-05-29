@@ -1,10 +1,19 @@
 <?php
 session_start();
 require('conexao.php');
-$idConsumidor = $_SESSION['id'];
-$sql = "SELECT pc.fk_Carrinho_ID, pc.fk_Produto_ID, pc.quantidade, c.fk_Consumidor_ID FROM produto_carrinho as pc INNER JOIN carrinho as c WHERE c.fk_Consumidor_ID = $idConsumidor";
-$result = $conn->query($sql);
-$rows = mysqli_num_rows($result);
+if (isset($_SESSION['id'])) {
+    $idConsumidor = $_SESSION['id'];
+    $sql = "SELECT pc.fk_Carrinho_ID, pc.fk_Produto_ID, pc.quantidade, c.fk_Consumidor_ID FROM produto_carrinho as pc INNER JOIN carrinho as c WHERE c.fk_Consumidor_ID = $idConsumidor";
+    $result = $conn->query($sql);
+    $rows = mysqli_num_rows($result);
+    $produto_carrinho = mysqli_fetch_assoc($result);
+    if ($rows > 0) {
+        $fk_Carrinho_ID = $produto_carrinho['fk_Carrinho_ID'];
+        $sql2 = "SELECT p.Nome, p.idProduto, p.Preco, p.Quantidade as Estoque, p.imagem, c.ID, c.Nome  as Categoria FROM produto as p, Categoria_Produto as c, carrinho as cr INNER JOIN produto_carrinho as pc 
+            WHERE cr.ID =  $fk_Carrinho_ID  and p.idProduto = pc.fk_Produto_ID  and c.ID = p.fk_Categoria_Produto_ID";
+        $result2 = $conn->query($sql2);
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -13,22 +22,23 @@ $rows = mysqli_num_rows($result);
 <?php include('htmlhead.php'); ?>
 <link rel="stylesheet" href="css/carrinho.css">
 <header>
-    <?php
-    require 'header.php';
-    ?>
 </header>
 
 <body>
-    <main>
+    <section>
+        <?php
+        require 'header.php';
+        ?>
         <?php
         if (isset($_SESSION['tipoLogin']) && $_SESSION['tipoLogin'] == 2) : // Verifica se o usuário está logado e se é um consumidor
         ?>
-            <div class="page-title">
-                Meu Carrinho
-            </div>
             <?php
             if ($rows > 0) : // Verifica se o usuario ja adicionou algum produto ao carrinho
             ?>
+                <div class="page-title">
+                    Meu Carrinho
+                </div>
+
                 <div class="content">
                     <section>
                         <table>
@@ -50,12 +60,7 @@ $rows = mysqli_num_rows($result);
                             </thead>
                             <tbody>
                                 <?php
-                                while ($produto_carrinho = mysqli_fetch_assoc($result)) :
-                                    $fk_Carrinho_ID = $produto_carrinho['fk_Carrinho_ID'];
-                                    $sql2 = "SELECT p.nome, p.Preco, p.Quantidade as Estoque, p.imagem,  c.Nome as Categoria FROM produto as p, produto_carrinho as pc, carrinho as cr INNER JOIN Categoria_Produto as c 
-                                    WHERE p.fk_Categoria_Produto_ID = c.ID and $fk_Carrinho_ID = cr.ID;";
-                                    $result2 = $conn->query($sql2);
-                                    $produto = mysqli_fetch_assoc($result2);
+                                while ($produto = mysqli_fetch_assoc($result2)) :
                                 ?>
                                     <tr>
                                         <td>
@@ -67,7 +72,7 @@ $rows = mysqli_num_rows($result);
                                                 </div>
                                             </div>
                                         </td>
-                                        <td><?php echo $produto['Preco'] ?></td>
+                                        <td>R$<?php echo $produto['Preco'] ?></td>
                                         <td>
                                             <div class="qty">
                                                 <button type="button" class="btn btn-outline-primary btn-sm">-</button>
@@ -75,9 +80,9 @@ $rows = mysqli_num_rows($result);
                                                 <button type="button" class="btn btn-outline-primary btn-sm">+</button>
                                             </div>
                                         </td>
-                                        <td><?php echo $produto_carrinho['quantidade'] * $produto['Preco'] ?></td>
+                                        <td>R$<?php echo $produto_carrinho['quantidade'] * $produto['Preco'] ?></td>
                                         <td>
-                                            <button type="button" class="btn btn-outline-danger btn-sm">x</button>
+                                            <a href="excluirProdutoCarrinho.php?&idCarrinho=<?php echo $fk_Carrinho_ID?>&idProduto=<?php echo $produto['idProduto']?>" class="btn btn-outline-danger btn-sm">x</a>
                                         </td>
                                     </tr>
                                     <tr>
@@ -106,11 +111,13 @@ $rows = mysqli_num_rows($result);
                                 <span>R$ 418,00 </span>
                             </footer>
                         </div>
-                        <div class="botoes-carrinho">
-                            <a class="btn btn-primary btn-lg" href="#">Finalizar Compra</a>
-                        </div>
-                        <div class="botoes-carrinho">
-                            <a class="btn btn-danger btn-lg" href="#">Esvaziar Carrinho</a>
+                        <div class="d-flex justify-content-center">
+                            <div class="d-flex p-2">
+                                <a class="btn btn-primary" href="#">Finalizar Compra</a>
+                            </div>
+                            <div class="d-flex p-2">
+                                <a href="esvaziarCarrinho.php?&id=<?php echo $fk_Carrinho_ID ?>" class="btn btn-danger">Esvaziar Carrinho</a>
+                            </div>
                         </div>
                     </aside>
                 </div>
@@ -135,7 +142,7 @@ $rows = mysqli_num_rows($result);
         <?php
         endif;
         ?>
-    </main>
+    </section>
 </body>
 
 </html>
