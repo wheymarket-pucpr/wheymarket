@@ -3,12 +3,14 @@ session_start();
 require('conexao.php');
 if (isset($_SESSION['id'])) {
     $idConsumidor = $_SESSION['id'];
-    $sql = "SELECT pc.fk_Carrinho_ID, pc.fk_Produto_ID, pc.quantidade, c.fk_Consumidor_ID FROM produto_carrinho as pc INNER JOIN carrinho as c WHERE c.fk_Consumidor_ID = $idConsumidor";
+    // verifica se carrinho esta vazio
+    $sql = "SELECT pc.fk_Carrinho_ID, pc.fk_Produto_ID, pc.quantidade, c.fk_Consumidor_ID FROM produto_carrinho as pc INNER JOIN carrinho as c WHERE c.fk_Consumidor_ID = $idConsumidor"; 
     $result = $conn->query($sql);
     $rows = mysqli_num_rows($result);
-    $produto_carrinho = mysqli_fetch_assoc($result);
+    $produtos_carrinho= mysqli_fetch_assoc($result); // cada tupla equivale a um produto diferente que foi adicionado
     if ($rows > 0) {
-        $fk_Carrinho_ID = $produto_carrinho['fk_Carrinho_ID'];
+        $fk_Carrinho_ID = $produtos_carrinho['fk_Carrinho_ID'];
+        // Query para pegar informacoes de todos os produtos que estao no carrinho do usuario que esta acessando
         $sql2 = "SELECT p.Nome, p.idProduto, p.Preco, p.Quantidade as Estoque, p.imagem, c.ID, c.Nome  as Categoria FROM produto as p, Categoria_Produto as c, carrinho as cr INNER JOIN produto_carrinho as pc 
             WHERE cr.ID =  $fk_Carrinho_ID  and p.idProduto = pc.fk_Produto_ID  and c.ID = p.fk_Categoria_Produto_ID";
         $result2 = $conn->query($sql2);
@@ -61,6 +63,11 @@ if (isset($_SESSION['id'])) {
                             <tbody>
                                 <?php
                                 while ($produto = mysqli_fetch_assoc($result2)) :
+                                //query pra pegar a quantidade de um determinado item que foi adicionado ao produto
+                                $idProduto = $produto['idProduto'];
+                                $sql3 = "SELECT * FROM produto_carrinho where fk_Produto_ID = $idProduto and fk_Carrinho_ID = $fk_Carrinho_ID";
+                                $result3 = $conn->query($sql3);
+                                $produto_carrinho = mysqli_fetch_assoc($result3); // retorna as informacoes da tabela produto_carrinho referentes ao produto especifico.
                                 ?>
                                     <tr>
                                         <td>
