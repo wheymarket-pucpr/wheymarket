@@ -2,16 +2,17 @@
 session_start(); // informa ao PHP que iremos trabalhar com sessão
 require 'conexao.php';
 
-if (!empty($_POST) && isset($_POST['email']) && isset($_POST['senha']) && isset($_POST['CNPJ'])) {
+if (!empty($_POST) && isset($_POST['email']) && isset($_POST['senha']) && isset($_POST['CPF'])) {
     $nome = $conn->real_escape_string($_POST['Nome']);
     $email    = $conn->real_escape_string($_POST['email']);
-    $cnpj   = $conn->real_escape_string($_POST['CNPJ']);
+    $cpf   = $conn->real_escape_string($_POST['CPF']);
     $senha   = $conn->real_escape_string($_POST['senha']);
 
-    $sql = "INSERT INTO lojista (CNPJ, email, Nome, senha, fk_Cadastro_Tipo_ID) VALUES ('$cnpj', '$email', '$nome', MD5('$senha'),'1')";
-
+   $sql = "INSERT INTO consumidor (Nome, CPF, senha, email, fk_Cadastro_Tipo_ID) VALUES ('$nome','$cpf',md5('$senha'),'$email', 2)";
+   
+ 
     if ($result = $conn->query($sql)) {
-        $_SESSION['mensagem'] = "Cadastro de Lojista efetuado com sucesso. Você já pode vender em nosso site! Basta realizar o login.";
+        $_SESSION['mensagem'] = "Cadastro efetuado com sucesso. Você já pode comprar em nosso site! Basta realizar o login.";
         header('location: index.php');
         exit();
     } else {
@@ -24,8 +25,19 @@ if (!empty($_POST) && isset($_POST['email']) && isset($_POST['senha']) && isset(
 
 <!DOCTYPE html>
 <html>
-    
-<?php include('htmlhead.php');?>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
+    <title>Cadastro</title>
+    <link rel="icon" href="https://cdn0.iconfinder.com/data/icons/fitness-filled/64/fitness-08-512.png" type="image/x-icon">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="css/style.css">
+</head>
 
 <body>
     <?php
@@ -35,10 +47,10 @@ if (!empty($_POST) && isset($_POST['email']) && isset($_POST['senha']) && isset(
         <div class="row justify-content-center pt-5">
             <div class='col-3'>
                 <div class="card">
-                    <h5 class="card-header text-dark">Cadastre-se como Lojista</h5>
+                    <h5 class="card-header text-dark">Cadastre-se e aproveite o WheyMarket !</h5>
                     <div class="card-body">
                         <div class='col'>
-                            <form action="" method="POST" id="formLojista" class="needs-validation" novalidate>
+                            <form action="" id="formConsumidor" method="POST" class="needs-validation" novalidate>
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email</label>
                                     <input type="email" name="email" class="form-control" id="email" placeholder="example@example.com" maxlength="50" required />
@@ -47,15 +59,15 @@ if (!empty($_POST) && isset($_POST['email']) && isset($_POST['senha']) && isset(
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="CNPJ" class="form-label">CNPJ</label>
-                                    <input type="text" name="CNPJ" class="form-control cnpj" id="CNPJ" maxlength="14" pattern="^\d{2}.?\d{3}.?\d{3}\/?\d{4}-?\d{2}$" required />
+                                    <label for="CPF" class="form-label">CPF</label>
+                                    <input type="text" name="CPF" class="form-control cpf" id="CPF" maxlength="11" required />
                                     <div class="invalid-feedback">
-                                        Informe um CNPJ válido.
+                                        Informe um CPF válido.
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="Nome" class="form-label">Nome</label>
-                                    <input type="text" name="Nome" class="form-control" id="Nome" placeholder="Nome da loja" maxlength="100" required />
+                                    <input type="text" name="Nome" class="form-control" id="Nome" placeholder="Nome Sobrenome" maxlength="100" required />
                                     <div class="invalid-feedback">
                                         Informe um nome válido.
                                     </div>
@@ -91,10 +103,10 @@ if (!empty($_POST) && isset($_POST['email']) && isset($_POST['senha']) && isset(
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="js/jquery.mask.min.js"></script>
 <script type="text/javascript">
-    // Buscando form do lojista
-    const form = document.getElementById('formLojista');
+    // Buscando form do Consumidor
+    const form = document.getElementById('formConsumidor');
 
-    // Proibindo do forme fazer submit caso tenha inputs do form com valores inválidos.
+    // Proibindo do form fazer submit caso tenha inputs do form com valores inválidos.
     form.addEventListener('submit', event => {
         if (!form.checkValidity()) {
             event.preventDefault()
@@ -109,10 +121,10 @@ if (!empty($_POST) && isset($_POST['email']) && isset($_POST['senha']) && isset(
      * VALIDAÇÃO DA SENHA E CONFIRMAÇÃO DE SENHA
      * #################################################################
      */
+
     function confereSenha() {
         const senha = document.getElementById('senha');
         const confirma = document.getElementById('confimar-senha');
-        // sumir dica de como fazer a senha caso ela seja validada
         const divPasswordMessage = document.getElementById('MensagemPassword');
 
         var isSenhaValida = senha.value == confirma.value;
@@ -136,70 +148,76 @@ if (!empty($_POST) && isset($_POST['email']) && isset($_POST['senha']) && isset(
 
     /**
      * #################################################################
-     * INICIO VALIDAÇÃO CNPJ
+     * INICIO VALIDAÇÃO CPF
      * #################################################################
      */
+
     var options = {
-        onComplete: function(cnpj) {
-            tratarHtmlCNPJ(validarCNPJ(cnpj));
+        onComplete: function(cpf) {
+            tratarHtmlCPF(validarCPF(cpf));
         }
     };
 
     $(document).ready(function() {
-        $('.cnpj').mask('00.000.000/0000-00', options, {
-            placeholder: "__.___.___/____-__"
+        $('.cpf').mask('000.000.000-00', options, {
+            placeholder: "_._._-__"
         });
     });
 
-    function tratarHtmlCNPJ(isCnpjValido) {
-        const cnpjInput = document.getElementById('CNPJ');
-        isCnpjValido ? cnpjInput.setCustomValidity("") : cnpjInput.setCustomValidity("Erro!");
+    function tratarHtmlCPF(isCpfValido) {
+        const cpfInput = document.getElementById('CPF');
+        isCpfValido ? cpfInput.setCustomValidity("") : cpfInput.setCustomValidity("Erro!");
 
         if (form.classList.contains('was-validated')) {
-            if (isCnpjValido) {
-                cnpjInput.classList.add("is-valid");
-                cnpjInput.classList.remove("is-invalid");
+            if (isCpfValido) {
+                cpfInput.classList.add("is-valid");
+                cpfInput.classList.remove("is-invalid");
             } else {
-                cnpjInput.classList.add("is-invalid");
-                cnpjInput.classList.remove("is-valid");
+                cpfInput.classList.add("is-invalid");
+                cpfInput.classList.remove("is-valid");
             }
         }
     }
 
-    function validarCNPJ(cnpj) {
-        cnpj = cnpj.replace(/[^\d]+/g, ''); // Remove caracteres não numéricos
+    function validarCPF(cpf) {
+        cpf = cpf.replace(/[^\d]+/g, ''); // Remove caracteres não numéricos
 
-        if (cnpj == '') return false;
-
-        if (cnpj.length != 14)
+        if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) {
             return false;
-
-        tamanho = cnpj.length - 2
-        numeros = cnpj.substring(0, tamanho);
-        digitos = cnpj.substring(tamanho);
-        soma = 0;
-        pos = tamanho - 7;
-        for (i = tamanho; i >= 1; i--) {
-            soma += numeros.charAt(tamanho - i) * pos--;
-            if (pos < 2)
-                pos = 9;
         }
-        resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
-        if (resultado != digitos.charAt(0))
-            return false;
 
-        tamanho = tamanho + 1;
-        numeros = cnpj.substring(0, tamanho);
-        soma = 0;
-        pos = tamanho - 7;
-        for (i = tamanho; i >= 1; i--) {
-            soma += numeros.charAt(tamanho - i) * pos--;
-            if (pos < 2)
-                pos = 9;
+        var soma = 0;
+        var resto;
+
+        for (var i = 1; i <= 9; i++) {
+            soma += parseInt(cpf.substring(i - 1, i)) * (11 - i);
         }
-        resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
-        if (resultado != digitos.charAt(1))
+
+        resto = (soma * 10) % 11;
+
+        if (resto === 10 || resto === 11) {
+            resto = 0;
+        }
+
+        if (resto !== parseInt(cpf.substring(9, 10))) {
             return false;
+        }
+
+        soma = 0;
+
+        for (var i = 1; i <= 10; i++) {
+            soma += parseInt(cpf.substring(i - 1, i)) * (12 - i);
+        }
+
+        resto = (soma * 10) % 11;
+
+        if (resto === 10 || resto === 11) {
+            resto = 0;
+        }
+
+        if (resto !== parseInt(cpf.substring(10, 11))) {
+            return false;
+        }
 
         return true;
     }

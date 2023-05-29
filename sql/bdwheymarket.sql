@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 28, 2023 at 08:10 PM
--- Server version: 10.4.25-MariaDB
--- PHP Version: 7.4.30
+-- Tempo de geração: 29/05/2023 às 02:10
+-- Versão do servidor: 10.4.28-MariaDB
+-- Versão do PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `bdwheymarket`
+-- Banco de dados: `bdwheymarket`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `administrador`
+-- Estrutura para tabela `administrador`
 --
 
 CREATE TABLE `administrador` (
@@ -32,10 +32,10 @@ CREATE TABLE `administrador` (
   `email` varchar(140) NOT NULL,
   `senha` varchar(32) NOT NULL,
   `fk_Cadastro_Tipo_ID` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `administrador`
+-- Despejando dados para a tabela `administrador`
 --
 
 INSERT INTO `administrador` (`id`, `email`, `senha`, `fk_Cadastro_Tipo_ID`) VALUES
@@ -44,16 +44,16 @@ INSERT INTO `administrador` (`id`, `email`, `senha`, `fk_Cadastro_Tipo_ID`) VALU
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cadastro_tipo`
+-- Estrutura para tabela `cadastro_tipo`
 --
 
 CREATE TABLE `cadastro_tipo` (
   `ID` int(11) NOT NULL,
   `Nome` varchar(30) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `cadastro_tipo`
+-- Despejando dados para a tabela `cadastro_tipo`
 --
 
 INSERT INTO `cadastro_tipo` (`ID`, `Nome`) VALUES
@@ -64,16 +64,34 @@ INSERT INTO `cadastro_tipo` (`ID`, `Nome`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categoria_produto`
+-- Estrutura para tabela `carrinho`
+--
+
+CREATE TABLE `carrinho` (
+  `ID` int(11) NOT NULL,
+  `fk_Consumidor_ID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `carrinho`
+--
+
+INSERT INTO `carrinho` (`ID`, `fk_Consumidor_ID`) VALUES
+(1, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `categoria_produto`
 --
 
 CREATE TABLE `categoria_produto` (
   `ID` int(11) NOT NULL,
   `Nome` varchar(30) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `categoria_produto`
+-- Despejando dados para a tabela `categoria_produto`
 --
 
 INSERT INTO `categoria_produto` (`ID`, `Nome`) VALUES
@@ -85,7 +103,7 @@ INSERT INTO `categoria_produto` (`ID`, `Nome`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `consumidor`
+-- Estrutura para tabela `consumidor`
 --
 
 CREATE TABLE `consumidor` (
@@ -95,19 +113,27 @@ CREATE TABLE `consumidor` (
   `senha` char(32) NOT NULL,
   `email` varchar(100) NOT NULL,
   `fk_Cadastro_Tipo_ID` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `consumidor`
+-- Despejando dados para a tabela `consumidor`
 --
 
 INSERT INTO `consumidor` (`id`, `Nome`, `CPF`, `senha`, `email`, `fk_Cadastro_Tipo_ID`) VALUES
-(1, 'Teste', '11111111111', '09663b4a39660a5459b350a1811e7b6f', 'testeconsumidor@gmail.com', 2);
+(3, 'Teste Consumidor', '863.721.301-49', '73cfd69fd20446096d66627c1c5e3aeb', 'consumidor@gmail.com', 2);
+
+--
+-- Acionadores `consumidor`
+--
+DELIMITER $$
+CREATE TRIGGER `CriaCarrinho` AFTER INSERT ON `consumidor` FOR EACH ROW insert into carrinho (fk_Consumidor_ID) value (NEW.ID)
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `lojista`
+-- Estrutura para tabela `lojista`
 --
 
 CREATE TABLE `lojista` (
@@ -117,10 +143,10 @@ CREATE TABLE `lojista` (
   `Nome` varchar(100) DEFAULT NULL,
   `senha` char(32) DEFAULT NULL,
   `fk_Cadastro_Tipo_ID` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `lojista`
+-- Despejando dados para a tabela `lojista`
 --
 
 INSERT INTO `lojista` (`ID`, `CNPJ`, `email`, `Nome`, `senha`, `fk_Cadastro_Tipo_ID`) VALUES
@@ -133,7 +159,19 @@ INSERT INTO `lojista` (`ID`, `CNPJ`, `email`, `Nome`, `senha`, `fk_Cadastro_Tipo
 -- --------------------------------------------------------
 
 --
--- Table structure for table `produto`
+-- Estrutura para tabela `pedido`
+--
+
+CREATE TABLE `pedido` (
+  `ID` int(11) NOT NULL,
+  `fk_Consumidor_ID` int(11) NOT NULL,
+  `data_pedido` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `produto`
 --
 
 CREATE TABLE `produto` (
@@ -147,10 +185,10 @@ CREATE TABLE `produto` (
   `Descricao` varchar(1000) DEFAULT NULL,
   `imagem` blob DEFAULT NULL,
   `Anuncio` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `produto`
+-- Despejando dados para a tabela `produto`
 --
 
 INSERT INTO `produto` (`idProduto`, `fk_Lojista_ID`, `fk_Categoria_Produto_ID`, `Nome`, `Preco`, `Quantidade`, `Peso`, `Descricao`, `imagem`, `Anuncio`) VALUES
@@ -174,12 +212,38 @@ INSERT INTO `produto` (`idProduto`, `fk_Lojista_ID`, `fk_Categoria_Produto_ID`, 
 INSERT INTO `produto` (`idProduto`, `fk_Lojista_ID`, `fk_Categoria_Produto_ID`, `Nome`, `Preco`, `Quantidade`, `Peso`, `Descricao`, `imagem`, `Anuncio`) VALUES
 (27, 30, 4, 'TESTE', 50, 10, 300, 'SEREI APAGADO, ADEUS MUNDO', 0xffd8ffe000104a46494600010100000100010000ffdb008400090607100e1010110f10100d0f10100f0d0f100f10100f0f100d1612161715111615181d2820181a251d1516213121262a2e2e2e3a171f3338352c372839332b010a0a0a0e0d0e1a0f101a361f1f262e382d372d2f2b372d37332e2d2d2d2b372d2d2d2d372b2d2d2d2d2b2d2d2b2d2d2d2d2d2d2d2d352b2d2d2d2d2d2d2b2d2dffc000110800e100e103011100021101031101ffc4001c0001000105010100000000000000000000000401020305080607ffc4004c10000201020203090c0706020b000000000001020304051112213106132232415152617107144274919293a1a2b1b3d2151734637281d12333355482b243f116242553628384a3c1c2e1ffc4001a010100030101010000000000000000000000010203050406ffc40028110100010203070501010000000000000000010211031251152131324171a104131452612291ffda000c03010002110311003f00fb8800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001acc677416963a0aeab468baba5bda6a5272d1cb3d514f9d7940831ddbe1af65d45ff00455f940a4b771862db751f32afca0592ddee16b6ddc17f455f940b7eb030afe721e656f940aaddfe15b7bf2197e0abf28147dd070afe721e656f940b7eb1308fe761e656f9407d62e11fcec3ccadf2813705dd7585fd474ad6e615eaa83a8e094e2f41349cb84967ae4bca06f0000000000000000000000000000000003e41dddff7d86ffd57ba00782b2d8bb63f080c55b8cbfe5fc36040b8db4ffa3fb18186de1c46f52fd97f6480a4279e8722fd8ff6c80c71d91eca3ee901829f83d94bff00602d5b17652f7c80f7fdc17f8acbc46afc5a60742800000000000000000000000000000000792ee8bb9ea7776b3aee9c6a5c5ad1ad3a1a752a53a71d49c9bd14f3794752cbab526073cd3c4ae12d4a1cfc5eac80a4b10aede6d43cd02c777576b8c356cca280c52b9a99ea514b565a972014571539a3c9c8b93601475ea7347c8bf202c739ae48f2720163a92e65c9c880fbcf719dcc51a56b46fdd351b9ab4ea5353855a9252a0e6b8d0794632ce1b167b16bd6c0fa5800000000000000000000000000001071ac5a858d19d7b99aa74a1b5ed72972462b6ca4f9901f1fc77babdedc49c6ca31b3a5b232946356e25d6f3ce31ec49f681a496eab12aaa50a9795a719c5c669e828b8b5935925cc06a276f4e2b8a9be4cc08d52115e0ad6045aa96cc80c7a28068a02938ea031302c9c40dc586ebf11b6a70a542f2b51a54d65084743462b3cf566b9db03d1e05dd7313b692ef970c42967c255210a5592ff008670497962ff00203ed7b94dd3db62b4156b693793d1ab4e792ab46a65c59af735a9f201ba00000000000000000000000000e7feeabba195edf4e8c65feaf692950a714f53acb554a8faf3ce3d91eb60797a31fd009d42392edd6061aef37d9a808b55eb022cf6b028000a4b601800c908e5adf9008d279b60500de6e177493c2afa957526a8ca51a5751cf832b693d6df5c73d25d9972b03a993cf66b02a0000000000000000000000181ca35a6e556727adcaa54937cedc9b6048a7b00d8d28ea59ecc9010aa6d7dac08d536b022bdbf98000051816e8e8acf68164a5981825b40a018eb2cf3ec03ad373155cec6ce52d6e56b6f26f9dba51cc0d980000000000000000000001460725ca12df25c3f0a5e0ae7604da54a492ce797f4a027f09a5c2c964b56480855212cdf0f95f82808d5212cdf0fd9404594259be1fb280a684ba7eca01a12e9fb280684ba7eca03068cba7ea403465d3f52031b8bcf8dea405345f4bd480c7562fa5c9cc80eb4dc8ff0fb1f13b6f851036c00000000000000000000005181ced9d0d37fb9db2e8739dfcb856e11e1f3d9b16fc67ca4a9d1696ba5ec15cb85f9e16cd8bacf94b8ba392fdd6c5d02b970f485b362eb3e51a6e8e6ff0075b5f40b65c2d23c23362eb3e5826e867fe17b04e5c2d23c2b9b1759f28edd0fb9f60b65c2d23c2b9b1759f26743ee7d81970b48f066c5d67c99d0fb9f6065c2fcf066c5d67c99d0fb9f6065c2fcf066c6d67cb17ec3ee7d8232e1691e16cd8bacf93f61f73ec0cb85a4783362eb3e58e5bc67fe0fb0465c2fcf09cd8bacf95614e94b8b1a72ec516228c39e11089af1238cc93b6a7d0879b113874691fe1ee57acffae85dce2caced16ccada82ffb7138989cf3ddddc3e48ecd8945c000000000000000000001496c60725be3cbf14bdecf7b9dd52e9ec094f8ec5d8884a254dafb58423cf6b25088f6fe6484a2d6d0281001690900b584b6980516e7297246397e6ffc8dfd3c6fbbcfea2afe6cde4f25d6f2d47aa5e587df773bf63b5f17a1f0e270b179e7bbbd85c91d9b128d0000000000000000000001496c60725be3cbf14bdecf7b9dd5ed23b99a753e88745d471bf5a35b3716e9d58496faa392e6d2c93e899e7e6bf46b9396dd5b79ee528c710741cea3b48db3bddf14a3a6e8286dd2cb2e3756c2b9e72dfaaf92335ba3458a601a36767734215ead4b8ef9756318ba918e854d1864a31cd7e65a2afea6259d54ff003130dabdc6db2c42adbca570e953c3d5f6509437e954cd27059c72cb6eac8afb9396ff00ab7b719edf976a70dc1b0eb9bb85b28dfda3ad4aa2a4eedd28cbbe76d3e0a8eb83ca4b935a48b4d55445f72229a66ab6f40c73018d95a5095c6f91bfb8ab55aa39c74295ac1e8e725966db7965af97a8b535669ddc15aa8cb4efe2f385d9805a42402d612f4b8353dee92d5ae7c37f9ecf5647bb069b50f0e3557ad22a1a327406e73ec769e2d43e1c4e162f3cf777f0b923b36266d0000000000000000000001496c60725be3cbf14bdecf7b9dd5f42dc76e92d6858b8d6a8a3736952e2b594329372954a328e59a5ab8529795195744cd5b9b61d74c53bfa252c7ed961718ef8bbfbbd561da194b3ef7df13cf4b2cb2d05ce4659cff9c539e325baf06bb10dd3ce8d858d2b4b99d2ad4fbe95c469b9472cea670cdb593dac98a2f54ccc22ac4b531112db7fa4f66f13ad5fbe95384f0d56d1afa351e8dc669ec4b3cd6dcfa8ae4ab25add56cf4e7bdfa3c26e8ee72af46ac712fa4aac52cab68d584e8b84f4a115a7d6db59759ad31bad6b32af74def749ee8b8c51bcc42a55a15556a3a14a9d396b49251d7149e4f8ce5e51874cc5369316a89aaf0f35a4b9d6ada5d999814212017dbd1d39c63d2693ece5f5134d39aa884555658997aa4b23a4e6ad991297406e73ec769e2d43e1c4e162f3cf777f0b923b36266d0000000000000000000001496c60725be3cbf14fdecf7b9cfb4db69c2387ef8ed61867d1f4dddaaea870a7bdbcb24d69b7c5eadbca7975d6ef5efdda598b73b1a8ec6d159d5a16ea77b5e395ca83955b7d39354e2a516e52c92d4b27ab696aad9a6fa229be58b6ad6cbbde8d4c66fede8454eda74a8dbc2a53ca34aac9a854aaa9bd8f4b37e5e7277ce5a655dd135550856f8c56bcc3eeae6bba73bbc3eb5b55b6b974a92970e693a724a2a2d6dd5972ae6266988aa22384a22a99a66678c316eaf749751c32c26a7052bca5790b97bcd1e1c53515970783a9bd990a288cd3f8575ce58fd4eddbde56a34631a57b6b6f4dd851d2b4952a6ee2ae945c64e2dc1b59ad5b56c7b08c3889e31d56c5998e136ddc17e154e3df7b9ee0c5ff00b32acb5a4d36a849a6c4f0abb94f1a7b2da5614aa54b9c46de095bdee0f7b394525951bd8ba6aa43a9b69bed5217988cb3d248a626f547587ca51bbcc01b3c0a8e7294fa2b4576bffe7bcf47a7a77ccb0f5156eb3767ade35932252e80dce7d8ed3c5a87c389c2c5e79eeefe1724766c4cda000000000000000000000292d8c0e53761574e5fb39f1a5e0be7674fdaaedc1cbf728bf16f718baaf78adb4a83877bdbc2d63a2a4f4a30cf84f3d8f5ec294e0d54df72d5635155b7b60afae3bd6dede349c3bdeb3b98544a5a5a6f36b56cd4d91ecd5799b2def53688ba454dd25cf7d5c56ef384a9dd4234aeade4a72a5574564a79ed8cb223e3d56b5a53f229bcceeded76318b56ad43bd685942c6d9cd55a90a4a73955a8b2c9ce72d6d2c96aea5cc5a9c0ae26f3132ad58f44c5a2d10d5e2b7771716d696ceddc6368ab46335a4e53df249bcd72659168c0ae2666cad58f44c445f836b8a6e8257504ab6154a7563415b42bb956d38a8c5a8c92d99a6f3291e9b12385d79f53873c6cb2db747754ead8555699bb0b695a41373caa465070d296ad4f5f2133e9aadfbb8a23d4d3bb7c6e61c0b1ebcb2b6b9b58d075695cc66b86a49d294e0e329472db9acb5750abd3d53313629f514d31317683bc2aa5ae94dbfc2cb7b75e8afb946ac7de357fddcfcd64fb55e88f728d5bcc3addd2a693d5279ca5daf93dc7af0a8cb4d9e3c5af35574a3466b2a11297406e73ec769e2d43e1c4e162f3cf777f0b923b36266d000000000000000000000146073ff0084fb59f4bd1f333c52631d453aadd12a3b17614591a7b5f6b2f0ab14b696423b2caa80552205cf5768e24ee606424031cb6912b2840b2644a5d01b9cfb1da78b50f8713858bcf3dddfc2e48ecd899b40000000000000000000005181f01492936f9dfbcfa4e8f9aeacc9e6552971d8bb0a2c8d3dafb5978558a5b4b2251d9655402a01b2062212018e5b489594205932252e80dce7d8ed7c5a87c389c1c5e79eeefe1724766c4a34000000000a01500000000005181ccb2c6e7a72e0478d2e7e767bf68576e5873f67517be694886333cb891f58f9f5e909d9f46b29b1c5e792e04762e72bf3aad13f028d651678c4f37c08ed7ce4fcfab4846cfa359609e353cdf023eb276857f5846cfa3594678dcfa11f593b42bfac1b3a8fb4a9f4dcfa11f58da15fd60d9d47da4fa6e7d08fac6d0afeb06cea3ed27d373e847d636857f5846cea3ed2c3f4ecfa11f591b42bfac2767d1f693e9d9f423eb1b42bfac1b3e8fb4b14b1d9e7c48f958f9f5e909d9f46b2ac71c9b7c48fb43e7d5a41b3e8d658eb63934f8907ab9e447cfab483e051acba6f72d3d2b1b37cf6b6efcb4a278aaab34ccbdb4d396221b42160000000000000000000005181c972b78ef92d4f8d2f0a5cefac0974e84725a9f965fa813e346392d5c8b958112a508e6f53daf965fa811a76f1cdea7e597ea04595bc737a9ede94bf5029def1e67e74bf501def1e67e74bf501def1e67e74bf50306f11e67e5603788f33f2b02cde137b3d6c0bb7b8c75259be579b023d5a51f573b03ad3723fc3ec7c4edbe1440db000000000000000000000014607284b8f2fc52f7b02553d8809f1d8bb101127b5f6bf7818e7c16f9c08327adf68140001811c00149cf565901880c757ff0000758ee4bf87d8f8a5b7c2881b6000000000000000000000028c0e4fb9ce9d6a90945c650a9529c93daa71934d795019e9d5d5b009f0aba976203055aaa2de5b737ca043a9575b0224aaeb7ab940a6fbd4037dea01bef501877cea01be75018a5535814df00c756aa59be64075c6e6a8ca9d959c26b4670b5b78493daa4a9c53406c8000000000000000000000001e4b747dceb0ec42abaf569ce956965a75284f7b751a592725934deadb96606ba3dc930d5e1dd7a587c80658772bc3d6ad3baf4b0f900b67dca30e7af4ae7d2c3e4031cbb91e1afc2baf4b0f900b1f71dc31f8577e9a1f2014fa9dc33a577e9a1f200fa9dc33a577e9a1f200fa9cc33a577e9a1f2016fd4d617d2bbf4d0f9007d4d617d2bbf4d0f900b7ea5f0ae95dfa68fc803ea5f0ae95dfa68fc804ec17b94615695a15953ab5e74da9c15c54d38466b64b45249b5d7981ee4000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffd9, 1);
 
+-- --------------------------------------------------------
+
 --
--- Indexes for dumped tables
+-- Estrutura para tabela `produto_carrinho`
+--
+
+CREATE TABLE `produto_carrinho` (
+  `ID` int(11) NOT NULL,
+  `fk_Carrinho_ID` int(11) NOT NULL,
+  `fk_Produto_ID` int(11) NOT NULL,
+  `quantidade` int(2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `produto_pedido`
+--
+
+CREATE TABLE `produto_pedido` (
+  `ID` int(11) NOT NULL,
+  `fk_Pedido_ID` int(11) NOT NULL,
+  `fk_Produto_ID` int(11) NOT NULL,
+  `quantidade` int(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Índices para tabelas despejadas
 --
 
 --
--- Indexes for table `administrador`
+-- Índices de tabela `administrador`
 --
 ALTER TABLE `administrador`
   ADD PRIMARY KEY (`id`),
@@ -187,19 +251,26 @@ ALTER TABLE `administrador`
   ADD KEY `FK_Administrador_1` (`fk_Cadastro_Tipo_ID`);
 
 --
--- Indexes for table `cadastro_tipo`
+-- Índices de tabela `cadastro_tipo`
 --
 ALTER TABLE `cadastro_tipo`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Indexes for table `categoria_produto`
+-- Índices de tabela `carrinho`
+--
+ALTER TABLE `carrinho`
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `fk_Consumidor_ID` (`fk_Consumidor_ID`);
+
+--
+-- Índices de tabela `categoria_produto`
 --
 ALTER TABLE `categoria_produto`
   ADD PRIMARY KEY (`ID`);
 
 --
--- Indexes for table `consumidor`
+-- Índices de tabela `consumidor`
 --
 ALTER TABLE `consumidor`
   ADD PRIMARY KEY (`id`),
@@ -208,7 +279,7 @@ ALTER TABLE `consumidor`
   ADD KEY `FK_Consumidor_1` (`fk_Cadastro_Tipo_ID`);
 
 --
--- Indexes for table `lojista`
+-- Índices de tabela `lojista`
 --
 ALTER TABLE `lojista`
   ADD PRIMARY KEY (`ID`),
@@ -217,7 +288,14 @@ ALTER TABLE `lojista`
   ADD KEY `FK_Lojista_2` (`fk_Cadastro_Tipo_ID`);
 
 --
--- Indexes for table `produto`
+-- Índices de tabela `pedido`
+--
+ALTER TABLE `pedido`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `FK_PEDIDO_1` (`fk_Consumidor_ID`);
+
+--
+-- Índices de tabela `produto`
 --
 ALTER TABLE `produto`
   ADD PRIMARY KEY (`idProduto`),
@@ -225,73 +303,145 @@ ALTER TABLE `produto`
   ADD KEY `FK_Produto_2` (`fk_Lojista_ID`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- Índices de tabela `produto_carrinho`
+--
+ALTER TABLE `produto_carrinho`
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `fk_Carrinho_ID` (`fk_Carrinho_ID`,`fk_Produto_ID`),
+  ADD KEY `FK_CARRINHO_PRODUTO_2` (`fk_Produto_ID`);
+
+--
+-- Índices de tabela `produto_pedido`
+--
+ALTER TABLE `produto_pedido`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `FK_PRODUTO_PEDIDO_1` (`fk_Pedido_ID`),
+  ADD KEY `FK_PRODUTO_PEDIDO_2` (`fk_Produto_ID`);
+
+--
+-- AUTO_INCREMENT para tabelas despejadas
 --
 
 --
--- AUTO_INCREMENT for table `administrador`
+-- AUTO_INCREMENT de tabela `administrador`
 --
 ALTER TABLE `administrador`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `cadastro_tipo`
+-- AUTO_INCREMENT de tabela `cadastro_tipo`
 --
 ALTER TABLE `cadastro_tipo`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `categoria_produto`
+-- AUTO_INCREMENT de tabela `carrinho`
+--
+ALTER TABLE `carrinho`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de tabela `categoria_produto`
 --
 ALTER TABLE `categoria_produto`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `consumidor`
+-- AUTO_INCREMENT de tabela `consumidor`
 --
 ALTER TABLE `consumidor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `lojista`
+-- AUTO_INCREMENT de tabela `lojista`
 --
 ALTER TABLE `lojista`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
--- AUTO_INCREMENT for table `produto`
+-- AUTO_INCREMENT de tabela `pedido`
+--
+ALTER TABLE `pedido`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `produto`
 --
 ALTER TABLE `produto`
   MODIFY `idProduto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
--- Constraints for dumped tables
+-- AUTO_INCREMENT de tabela `produto_carrinho`
+--
+ALTER TABLE `produto_carrinho`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `produto_pedido`
+--
+ALTER TABLE `produto_pedido`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Restrições para tabelas despejadas
 --
 
 --
--- Constraints for table `administrador`
+-- Restrições para tabelas `administrador`
 --
 ALTER TABLE `administrador`
   ADD CONSTRAINT `FK_Administrador_1` FOREIGN KEY (`fk_Cadastro_Tipo_ID`) REFERENCES `cadastro_tipo` (`ID`);
 
 --
--- Constraints for table `consumidor`
+-- Restrições para tabelas `carrinho`
+--
+ALTER TABLE `carrinho`
+  ADD CONSTRAINT `FK_Carrinho_1` FOREIGN KEY (`fk_Consumidor_ID`) REFERENCES `consumidor` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Restrições para tabelas `consumidor`
 --
 ALTER TABLE `consumidor`
   ADD CONSTRAINT `FK_Consumidor_1` FOREIGN KEY (`fk_Cadastro_Tipo_ID`) REFERENCES `cadastro_tipo` (`ID`);
 
 --
--- Constraints for table `lojista`
+-- Restrições para tabelas `lojista`
 --
 ALTER TABLE `lojista`
   ADD CONSTRAINT `FK_Lojista_2` FOREIGN KEY (`fk_Cadastro_Tipo_ID`) REFERENCES `cadastro_tipo` (`ID`) ON DELETE CASCADE;
 
 --
--- Constraints for table `produto`
+-- Restrições para tabelas `pedido`
+--
+ALTER TABLE `pedido`
+  ADD CONSTRAINT `FK_PEDIDO_1` FOREIGN KEY (`fk_Consumidor_ID`) REFERENCES `consumidor` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Restrições para tabelas `produto`
 --
 ALTER TABLE `produto`
   ADD CONSTRAINT `FK_Produto_1` FOREIGN KEY (`fk_Categoria_Produto_ID`) REFERENCES `categoria_produto` (`ID`) ON DELETE CASCADE,
   ADD CONSTRAINT `FK_Produto_2` FOREIGN KEY (`fk_Lojista_ID`) REFERENCES `lojista` (`ID`) ON DELETE CASCADE;
+
+--
+-- Restrições para tabelas `produto_carrinho`
+--
+ALTER TABLE `produto_carrinho`
+  ADD CONSTRAINT `FK_CARRINHO_PRODUTO_1` FOREIGN KEY (`fk_Carrinho_ID`) REFERENCES `carrinho` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_CARRINHO_PRODUTO_2` FOREIGN KEY (`fk_Produto_ID`) REFERENCES `produto` (`idProduto`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Restrições para tabelas `produto_pedido`
+--
+ALTER TABLE `produto_pedido`
+  ADD CONSTRAINT `FK_PRODUTO_PEDIDO_1` FOREIGN KEY (`fk_Pedido_ID`) REFERENCES `pedido` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FK_PRODUTO_PEDIDO_2` FOREIGN KEY (`fk_Produto_ID`) REFERENCES `produto` (`idProduto`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+
+
+CREATE TRIGGER `CriaCarrinho` AFTER INSERT ON `consumidor`
+ FOR EACH ROW insert into carrinho (fk_Consumidor_ID) value (NEW.ID)
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

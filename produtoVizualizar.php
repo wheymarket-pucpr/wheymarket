@@ -38,9 +38,10 @@ require('header.php');
                     <p><b>Vendido por: </b><?php echo $lojista['Nome'] ?></p>
                     <p><b>Descrição:</b></p>
                     <p><?php echo $produto['Descricao'] ?></p>
+                    <p><b>Quantidade disponível:</b> <?php echo $produto['Quantidade'] ?></p>
                     <div style="display:flex;flex-direction: column-reverse;flex-wrap: wrap;justify-content: center;gap:10px">
-                    <a href='produtos.php' class="btn btn-primary">Voltar</a>
-                        <a href="#" class="btn btn-primary">Comprar</a>
+                    <a href='produtos.php' class="btn btn-danger">Voltar</a>
+                        <a href="carrinho.php" class="btn btn-primary">Adicionar ao carrinho</a>
 
                        
 
