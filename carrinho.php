@@ -11,10 +11,18 @@ if (isset($_SESSION['id'])) {
     if ($rows > 0) {
         $fk_Carrinho_ID = $produtos_carrinho['fk_Carrinho_ID'];
         // Query para pegar informacoes de todos os produtos que estao no carrinho do usuario que esta acessando
-        $sql2 = "SELECT p.Nome, p.idProduto, p.Preco, p.Quantidade as Estoque, p.imagem, c.ID, c.Nome  as Categoria FROM produto as p, Categoria_Produto as c, carrinho as cr INNER JOIN produto_carrinho as pc 
+        $sql2 = "SELECT p.Nome, p.idProduto, p.Preco, p.Quantidade as Estoque, p.imagem, c.ID, c.Nome  as Categoria, pc.quantidade FROM produto as p, Categoria_Produto as c, carrinho as cr INNER JOIN produto_carrinho as pc 
             WHERE cr.ID =  $fk_Carrinho_ID  and p.idProduto = pc.fk_Produto_ID  and c.ID = p.fk_Categoria_Produto_ID";
         $result2 = $conn->query($sql2);
-    }
+
+        //Consulta para pegar o valor total dos produtos do carrinho
+        $queryValorTotal = "select sum(round((produto_carrinho.quantidade * produto.Preco), 2)) as ValorTotal
+                            from produto_carrinho
+                            inner join produto on produto.idProduto = produto_carrinho.fk_Produto_ID
+                            where produto_carrinho.fk_Carrinho_ID = $fk_Carrinho_ID";
+
+        $valorTotal = mysqli_fetch_assoc($conn->query($queryValorTotal));
+    }    
 }
 ?>
 
@@ -63,17 +71,12 @@ if (isset($_SESSION['id'])) {
                             <tbody>
                                 <?php
                                 while ($produto = mysqli_fetch_assoc($result2)) :
-                                //query pra pegar a quantidade de um determinado item que foi adicionado ao produto
-                                $idProduto = $produto['idProduto'];
-                                $sql3 = "SELECT * FROM produto_carrinho where fk_Produto_ID = $idProduto and fk_Carrinho_ID = $fk_Carrinho_ID";
-                                $result3 = $conn->query($sql3);
-                                $produto_carrinho = mysqli_fetch_assoc($result3); // retorna as informacoes da tabela produto_carrinho referentes ao produto especifico.
                                 ?>
                                     <tr>
                                         <td>
                                             <div class="product">
                                                 <img width="75px" height="100px" src="data:image/jpeg;image/png;base64,<?php echo base64_encode($produto['imagem']) ?>">
-                                                <div class="product-info">
+                                                <div class="product-info" data-product-id=<?php echo $produto['idProduto'] ?>>
                                                     <div class="info-title"><?php echo $produto['Nome'] ?></div>
                                                     <div class="info-category"><?php echo $produto['Categoria'] ?></div>
                                                 </div>
@@ -82,14 +85,14 @@ if (isset($_SESSION['id'])) {
                                         <td>R$<?php echo $produto['Preco'] ?></td>
                                         <td>
                                             <div class="qty">
-                                                <button type="button" class="btn btn-outline-primary btn-sm">-</button>
-                                                <span><?php echo $produto_carrinho['quantidade'] ?></span>
-                                                <button type="button" class="btn btn-outline-primary btn-sm">+</button>
+                                                <button type="button" class="btn btn-outline-primary btn-sm" onclick="alterarQtdeProdutoCarrinho(2,<?php echo $produto['idProduto'] ?>, <?php echo $fk_Carrinho_ID ?>)"><i class="fa-solid fa-minus"></i></button>
+                                                <span data-product-quantidade=<?php echo $produto['idProduto'] ?>><?php echo $produto['quantidade'] ?></span>
+                                                <button type="button" class="btn btn-outline-primary btn-sm" onclick="alterarQtdeProdutoCarrinho(1,<?php echo $produto['idProduto'] ?>, <?php echo $fk_Carrinho_ID ?>)"><i class="fa-solid fa-plus"></i></button>
                                             </div>
                                         </td>
-                                        <td>R$<?php echo $produto_carrinho['quantidade'] * $produto['Preco'] ?></td>
+                                        <td>R$ <span data-product-totalItemProduto=<?php echo $produto['idProduto'] ?>><?php echo $produto['quantidade'] * $produto['Preco'] ?></span></td>
                                         <td>
-                                            <a href="excluirProdutoCarrinho.php?&idCarrinho=<?php echo $fk_Carrinho_ID?>&idProduto=<?php echo $produto['idProduto']?>" class="btn btn-outline-danger btn-sm">x</a>
+                                            <a href="excluirProdutoCarrinho.php?&idCarrinho=<?php echo $fk_Carrinho_ID ?>&idProduto=<?php echo $produto['idProduto'] ?>" class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-x fa-sm"></i></a>
                                         </td>
                                     </tr>
                                     <tr>
@@ -105,7 +108,7 @@ if (isset($_SESSION['id'])) {
                             <div class="box-info">
                                 <div>
                                     <span>Sub-total</span>
-                                    <span>R$ 418,00</span>
+                                    R$ <span class="valorCarrinho"> <?php echo $valorTotal['ValorTotal']?></span>
                                 </div>
                                 <div>
                                     <span>Frete</span>
@@ -115,7 +118,7 @@ if (isset($_SESSION['id'])) {
                             </div>
                             <footer class="box-footer">
                                 <span>Total</span>
-                                <span>R$ 418,00 </span>
+                                R$ <span class="valorCarrinho"> <?php echo $valorTotal['ValorTotal']?> </span>
                             </footer>
                         </div>
                         <div class="d-flex justify-content-center">
@@ -151,5 +154,39 @@ if (isset($_SESSION['id'])) {
         ?>
     </section>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script type="text/javascript">
+    
+    function alterarQtdeProdutoCarrinho(typeChange, idProduto, idCarrinho) {
+
+        const quantidadeProduto = $(".qty [data-product-quantidade="+idProduto+"]").text();
+        
+        //  Se o tipo é subtrair um produto e a quantidade já for 1 vamos chamar a rotina de excluir o produto do carrinho.
+        if(typeChange == 2 && parseInt(quantidadeProduto) == 1) {
+            console.log("excluindo produto do carrinho");
+            window.location.href = "excluirProdutoCarrinho.php?&idCarrinho="+idCarrinho+"&idProduto="+idProduto;
+            return;
+        }
+
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: "alterarQtdeProdutoCarrinho.php",
+            data: {
+                idProduto: idProduto,
+                idCarrinho: idCarrinho,
+                typeChange: typeChange
+            }
+        }).done(function(data) {
+            console.log(data);
+            $(".qty [data-product-quantidade="+idProduto+"]").html(data.quantidadeProduto);
+            $("td span[data-product-totalItemProduto="+idProduto+"]").html(data.TotalItemProduto);
+            $(".valorCarrinho").html(data.ValorTotal);
+        }).fail(function(request, status, error) {
+            console.log(request);
+            console.log(error);
+        });
+    }
+</script>
 
 </html>
