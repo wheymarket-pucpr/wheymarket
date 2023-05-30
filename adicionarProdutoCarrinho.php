@@ -18,7 +18,6 @@ if (!empty($_GET['id'])) {
             header('location: carrinho.php');
             exit();
         } else {
-            var_dump($result);
             $_SESSION['mensagem'] = "Erro executando INSERT: " . $conn->error . " Tente adicionar o produto novamente.";
             header('location: produtos.php');
             exit();
