@@ -16,6 +16,7 @@ main {
 
 .content {
     display: flex;
+    padding: 0px 20px 0px 20px;
 }
 
 .content section {
@@ -168,4 +169,3 @@ aside {
     letter-spacing: 1px;
 
 }
-

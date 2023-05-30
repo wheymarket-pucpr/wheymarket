@@ -9,7 +9,7 @@ if (!empty($_GET['id'])) {
     $resultCarrinho = $conn->query($sqlCarrinho);
     $carrinho = mysqli_fetch_assoc($resultCarrinho);
     $idCarrinho = $carrinho['ID'];
-    $verificaProduto = "SELECT * FROM produto_carrinho WHERE fk_Produto_ID = $idProduto";
+    $verificaProduto = "SELECT * FROM produto_carrinho WHERE fk_Produto_ID = $idProduto and fk_Carrinho_ID = $idCarrinho";
     $resultVerifica = $conn->query($verificaProduto);
     if (mysqli_num_rows($resultVerifica) == 0) {
         $sql = "INSERT INTO produto_carrinho(fk_Carrinho_ID, fk_Produto_ID,quantidade) VALUES ('$idCarrinho','$idProduto', 1)";
