@@ -50,9 +50,7 @@ if (isset($_POST['email']) || isset($_POST['senha'])) {
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <?php include('htmlhead.php');?>
-
 <body>
     <?php
     require('header.php');
@@ -61,6 +59,9 @@ if (isset($_POST['email']) || isset($_POST['senha'])) {
     <div class='.container-fluid'>
         <div class="row justify-content-center pt-5">
             <div class='col-3'>
+                    <?php
+                    if(!isset($_SESSION['logado'])):
+                    ?>
                 <div class="card">
                     <h5 class="card-header text-dark">Acesse sua conta</h5>
                     <div class="card-body">
@@ -86,9 +87,13 @@ if (isset($_POST['email']) || isset($_POST['senha'])) {
                         </div>
                     </div>
                 </div>
+                <?php
+                 else: 
+                 ?>
+                <h4>Você já está logado</h4>
+                <?php endif?>
             </div>
         </div>
     </div>
 </body>
-
 </html>

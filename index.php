@@ -16,17 +16,9 @@ if(isset($_SESSION['tipoLogin']) && $_SESSION['tipoLogin'] == 1 ){
     <main class="container-fluid">
         <div class="row">
             <div class="col-md-6">
-                <?php
-                if (isset($_SESSION['mensagem'])) :
-                ?>
-                    <div class="alert alert-info" role="alert">
-                        <?php echo $_SESSION['mensagem']; ?>
-                    </div>
-                <?php
-                    unset($_SESSION['mensagem']);
-                
-                endif;
-                ?>
+            <?php
+            include('mensagemSessao.php')
+            ?>
             </div>
         </div>
         <section class="home">

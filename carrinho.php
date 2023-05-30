@@ -45,6 +45,9 @@ if (isset($_SESSION['id'])) {
             <?php
             if ($rows > 0) : // Verifica se o usuario ja adicionou algum produto ao carrinho
             ?>
+                <div>
+                    <?php include('mensagemSessao.php')?>
+                </div>
                 <div class="page-title">
                     Meu Carrinho
                 </div>
@@ -86,7 +89,7 @@ if (isset($_SESSION['id'])) {
                                         <td>
                                             <div class="qty">
                                                 <button type="button" class="btn btn-outline-primary btn-sm" onclick="alterarQtdeProdutoCarrinho(2,<?php echo $produto['idProduto'] ?>, <?php echo $fk_Carrinho_ID ?>)"><i class="fa-solid fa-minus"></i></button>
-                                                <span data-product-quantidade=<?php echo $produto['idProduto'] ?>><?php echo $produto['quantidade'] ?></span>
+                                                <span class="p-2" data-product-quantidade=<?php echo $produto['idProduto'] ?>><?php echo $produto['quantidade'] ?></span>
                                                 <button type="button" class="btn btn-outline-primary btn-sm" onclick="alterarQtdeProdutoCarrinho(1,<?php echo $produto['idProduto'] ?>, <?php echo $fk_Carrinho_ID ?>)"><i class="fa-solid fa-plus"></i></button>
                                             </div>
                                         </td>
