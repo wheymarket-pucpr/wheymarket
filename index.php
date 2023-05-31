@@ -7,11 +7,14 @@ if(isset($_SESSION['tipoLogin']) && $_SESSION['tipoLogin'] == 1 ){
 <!DOCTYPE html>
 <html lang="Pt-br">
 
-<?php include('htmlhead.php');?>
+<?php 
+include('htmlhead.php');
+
+?>
 
 <body>
     <?php
-    require('header.php');
+    require('navbar.php');
     ?>
     <main class="container-fluid">
         <div class="row">

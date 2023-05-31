@@ -1,14 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100;0,400;1,300&display=swap');
+
 
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /*font-family: 'Roboto Mono', monospace;*/
     list-style: none;
     text-decoration: none;
 }
 
+.border-shadow{
+    box-shadow: inset 0 0 5px black, 0 0 1em black;
+}
 /* Color of the links BEFORE scroll */
 .navbar-scroll .nav-link,
 .navbar-scroll .navbar-toggler-icon,
