@@ -15,7 +15,7 @@ include('conexao.php');
                     <li class="nav-item">
                         <form class="d-flex" action="produtos.php" method="POST">
                             <input class="form-control me-2" type="text" name="busca" placeholder="Pesquisar...">
-                            <button class="btn btn-primary" type="submit">
+                            <button class="btn btn-dark" type="submit">
                                 <i class='bx bx-search'></i>
                             </button>
                         </form>

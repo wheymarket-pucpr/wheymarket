@@ -124,7 +124,7 @@ $rows = mysqli_num_rows($result);
                                 <h4 class="card-title">R$ <?php echo $produto['Preco'] ?></h4>
                                 <div style="display:flex;flex-direction: column-reverse;flex-wrap: wrap;justify-content: center;gap:10px">
                                     <a href='adicionarProdutoCarrinho.php?&id=<?php echo $produto['idProduto'] ?>' name="idProduto" class="btn btn-primary">Adicionar ao carrinho</a>
-                                    <a target="_blank" href='produtoVizualizar.php?&id=<?php echo $produto['idProduto'] ?> ' name="idProduto" class="btn btn-primary">Visualizar</a>
+                                    <a target="_blank" href='produtoVisualizar.php?&id=<?php echo $produto['idProduto'] ?> ' name="idProduto" class="btn btn-primary">Visualizar</a>
                                 </div>
                             </div>
 

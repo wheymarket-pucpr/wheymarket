@@ -41,7 +41,7 @@ require('header.php');
                     <p><b>Quantidade disponível:</b> <?php echo $produto['Quantidade'] ?></p>
                     <div style="display:flex;flex-direction: column-reverse;flex-wrap: wrap;justify-content: center;gap:10px">
                     <a href='produtos.php' class="btn btn-danger">Voltar</a>
-                        <a href="carrinho.php" class="btn btn-primary">Adicionar ao carrinho</a>
+                        <a href="carrinho.php" class="btn btn-dark">Adicionar ao carrinho</a>
 
                        
 
