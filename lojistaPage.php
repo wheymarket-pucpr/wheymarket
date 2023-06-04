@@ -108,7 +108,7 @@ if ($result = $conn->query($sql)) {
                                             <a href='lojistaDelete.php?id=<?php echo $lojista['ID'] ?>'>Excluir</a>
                                         </button>
 
-                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar
+                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fechar
                                         </button>
 
                                     </div>

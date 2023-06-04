@@ -1,7 +1,7 @@
 <?php
 include('conexao.php');
 ?>
-<?php include('header.php') ?>
+<?php //include('header.php') ?>
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-lg gp-3 mb-5 bg-white rounded">
         <div class="container-fluid">

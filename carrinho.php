@@ -126,10 +126,10 @@ if (isset($_SESSION['id'])) {
                         </div>
                         <div class="d-flex justify-content-center">
                             <div class="d-flex p-2">
-                                <a class="btn btn-primary" href="#">Finalizar Compra</a>
+                                <a class="btn btn-primary" href="finalizarCompra.php?idCarrinho=<?php echo $fk_Carrinho_ID?>&valorTotal=<?php echo $valorTotal['ValorTotal']?>">Finalizar Compra</a>
                             </div>
                             <div class="d-flex p-2">
-                                <a href="esvaziarCarrinho.php?&id=<?php echo $fk_Carrinho_ID ?>" class="btn btn-danger">Esvaziar Carrinho</a>
+                                <a href="esvaziarCarrinho.php?id=<?php echo $fk_Carrinho_ID ?>" class="btn btn-danger">Esvaziar Carrinho</a>
                             </div>
                         </div>
                     </aside>

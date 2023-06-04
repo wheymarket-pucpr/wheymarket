@@ -24,7 +24,6 @@ if (!empty($_GET['id'])) {
         }
     }
     else{
-        // FAZER LOGICA PARA SOMAR UM NO ATRIBUTO QUANTIDADE DA TABELA PRODUTO_CARRINHO
 
         $atualizaQuantidade = "UPDATE produto_carrinho SET quantidade = (quantidade + 1) 
         WHERE fk_Produto_ID = $idProduto and fk_Carrinho_ID = $idCarrinho;"; 
