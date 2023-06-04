@@ -28,7 +28,7 @@ if ($result = $conn->query($sql)) {
                     <li class="nav-item"><a href="lojistaPage.php">Inicio</a></li>
                     <li class="nav-item"><a href="#">Minhas vendas</a></li>
                     <li class="nav-item"><a href="produtosListar.php">Meus produtos</a></li>
-                    <li class="nav-item"><a href="cadastroProduto.php">Cadastrar produto</a></li>
+                    <li class="nav-item"><a href="produtoCadastro.php">Cadastrar produto</a></li>
                     <?php
                     ?>
                     <li class="nav-item"><span class='text-red'>Ola, <?php echo $_SESSION['Nome'] ?></span></li>

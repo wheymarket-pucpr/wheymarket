@@ -35,7 +35,6 @@ if (isset($_POST['email']) || isset($_POST['senha'])) {
                     exit();
             }
         } else {
-            $_SESSION['logado'] = false;
             $_SESSION['nao_autenticado'] = true;
             $_SESSION['mensagem_header'] = "Login";
             $_SESSION['mensagem']        = "ERRO: Login ou Senha inválidos.";
