@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 29/05/2023 às 02:10
+-- Tempo de geração: 05/06/2023 às 00:38
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -165,8 +165,19 @@ INSERT INTO `lojista` (`ID`, `CNPJ`, `email`, `Nome`, `senha`, `fk_Cadastro_Tipo
 CREATE TABLE `pedido` (
   `ID` int(11) NOT NULL,
   `fk_Consumidor_ID` int(11) NOT NULL,
-  `data_pedido` date DEFAULT NULL
+  `data_pedido` datetime NOT NULL,
+  `Total` decimal(10,0) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `pedido`
+--
+
+INSERT INTO `pedido` (`ID`, `fk_Consumidor_ID`, `data_pedido`, `Total`) VALUES
+(34, 3, '2023-06-04 02:02:54', 340),
+(36, 3, '2023-06-05 00:07:24', 35),
+(39, 3, '2023-06-05 00:25:29', 120),
+(41, 3, '2023-06-05 00:30:09', 100);
 
 -- --------------------------------------------------------
 
@@ -225,6 +236,13 @@ CREATE TABLE `produto_carrinho` (
   `quantidade` int(2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Despejando dados para a tabela `produto_carrinho`
+--
+
+INSERT INTO `produto_carrinho` (`ID`, `fk_Carrinho_ID`, `fk_Produto_ID`, `quantidade`) VALUES
+(30, 1, 22, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -237,6 +255,19 @@ CREATE TABLE `produto_pedido` (
   `fk_Produto_ID` int(11) NOT NULL,
   `quantidade` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `produto_pedido`
+--
+
+INSERT INTO `produto_pedido` (`ID`, `fk_Pedido_ID`, `fk_Produto_ID`, `quantidade`) VALUES
+(26, 34, 2, 3),
+(27, 34, 6, 2),
+(28, 34, 13, 1),
+(32, 36, 17, 1),
+(35, 39, 17, 2),
+(36, 39, 27, 1),
+(38, 41, 22, 4);
 
 --
 -- Índices para tabelas despejadas
@@ -362,7 +393,7 @@ ALTER TABLE `lojista`
 -- AUTO_INCREMENT de tabela `pedido`
 --
 ALTER TABLE `pedido`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT de tabela `produto`
@@ -374,13 +405,13 @@ ALTER TABLE `produto`
 -- AUTO_INCREMENT de tabela `produto_carrinho`
 --
 ALTER TABLE `produto_carrinho`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de tabela `produto_pedido`
 --
 ALTER TABLE `produto_pedido`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- Restrições para tabelas despejadas
