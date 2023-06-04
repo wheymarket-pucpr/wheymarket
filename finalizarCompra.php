@@ -2,16 +2,19 @@
 session_start();
 include_once('conexao.php');
 $idConsumidor = $_SESSION['id'];
-echo $_GET['valorTotal'];
 
 if (!empty($_GET['idCarrinho']) && !empty($_GET['valorTotal'])) {
     $idCarrinho = $_GET['idCarrinho'];
     $valorTotal  =$_GET['valorTotal'];
     $sqlSelect = "SELECT pc.fk_Produto_ID, pc.quantidade FROM produto_carrinho as pc WHERE fk_Carrinho_ID = $idCarrinho";
-    echo $valorTotal;
     $result = $conn->query($sqlSelect);
-    var_dump($result);
 
+    $queryValorTotal = mysqli_fetch_assoc($conn->query("select sum(round((produto_carrinho.quantidade * produto.Preco), 2)) as ValorTotal
+    from produto_carrinho
+    inner join produto on produto.idProduto = produto_carrinho.fk_Produto_ID
+    where produto_carrinho.fk_Carrinho_ID = $idCarrinho"));
+    
+    $valorTotal = $queryValorTotal['ValorTotal'];
     $dataPedido = date("Y-m-d H:i:s");
     $criarPedido = $conn->query("INSERT INTO pedido (fk_Consumidor_ID, data_pedido , Total) VALUES ('$idConsumidor','$dataPedido', '$valorTotal')");
 
