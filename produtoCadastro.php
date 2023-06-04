@@ -4,10 +4,6 @@ require 'conexao.php';
 
 // input e verificacao da imagem
 $img = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-
-var_dump($_POST);
-
-
 if (!empty($_FILES['imgProduto'])) {
 
     $img = $_FILES['imgProduto'];
@@ -65,7 +61,7 @@ if (!empty($_POST) && isset($_POST['Nome']) && isset($_POST['Preco']) && isset($
                     <li class="nav-item"><a href="lojistaPage.php">Inicio</a></li>
                     <li class="nav-item"><a href="#">Minhas vendas</a></li>
                     <li class="nav-item"><a href="listarProdutos.php">Meus produtos</a></li>
-                    <li class="nav-item"><a href="cadastroProduto.php">Cadastrar produto</a></li>
+                    <li class="nav-item"><a href="produtoCadastro.php">Cadastrar produto</a></li>
                     <?php
                     ?>
                     <li class="nav-item"><span class='text-red'>Ola, <?php echo $_SESSION['Nome'] ?></span></li>
