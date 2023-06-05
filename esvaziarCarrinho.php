@@ -1,7 +1,6 @@
 <?php 
 session_start();
 include_once('conexao.php');
-var_dump($_GET['id']);
 if (!empty($_GET['id'])) {
     $idCarrinho = $_GET['id'];
     $sql = "DELETE FROM  produto_carrinho WHERE fk_Carrinho_ID = $idCarrinho"; 

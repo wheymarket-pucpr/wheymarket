@@ -25,12 +25,45 @@ include('conexao.php');
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-lg gp-3 mb-5 bg-white rounded">
         <div class="container-fluid">
         <a href=""><img src="src/img/logo.png" alt="Logo" width="100" height="100"></a>
-        <a href="" class="fs-2 text"><span class="text-danger">Whey </span>Market</a>
+        <a href="" class="fs-2 text"><span class="text-danger">Whey </span>Market
+        <?php if(isset($_SESSION["tipoLogin"]) && $_SESSION['tipoLogin'] == "1"):?>
+        <h6 class="text-danger d-flex justify-content-center">Area do lojista</h6>
+        <?php endif; ?>
+        </a>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
+
+                <?php if(!isset($_SESSION['tipoLogin'])): ?>
+                    <li class="nav-item">
+                        <form class="d-flex" action="produtos.php" method="POST">
+                            <input class="form-control me-2 inputRounded" type="text" name="busca" placeholder="Pesquisar...">
+                            <button class="btn btn-link buttonHover" type="submit">
+                            <i class="fa-solid fa-magnifying-glass text-secondary"></i>
+                            </button>
+                        </form>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php"><i class="fa-solid fa-house"></i> Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="produtos.php"><i class="fa-solid fa-list"></i> Produtos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="carrinho.php"><i class="fa-solid fa-cart-shopping"></i> Carrinho</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="lojistaLogin.php"><i class="fa-solid fa-user-tag"></i> Área do Lojista</a>
+                    </li>
+
+                    <?php
+                    elseif(isset($_SESSION['tipoLogin']) && $_SESSION['tipoLogin'] == "2"):
+                    ?>
                     <li class="nav-item">
                         <form class="d-flex" action="produtos.php" method="POST">
                             <input class="form-control me-2 inputRounded" type="text" name="busca" placeholder="Pesquisar...">
@@ -46,9 +79,7 @@ include('conexao.php');
                     <li class="nav-item">
                         <a class="nav-link" href="produtos.php"><i class="fa-solid fa-list"></i> Produtos</a>
                     </li>
-                    <?php
-                    if(isset($_SESSION['tipoLogin']) && $_SESSION['tipoLogin'] == "2"):
-                    ?>
+
                     <li class="nav-item">
                         <a class="nav-link" href="carrinho.php"><i class="fa-solid fa-cart-shopping"></i> Carrinho</a>
                     </li>
@@ -57,23 +88,22 @@ include('conexao.php');
                         <a class="nav-link" href="meusPedidos.php"></i><i class="fa-solid fa-clipboard"></i> Meus pedidos</a>
                     </li>
 
+
                     <?php elseif(isset($_SESSION['tipoLogin']) && $_SESSION['tipoLogin'] == "1"): ?>
-                        <li class="nav-item">
-                        <a class="nav-link" href="produtosListar.php"><i class="fa-solid fa-cart-shopping"></i> Meus produtos</a>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="lojistaPage.php"><i class="fa-solid fa-house"></i> Meus dados</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="produtosListar.php"><i class="fa-solid fa-box-open"></i></i> Meus produtos</a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="#"></i><i class="fa-solid fa-clipboard"></i> Minhas vendas</a>
                     </li>
-
-
-
-
-                    <?php else: ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="lojistaLogin.php"><i class="fa-solid fa-user-tag"></i> Área do Lojista</a>
-                    </li>
                     <?php endif;?>
+
                     <?php if (!empty($_SESSION) && isset($_SESSION['Nome'])) : ?>
                         <li class="nav-item">
                             <span class="nav-link text-danger">Olá, <?php echo $_SESSION['Nome'] ?></span>

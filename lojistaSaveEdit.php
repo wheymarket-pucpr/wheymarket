@@ -1,5 +1,4 @@
 <?php
-    var_dump($_POST);
     include('conexao.php');
     if(isset($_POST['update']))
     {

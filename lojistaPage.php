@@ -29,7 +29,7 @@ if ($result = $conn->query($sql)) {
         <div class="col p-5">
             <table class="table table-hover table-striped">
                 <thead>
-                <h2>Dados do Lojista</h2>
+                <h3>Dados do Lojista</h3>
                 <tr>
                     <th scope="col">Nome</th>
                     <th scope="col">Email</th>
