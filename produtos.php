@@ -33,13 +33,7 @@ $rows = mysqli_num_rows($result);
 <?php include('htmlhead.php'); ?>
 
 <body>
-    <header>
-        <?php
-        require 'header.php';
-        ?>
-    </header>
-
-
+<?php require('navbar.php'); ?>
     <!-- Se nao tiver nada digitado na barra ou pesquisa vazia -->
     <!-- slider -->
     <?php if (!isset($_POST['busca']) || (isset($_POST['busca']) && $_POST['busca'] === "")) : ?>
@@ -90,16 +84,16 @@ $rows = mysqli_num_rows($result);
                 <div class="row justify-content-between">
                     <div class="col">
                         <input type="checkbox" class="btn-check" name="categorias[]" value="1" id="option1" autocomplete="off" <?php echo (!empty($_GET['categorias']) && isset($_GET['categorias']) && in_array('1', $_GET['categorias'])) ? "checked" : "" ?>>
-                        <label class="btn btn-outline-primary" for="option1">Termogenicos</label>
+                        <label class="btn btn-outline-dark" for="option1">Termogenicos</label>
 
                         <input type="checkbox" class="btn-check" name="categorias[]" value="2" id="option2" autocomplete="off" <?php echo (!empty($_GET['categorias']) && isset($_GET['categorias']) && in_array('2', $_GET['categorias'])) ? "checked" : "" ?>>
-                        <label class="btn btn-outline-primary" for="option2">Aminoacidos</label>
+                        <label class="btn btn-outline-dark" for="option2">Aminoacidos</label>
 
                         <input type="checkbox" class="btn-check" name="categorias[]" value="3" id="option3" autocomplete="off" <?php echo (!empty($_GET['categorias']) && isset($_GET['categorias']) && in_array('3', $_GET['categorias'])) ? "checked" : "" ?>>
-                        <label class="btn btn-outline-primary" for="option3">Acessórios</label>
+                        <label class="btn btn-outline-dark" for="option3">Acessórios</label>
 
                         <input type="checkbox" class="btn-check" name="categorias[]" value="4" id="option4" autocomplete="off" <?php echo (!empty($_GET['categorias']) && isset($_GET['categorias']) && in_array('4', $_GET['categorias'])) ? "checked" : "" ?>>
-                        <label class="btn btn-outline-primary" for="option4">Whey</label>
+                        <label class="btn btn-outline-dark" for="option4">Whey</label>
                     </div>
                     <div class="col">
                         <select name="Ordem" class="form-select form-select-sm" aria-label=".form-select-sm example">
@@ -123,8 +117,42 @@ $rows = mysqli_num_rows($result);
                                 <h5 class="card-title" style='display: -webkit-box;height:2.5em;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;'><?php echo $produto['Nome'] ?></h5>
                                 <h4 class="card-title">R$ <?php echo $produto['Preco'] ?></h4>
                                 <div style="display:flex;flex-direction: column-reverse;flex-wrap: wrap;justify-content: center;gap:10px">
-                                    <a href='adicionarProdutoCarrinho.php?&id=<?php echo $produto['idProduto'] ?>' name="idProduto" class="btn btn-primary">Adicionar ao carrinho</a>
-                                    <a target="_blank" href='produtoVisualizar.php?&id=<?php echo $produto['idProduto'] ?> ' name="idProduto" class="btn btn-primary">Visualizar</a>
+                                    <a href='adicionarProdutoCarrinho.php?&id=<?php echo $produto['idProduto'] ?>' name="idProduto" class="btn btn-outline-danger">Adicionar ao carrinho</a>
+
+                                                            <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo $produto['idProduto']?>">
+                                    Visualizar
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal<?php echo $produto['idProduto']?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel<?php echo $produto['idProduto']?>"><?php echo $produto['Nome'] ?></h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                        <div class="card-body">
+                    <h5 class="card-title" style='display: -webkit-box;height:2.5em;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;'><?php echo $produto['Nome'] ?></h5>
+                    <img width="10px" class="card-img-top" height="300px" style="object-fit: scale-down; " src="data:image/jpeg;image/png;base64,<?php echo base64_encode($produto['imagem']) ?>" alt="Card image cap">
+                    <h4 class="card-title">R$ <?php echo $produto['Preco'] ?></h4>
+                    <p><b>Vendido por: </b><?php echo $lojista['Nome'] ?></p>
+                    <p><b>Descrição:</b></p>
+                    <p><?php echo $produto['Descricao'] ?></p>
+                    <p><b>Quantidade disponível:</b> <?php echo $produto['Quantidade'] ?></p>
+                    <div style="display:flex;flex-direction: column-reverse;flex-wrap: wrap;justify-content: center;gap:10px">
+                        <a href="carrinho.php" class="btn btn-danger">Adicionar ao carrinho</a>
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Voltar</button>
+
+                    </div>
+                </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>
                                 </div>
                             </div>
 

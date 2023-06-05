@@ -19,9 +19,6 @@ include('htmlhead.php');
     <main class="container-fluid">
         <div class="row">
             <div class="col-md-6">
-            <?php
-            include('mensagemSessao.php')
-            ?>
             </div>
         </div>
         <section class="home">

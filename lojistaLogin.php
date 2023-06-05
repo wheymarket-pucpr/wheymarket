@@ -16,29 +16,16 @@ if (isset($_POST['email']) || isset($_POST['senha'])) {
             $_SESSION['login']  = $row['email'];
             $_SESSION['id']  = $row['id'];
             $_SESSION['logado'] = true;
-            $_SESSION['tipoLogin'] = $row['fk_Cadastro_Tipo_ID'];
+            $_SESSION['tipoLogin'] = "1";
             unset($_SESSION['nao_autenticado']);
             unset($_SESSION['mensagem_header']);
-
-            switch ($_SESSION['tipoLogin']) {
-                case 1:
-                    //pagina do lojista
-                    header('location: lojistaPage.php');;
-                    break;
-                case 2:
-                    //index pro consumidor
-                    header('location: index.php');;
-                    break;
-                case 3:
-                    //SETAR PAGINA DO ADMIN AQUI;
-                    break;
-                    exit();
-            }
+            header('location: lojistaPage.php');;
+  
         } else {
             $_SESSION['nao_autenticado'] = true;
             $_SESSION['mensagem_header'] = "Login";
             $_SESSION['mensagem']        = "ERRO: Login ou Senha inválidos.";
-            header('location: index.php');
+            header('location: lojistaLogin.php');
             exit();
         }
     } else {
@@ -51,9 +38,7 @@ if (isset($_POST['email']) || isset($_POST['senha'])) {
 <html lang="pt-BR">
 <?php include('htmlhead.php');?>
 <body>
-    <?php
-    require('header.php');
-    ?>
+<?php require('navbar.php'); ?>
 
     <div class='.container-fluid'>
         <div class="row justify-content-center pt-5">
@@ -62,7 +47,7 @@ if (isset($_POST['email']) || isset($_POST['senha'])) {
                     if(!isset($_SESSION['logado'])):
                     ?>
                 <div class="card">
-                    <h5 class="card-header text-dark">Acesse sua conta</h5>
+                    <h5 class="card-header text-dark">Acesse sua conta de lojista</h5>
                     <div class="card-body">
                         <div class='col'>
                             <form action="" method="POST">

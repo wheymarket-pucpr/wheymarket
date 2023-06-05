@@ -24,7 +24,7 @@ if (!empty($_GET['id'])) {
 
 <?php include('htmlhead.php');?>
 <?php
-require('header.php');
+require('navbar.php');
 ?>
 
 <body>
