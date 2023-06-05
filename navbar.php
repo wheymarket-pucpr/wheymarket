@@ -26,9 +26,6 @@ include('conexao.php');
         <div class="container-fluid">
         <a href=""><img src="src/img/logo.png" alt="Logo" width="100" height="100"></a>
         <a href="" class="fs-2 text"><span class="text-danger">Whey </span>Market</a>
-        <?php
-            include('mensagemSessao.php')
-            ?>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>

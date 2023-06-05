@@ -118,7 +118,30 @@ $rows = mysqli_num_rows($result);
                                 <h4 class="card-title">R$ <?php echo $produto['Preco'] ?></h4>
                                 <div style="display:flex;flex-direction: column-reverse;flex-wrap: wrap;justify-content: center;gap:10px">
                                     <a href='adicionarProdutoCarrinho.php?&id=<?php echo $produto['idProduto'] ?>' name="idProduto" class="btn btn-outline-danger">Adicionar ao carrinho</a>
-                                    <a target="_blank" href='produtoVisualizar.php?&id=<?php echo $produto['idProduto'] ?> ' name="idProduto" class="btn btn-outline-dark">Visualizar</a>
+
+                                                            <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo $produto['idProduto']?>">
+                                    Visualizar
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal<?php echo $produto['idProduto']?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel<?php echo $produto['idProduto']?>">Modal title</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            ...
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>
                                 </div>
                             </div>
 

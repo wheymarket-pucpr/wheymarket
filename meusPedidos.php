@@ -24,6 +24,7 @@ if (!empty($_SESSION['id'])) {
             </blockquote>
         </figure>
         <div class="row row-cols-1 row-cols-md-1 g-4">
+            
             <?php while ($pedido = mysqli_fetch_assoc($queryPedidos)) : ?>
                 <?php
                 $idPedido = $pedido['ID'];
@@ -34,19 +35,21 @@ if (!empty($_SESSION['id'])) {
                 <div class="col d-flex justify-content-center">
                     <div class="card p-2 border-danger mb-3  h-100">
                         <div class="card-body">
-                            <h5 class="card-title">Pedido #<?php echo $pedido['ID']?> 
+                            <h5 class="card-title">Pedido #<?php echo $idPedido?> </h5>
                             <br>
-                            Valor total: <?php echo $pedido['Total'] ?>
+                            Valor total: R$ <?php echo $pedido['Total'] ?>
                             <br>
                             Data/Hora do pedido: <?php echo $pedido['data_pedido'] ?>
-                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseExample<?php echo $pedido['ID']?> " aria-expanded="false" aria-controls="collapseExample">Ver detalhes</button></h5>
-                            <div class="collapse" id="collapseExample<?php echo $pedido['ID']?> ">
-                                <table class="table table-danger table-sm table-bordered border-danger caption-top">
+                            <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#datatoggle<?php echo $idPedido?>" aria-expanded="false" aria-controls="datatoggle<?php echo $idPedido?>">
+                                Ver detalhes
+                            </button>
+                            <div class="collapse" id="datatoggle<?php echo $idPedido?>">
+                                <table class="table table-sm table-bordered border-danger caption-top">
                                     <caption style="color: black;"><b>Produtos</b></caption>
                                     <thead>
                                         <tr>
                                             <th scope="col" style="width: 15rem;">Nome</th>
-                                            <th scope="col" style="width: 5rem;">Preco</th>
+                                            <th scope="col" style="width: 5rem;">Preço</th>
                                             <th scope="col">Quantidade</th>
                                             <th scope="col">Link</th>
                                         </tr>
@@ -90,9 +93,11 @@ if (!empty($_SESSION['id'])) {
             <a class="btn btn-outline-dark" href="produtos.php">Ver Produtos</a>
         </div>
     <?php endif; ?>
+    
 
 
 
 </body>
+
 
 </html>
