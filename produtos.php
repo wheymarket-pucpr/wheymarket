@@ -33,13 +33,7 @@ $rows = mysqli_num_rows($result);
 <?php include('htmlhead.php'); ?>
 
 <body>
-    <header>
-        <?php
-        require 'header.php';
-        ?>
-    </header>
-
-
+<?php require('navbar.php'); ?>
     <!-- Se nao tiver nada digitado na barra ou pesquisa vazia -->
     <!-- slider -->
     <?php if (!isset($_POST['busca']) || (isset($_POST['busca']) && $_POST['busca'] === "")) : ?>
@@ -90,16 +84,16 @@ $rows = mysqli_num_rows($result);
                 <div class="row justify-content-between">
                     <div class="col">
                         <input type="checkbox" class="btn-check" name="categorias[]" value="1" id="option1" autocomplete="off" <?php echo (!empty($_GET['categorias']) && isset($_GET['categorias']) && in_array('1', $_GET['categorias'])) ? "checked" : "" ?>>
-                        <label class="btn btn-outline-primary" for="option1">Termogenicos</label>
+                        <label class="btn btn-outline-dark" for="option1">Termogenicos</label>
 
                         <input type="checkbox" class="btn-check" name="categorias[]" value="2" id="option2" autocomplete="off" <?php echo (!empty($_GET['categorias']) && isset($_GET['categorias']) && in_array('2', $_GET['categorias'])) ? "checked" : "" ?>>
-                        <label class="btn btn-outline-primary" for="option2">Aminoacidos</label>
+                        <label class="btn btn-outline-dark" for="option2">Aminoacidos</label>
 
                         <input type="checkbox" class="btn-check" name="categorias[]" value="3" id="option3" autocomplete="off" <?php echo (!empty($_GET['categorias']) && isset($_GET['categorias']) && in_array('3', $_GET['categorias'])) ? "checked" : "" ?>>
-                        <label class="btn btn-outline-primary" for="option3">Acessórios</label>
+                        <label class="btn btn-outline-dark" for="option3">Acessórios</label>
 
                         <input type="checkbox" class="btn-check" name="categorias[]" value="4" id="option4" autocomplete="off" <?php echo (!empty($_GET['categorias']) && isset($_GET['categorias']) && in_array('4', $_GET['categorias'])) ? "checked" : "" ?>>
-                        <label class="btn btn-outline-primary" for="option4">Whey</label>
+                        <label class="btn btn-outline-dark" for="option4">Whey</label>
                     </div>
                     <div class="col">
                         <select name="Ordem" class="form-select form-select-sm" aria-label=".form-select-sm example">
@@ -123,8 +117,8 @@ $rows = mysqli_num_rows($result);
                                 <h5 class="card-title" style='display: -webkit-box;height:2.5em;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;'><?php echo $produto['Nome'] ?></h5>
                                 <h4 class="card-title">R$ <?php echo $produto['Preco'] ?></h4>
                                 <div style="display:flex;flex-direction: column-reverse;flex-wrap: wrap;justify-content: center;gap:10px">
-                                    <a href='adicionarProdutoCarrinho.php?&id=<?php echo $produto['idProduto'] ?>' name="idProduto" class="btn btn-primary">Adicionar ao carrinho</a>
-                                    <a target="_blank" href='produtoVisualizar.php?&id=<?php echo $produto['idProduto'] ?> ' name="idProduto" class="btn btn-primary">Visualizar</a>
+                                    <a href='adicionarProdutoCarrinho.php?&id=<?php echo $produto['idProduto'] ?>' name="idProduto" class="btn btn-outline-danger">Adicionar ao carrinho</a>
+                                    <a target="_blank" href='produtoVisualizar.php?&id=<?php echo $produto['idProduto'] ?> ' name="idProduto" class="btn btn-outline-dark">Visualizar</a>
                                 </div>
                             </div>
 

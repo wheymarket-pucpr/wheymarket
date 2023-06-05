@@ -37,7 +37,7 @@ if (isset($_SESSION['id'])) {
 <body>
     <section>
         <?php
-        require 'header.php';
+        require 'navbar.php';
         ?>
         <?php
         if (isset($_SESSION['tipoLogin']) && $_SESSION['tipoLogin'] == 2) : // Verifica se o usuário está logado e se é um consumidor
@@ -139,7 +139,7 @@ if (isset($_SESSION['id'])) {
             ?>
                 <div style="padding: 20px;">
                     <h4>Você ainda não adicionou nenhum produto ao carrinho!</h4>
-                    <a class="btn btn-primary" href="produtos.php">Ver Produtos</a>
+                    <a class="btn btn-outline-dark" href="produtos.php">Ver Produtos</a>
                 </div>
             <?php
             endif;
@@ -149,8 +149,8 @@ if (isset($_SESSION['id'])) {
         ?>
             <div style="padding: 20px;">
                 <h4>Você precisa estar logado para acessar ou inserir itens no carrinho!</h4>
-                <a class="btn btn-dark" href="produtos.php">Voltar</a>
-                <a class="btn btn-primary" href="consumidorLogin.php">Login</a>
+                <a class="btn btn-outline-secondary" href="produtos.php">Voltar</a>
+                <a class="btn btn-outline-primary" href="consumidorLogin.php">Login</a>
             </div>
         <?php
         endif;

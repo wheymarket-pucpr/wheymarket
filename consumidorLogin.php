@@ -16,13 +16,12 @@ if (isset($_POST['email']) || isset($_POST['senha'])) {
             $_SESSION['login']  = $row['email'];
             $_SESSION['id']  = $row['id'];
             $_SESSION['logado'] = true;
-            $_SESSION['tipoLogin'] = $row['fk_Cadastro_Tipo_ID'];
+            $_SESSION['tipoLogin'] = "2";
             unset($_SESSION['nao_autenticado']);
             unset($_SESSION['mensagem_header']);
             header('location: index.php');
                     
         } else {
-            $_SESSION['logado'] = false;
             $_SESSION['nao_autenticado'] = true;
             $_SESSION['mensagem_header'] = "Login";
             $_SESSION['mensagem']        = "ERRO: Login ou Senha inválidos.";
@@ -41,15 +40,13 @@ if (isset($_POST['email']) || isset($_POST['senha'])) {
 <?php include('htmlhead.php'); ?>
 
 <body>
-    <?php
-    require('header.php');
-    ?>
+<?php require('navbar.php'); ?>
 
     <div class='.container-fluid'>
         <div class="row justify-content-center pt-5">
             <div class='col-3'>
                 <div class="card">
-                    <h5 class="card-header text-dark">Acesse sua conta</h5>
+                    <h5 class="card-header text-dark">Acesse sua conta de consumidor</h5>
                     <div class="card-body">
                         <div class='col'>
                             <form action="" method="POST">

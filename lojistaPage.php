@@ -1,6 +1,7 @@
 <?php
 session_start();
 require('conexao.php');
+if(isset($_SESSION['id'])){
 
 $idLojista = $_SESSION['id'];
 
@@ -12,6 +13,7 @@ if ($result = $conn->query($sql)) {
 } else {
     // criar mensagem caso falhe o sql
 }
+}
 ?>
 <!DOCTYPE html>
 <html lang="Pt-br">
@@ -19,37 +21,10 @@ if ($result = $conn->query($sql)) {
 <?php include('htmlhead.php');?>
 
 <body>
-<header>
-    <nav class="navigation ">
-        <div class="flex-center-logo">
-            <a href="lojistaPage.php"><img src="src/img/logo.png" width="100px" height="100px"></a>
-            <a href="lojistaPage.php" class="logo">Whey <span>Market</span>
-                <h6>Area do vendedor</h6>
-            </a>
-
-        </div>
-        <div>
-            <ul class="nav-menu">
-                <i class='bx bx-search'></i>
-                <li class="nav-item"><a href="lojistaPage.php">Inicio</a></li>
-                <li class="nav-item"><a href="#">Minhas vendas</a></li>
-                <li class="nav-item"><a href="produtosListar.php">Meus produtos</a></li>
-                <li class="nav-item"><a href="produtoCadastro.php">Cadastrar produto</a></li>
-                <?php
-                ?>
-                <li class="nav-item"><span class='text-red'>Ola, <?php echo $_SESSION['Nome'] ?></span></li>
-                <li class="nav-item"><a href="logout.php">Sair</a></li>
-                <?php
-                ?>
-            </ul>
-        </div>
-        <div class="menu">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-        </div>
-    </nav>
-</header>
+<?php
+var_dump($_SESSION['tipoLogin']);
+    require('navbar.php');
+    ?>
 <div class="container-fluid">
     <div class="row">
         <div class="col p-5">

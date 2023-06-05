@@ -28,9 +28,7 @@ if (!empty($_POST) && isset($_POST['email']) && isset($_POST['senha']) && isset(
 <?php include('htmlhead.php');?>
 
 <body>
-    <?php
-    require('header.php');
-    ?>
+<?php require('navbar.php'); ?>
     <div class='.container-fluid'>
         <div class="row justify-content-center pt-5">
             <div class='col-3'>

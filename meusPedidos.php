@@ -14,12 +14,9 @@ if (!empty($_SESSION['id'])) {
 <head>
     <?php include('htmlhead.php'); ?>
 </head>
-<header>
-    <?php require 'navbar.php'; ?>
-</header>
 
 <body>
-
+<?php require('navbar.php'); ?>
     <?php if (mysqli_num_rows($queryPedidos) > 0) : ?>
         <figure class="text-center">
             <blockquote class="blockquote">
@@ -81,7 +78,15 @@ if (!empty($_SESSION['id'])) {
 
             <?php endwhile; ?>
         </div>
+    <?php else: ?>
+<div style="padding: 20px;">
+    <h4>Você ainda não fez nenhum pedido!</h4>
+    <a class="btn btn-outline-dark" href="produtos.php">Ver Produtos</a>
+</div>
     <?php endif; ?>
+
+
+                              
 </body>
 
 </html>

@@ -262,5 +262,23 @@ a{
     height: 100%;
  }
 
- 
+.nav-item a:hover{
+    color: var(--red)
+}
 
+.navbar .nav-item {
+    padding-right: 35px;
+}
+
+button.btn.btn-link.buttonHover:hover i{
+    color: var(--red)!important;
+}
+
+.inputRounded{
+    border-radius: 25px;
+}
+
+.inputRounded:focus{
+    border-color: var(--red);
+    box-shadow: 0 0 10px var(--red);
+}
