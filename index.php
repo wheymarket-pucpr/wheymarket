@@ -12,7 +12,7 @@ include('htmlhead.php');
 
 ?>
 
-<body>
+<img>
     <?php
     require('navbar.php');
     ?>
@@ -28,7 +28,7 @@ include('htmlhead.php');
                 <p>Homepage do projeto de Experiencia Crativa</p>
                 <a href="produtos.php" class="home-btn">Veja nosso catalogo</a>
             </div>
-            <div><img src="src/img/fundohome.png" alt="" width="500"></div>
+            <div><img src="src/img/8443609.jpg" alt="" width="500"></div>
         </section>
     </main>
 </body>
