@@ -29,8 +29,8 @@ if (!empty($_SESSION['id'])) {
             <?php while ($pedido = mysqli_fetch_assoc($queryPedidos)) : ?>
                 <?php
                 $idPedido = $pedido['ID'];
-                $queryProdutosPedido = $conn->query("SELECT pp.quantidade, prod.Nome, prod.Preco, prod.idProduto FROM produto_pedido as pp INNER JOIN produto as prod 
-                    WHERE pp.fk_Pedido_ID = $idPedido and pp.fk_Produto_ID = prod.idProduto");
+                $queryProdutosPedido = $conn->query("SELECT pp.quantidade, prod.*, lojista.Nome as Lojista FROM produto_pedido as pp, lojista INNER JOIN produto as prod 
+                    WHERE pp.fk_Pedido_ID = $idPedido and pp.fk_Produto_ID = prod.idProduto and lojista.ID = prod.fk_Lojista_ID");
                 ?>
 
                 <div class="col d-flex justify-content-center">
@@ -81,13 +81,13 @@ if (!empty($_SESSION['id'])) {
                                                                 <h5 class="card-title" style='display: -webkit-box;height:2.5em;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;'><?php echo $produto['Nome'] ?></h5>
                                                                 <img width="10px" class="card-img-top" height="300px" style="object-fit: scale-down; " src="data:image/jpeg;image/png;base64,<?php echo base64_encode($produto['imagem']) ?>" alt="Card image cap">
                                                                 <h4 class="card-title">R$ <?php echo $produto['Preco'] ?></h4>
-                                                                <p><b>Vendido por: </b><?php echo $lojista['Nome'] ?></p>
+                                                                <p><b>Vendido por: </b><?php echo $produto['Lojista'] ?></p>
                                                                 <p><b>Descrição:</b></p>
                                                                 <p><?php echo $produto['Descricao'] ?></p>
                                                                 <p><b>Quantidade disponível:</b> <?php echo $produto['Quantidade'] ?></p>
                                                                 <div style="display:flex;flex-direction: column-reverse;flex-wrap: wrap;justify-content: center;gap:10px">
-                                                                    <a href="carrinho.php" class="btn btn-danger">Adicionar ao carrinho</a>
-                                                                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Voltar</button>
+                                                                <a href='adicionarProdutoCarrinho.php?&id=<?php echo $produto['idProduto'] ?>' name="idProduto" class="btn btn-outline-danger">Adicionar ao carrinho</a>
+                                                                    <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Voltar</button>
 
                                                                 </div>
                                                             </div>
