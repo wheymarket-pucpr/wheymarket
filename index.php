@@ -13,6 +13,7 @@ if(isset($_SESSION['tipoLogin']) && $_SESSION['tipoLogin'] == 1 ){
 <?php
     require('navbar.php');
     ?>
+    <?php include('mensagemSessao.php') ?>
     <main class="container-fluid">
         <div class="row">
             <div class="col-md-6">
