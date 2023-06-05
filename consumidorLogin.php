@@ -16,7 +16,7 @@ if (isset($_POST['email']) || isset($_POST['senha'])) {
             $_SESSION['login']  = $row['email'];
             $_SESSION['id']  = $row['id'];
             $_SESSION['logado'] = true;
-            $_SESSION['tipoLogin'] = 2;
+            $_SESSION['tipoLogin'] = "2";
             unset($_SESSION['nao_autenticado']);
             unset($_SESSION['mensagem_header']);
             header('location: index.php');

@@ -1,7 +1,5 @@
 <?php
 include('conexao.php');
-
-var_dump($_SESSION['tipoLogin']);
 ?>
 <head>
     <meta charset="UTF-8">
@@ -52,7 +50,7 @@ var_dump($_SESSION['tipoLogin']);
                         <a class="nav-link" href="produtos.php"><i class="fa-solid fa-list"></i> Produtos</a>
                     </li>
                     <?php
-                    if(isset($_SESSION['tipoLogin']) && $_SESSION['tipoLogin'] = "2"):
+                    if(isset($_SESSION['tipoLogin']) && $_SESSION['tipoLogin'] == "2"):
                     ?>
                     <li class="nav-item">
                         <a class="nav-link" href="carrinho.php"><i class="fa-solid fa-cart-shopping"></i> Carrinho</a>
@@ -62,7 +60,7 @@ var_dump($_SESSION['tipoLogin']);
                         <a class="nav-link" href="meusPedidos.php"></i><i class="fa-solid fa-clipboard"></i> Meus pedidos</a>
                     </li>
 
-                    <?php elseif(isset($_SESSION['tipoLogin']) && $_SESSION['tipoLogin'] = "1"): ?>
+                    <?php elseif(isset($_SESSION['tipoLogin']) && $_SESSION['tipoLogin'] == "1"): ?>
                         <li class="nav-item">
                         <a class="nav-link" href="produtosListar.php"><i class="fa-solid fa-cart-shopping"></i> Meus produtos</a>
                     </li>

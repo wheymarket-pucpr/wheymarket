@@ -16,7 +16,7 @@ if (!empty($_SESSION['id'])) {
 </head>
 
 <body>
-<?php require('navbar.php'); ?>
+    <?php require('navbar.php'); ?>
     <?php if (mysqli_num_rows($queryPedidos) > 0) : ?>
         <figure class="text-center">
             <blockquote class="blockquote">
@@ -34,59 +34,65 @@ if (!empty($_SESSION['id'])) {
                 <div class="col d-flex justify-content-center">
                     <div class="card p-2 border-danger mb-3  h-100">
                         <div class="card-body">
-                            <h5 class="card-title">Pedido #<?php echo $pedido['ID'] ?></h5>
-                            <table class="table table-danger table-sm table-bordered border-danger caption-top">
-                                <caption style="color: black;"><b>Produtos</b></caption>
-                                <thead>
-                                    <tr>
-                                        <th scope="col" style= "width: 15rem;">Nome</th>
-                                        <th scope="col" style= "width: 5rem;">Preco</th>
-                                        <th scope="col">Quantidade</th>
-                                        <th scope="col">Link</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    while ($produto = mysqli_fetch_assoc($queryProdutosPedido)) :
-                                    ?>
+                            <h5 class="card-title">Pedido #<?php echo $pedido['ID']?> 
+                            <br>
+                            Valor total: <?php echo $pedido['Total'] ?>
+                            <br>
+                            Data/Hora do pedido: <?php echo $pedido['data_pedido'] ?>
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseExample<?php echo $pedido['ID']?> " aria-expanded="false" aria-controls="collapseExample">Ver detalhes</button></h5>
+                            <div class="collapse" id="collapseExample<?php echo $pedido['ID']?> ">
+                                <table class="table table-danger table-sm table-bordered border-danger caption-top">
+                                    <caption style="color: black;"><b>Produtos</b></caption>
+                                    <thead>
                                         <tr>
-                                            <td scope="row" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><?php echo $produto['Nome'] ?></td>
-                                            <td scope="row"> R$ <?php echo $produto['Preco'] ?></td>
-                                            <td scope="row"><?php echo $produto['quantidade'] ?></td>
-                                            <td scope="row"><a class=" btn btn-sm btn-dark" href="produtoVisualizar.php?id=<?php echo $produto['idProduto'] ?>">Visualizar Produto</a></td>
+                                            <th scope="col" style="width: 15rem;">Nome</th>
+                                            <th scope="col" style="width: 5rem;">Preco</th>
+                                            <th scope="col">Quantidade</th>
+                                            <th scope="col">Link</th>
                                         </tr>
-                                    <?php endwhile; ?>
-                                </tbody>
-                            </table>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Data</th>
-                                        <th scope="col">Valor Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="table-group-divider">
-                                    <tr>
-                                        <th scope="row"><?php echo $pedido['data_pedido'] ?></th>
-                                        <th scope="row">R$ <?php echo $pedido['Total'] ?></th>
-                                    </tr>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        while ($produto = mysqli_fetch_assoc($queryProdutosPedido)) :
+                                        ?>
+                                            <tr>
+                                                <td scope="row" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;"><?php echo $produto['Nome'] ?></td>
+                                                <td scope="row"> R$ <?php echo $produto['Preco'] ?></td>
+                                                <td scope="row"><?php echo $produto['quantidade'] ?></td>
+                                                <td scope="row"><a class=" btn btn-sm btn-dark" href="produtoVisualizar.php?id=<?php echo $produto['idProduto'] ?>">Visualizar Produto</a></td>
+                                            </tr>
+                                        <?php endwhile; ?>
+                                    </tbody>
+                                </table>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Data</th>
+                                            <th scope="col">Valor Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table-group-divider">
+                                        <tr>
+                                            <th scope="row"><?php echo $pedido['data_pedido'] ?></th>
+                                            <th scope="row">R$ <?php echo $pedido['Total'] ?></th>
+                                        </tr>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-
             <?php endwhile; ?>
         </div>
-    <?php else: ?>
-<div style="padding: 20px;">
-    <h4>Você ainda não fez nenhum pedido!</h4>
-    <a class="btn btn-outline-dark" href="produtos.php">Ver Produtos</a>
-</div>
+
+    <?php else : ?>
+        <div style="padding: 20px;">
+            <h4>Você ainda não fez nenhum pedido!</h4>
+            <a class="btn btn-outline-dark" href="produtos.php">Ver Produtos</a>
+        </div>
     <?php endif; ?>
 
 
-                              
+
 </body>
 
 </html>
