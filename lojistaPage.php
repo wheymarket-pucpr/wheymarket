@@ -24,6 +24,7 @@ if ($result = $conn->query($sql)) {
 <?php
     require('navbar.php');
     ?>
+    <?php include('mensagemSessao.php') ?>
 <div class="container-fluid">
     <div class="row">
         <div class="col p-5">

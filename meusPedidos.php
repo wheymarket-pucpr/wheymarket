@@ -6,6 +6,12 @@ if (!empty($_SESSION['id'])) {
     $idConsumidor = $_SESSION['id'];
     $queryPedidos = $conn->query("SELECT * FROM pedido WHERE fk_Consumidor_ID = $idConsumidor");
 }
+
+if (isset($_SESSION['tipoLogin']) && $_SESSION['tipoLogin'] != "2") {
+    $_SESSION['mensagem'] = "Voce nao pode acessar essa pagina agora ! Verifique suas credenciais";
+    header('location: lojistaPage.php');
+    
+  }
 ?>
 
 <!DOCTYPE html>

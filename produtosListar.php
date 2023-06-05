@@ -11,7 +11,12 @@ if ($result = $conn->query($sql)) {
 ?>
 <!DOCTYPE html>
 <html lang="Pt-br">
-<?php include('htmlhead.php');?>
+<?php include('htmlhead.php');
+if (isset($_SESSION['tipoLogin']) && $_SESSION['tipoLogin'] != "1") {
+    $_SESSION['mensagem'] = "Voce nao pode acessar essa pagina agora ! Verifique suas credenciais";
+    header('location: index.php');
+    
+  }?>
 <body>
 <?php require('navbar.php'); ?>
     <div class="container-fluid">

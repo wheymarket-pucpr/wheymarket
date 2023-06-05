@@ -25,6 +25,11 @@ if (!empty($_GET['Ordem']) && $_GET['Ordem'] != "0") {
 $result = $conn->query($sql);
 $rows = mysqli_num_rows($result);
 
+if (isset($_SESSION['tipoLogin']) && $_SESSION['tipoLogin'] != "2") {
+    $_SESSION['mensagem'] = "Voce nao pode acessar essa pagina agora ! Verifique suas credenciais";
+    header('location: lojistaPage.php');
+    
+  }
 ?>
 
 <!DOCTYPE html>

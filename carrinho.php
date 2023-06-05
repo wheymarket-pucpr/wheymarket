@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 require('conexao.php');
 if (isset($_SESSION['id'])) {
@@ -23,6 +24,12 @@ if (isset($_SESSION['id'])) {
 
         $valorTotal = mysqli_fetch_assoc($conn->query($queryValorTotal));
     }    
+
+}
+if (isset($_SESSION['tipoLogin']) && $_SESSION['tipoLogin'] != "2") {
+  $_SESSION['mensagem'] = "Voce nao pode acessar essa pagina agora ! Verifique suas credenciais";
+  header('location: lojistaPage.php');
+  
 }
 ?>
 <!DOCTYPE html>
