@@ -4,7 +4,7 @@ if (isset($_SESSION['tipoLogin']) && $_SESSION['tipoLogin'] == 1) {
     header('Location: lojistaPage.php');
 }
 require('conexao.php');
-$sql = "SELECT * FROM produto WHERE Anuncio = 1";
+$sql = "SELECT produto.* , lojista.Nome as Lojista FROM produto INNER JOIN lojista WHERE produto.fk_Lojista_ID = lojista.ID and Anuncio = 1";
 
 if (!empty($_POST) && isset($_POST['busca']) && $_POST['busca'] != "") {
     $busca = $_POST['busca'];
@@ -152,6 +152,27 @@ $rows = mysqli_num_rows($result);
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="modal-body">
+                                        <div class="card-body">
+                    <h5 class="card-title" style='display: -webkit-box;height:2.5em;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;'><?php echo $produto['Nome'] ?></h5>
+                    <img width="10px" class="card-img-top" height="300px" style="object-fit: scale-down; " src="data:image/jpeg;image/png;base64,<?php echo base64_encode($produto['imagem']) ?>" alt="Card image cap">
+                    <h4 class="card-title">R$ <?php echo $produto['Preco'] ?></h4>
+                    <p><b>Vendido por: </b><?php echo $produto['Lojista'] ?></p>
+                    <p><b>Descrição:</b></p>
+                    <p><?php echo $produto['Descricao'] ?></p>
+                    <p><b>Quantidade disponível:</b> <?php echo $produto['Quantidade'] ?></p>
+                    <div style="display:flex;flex-direction: column-reverse;flex-wrap: wrap;justify-content: center;gap:10px">
+                        <a href="carrinho.php" class="btn btn-danger">Adicionar ao carrinho</a>
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Voltar</button>
+
+                    </div>
+                </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                        </div>
+                                        </div>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
