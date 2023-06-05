@@ -22,7 +22,6 @@ if ($result = $conn->query($sql)) {
 
 <body>
 <?php
-var_dump($_SESSION['tipoLogin']);
     require('navbar.php');
     ?>
 <div class="container-fluid">

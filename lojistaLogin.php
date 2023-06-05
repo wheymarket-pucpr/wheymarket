@@ -16,24 +16,11 @@ if (isset($_POST['email']) || isset($_POST['senha'])) {
             $_SESSION['login']  = $row['email'];
             $_SESSION['id']  = $row['id'];
             $_SESSION['logado'] = true;
-            $_SESSION['tipoLogin'] = "1";
+            $_SESSION['tipoLogin'] = 2;
             unset($_SESSION['nao_autenticado']);
             unset($_SESSION['mensagem_header']);
-
-            switch ($_SESSION['tipoLogin']) {
-                case 1:
-                    //pagina do lojista
-                    header('location: lojistaPage.php');;
-                    break;
-                case 2:
-                    //index pro consumidor
-                    header('location: index.php');;
-                    break;
-                case 3:
-                    //SETAR PAGINA DO ADMIN AQUI;
-                    break;
-                    exit();
-            }
+            header('location: lojistaPage.php');;
+  
         } else {
             $_SESSION['nao_autenticado'] = true;
             $_SESSION['mensagem_header'] = "Login";

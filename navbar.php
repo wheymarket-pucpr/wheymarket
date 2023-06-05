@@ -1,5 +1,7 @@
 <?php
 include('conexao.php');
+
+var_dump($_SESSION['tipoLogin']);
 ?>
 <head>
     <meta charset="UTF-8">
