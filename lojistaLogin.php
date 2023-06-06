@@ -20,11 +20,10 @@ if (isset($_POST['email']) || isset($_POST['senha'])) {
             unset($_SESSION['nao_autenticado']);
             unset($_SESSION['mensagem_header']);
             header('location: lojistaPage.php');;
-  
         } else {
             $_SESSION['nao_autenticado'] = true;
             $_SESSION['mensagem_header'] = "Login";
-            $_SESSION['mensagem']        = "ERRO: Login ou Senha inválidos.";
+            $_SESSION['mensagem']  = "ERRO: Login ou Senha inválidos.";
             header('location: lojistaLogin.php');
             exit();
         }
@@ -36,48 +35,51 @@ if (isset($_POST['email']) || isset($_POST['senha'])) {
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
-<?php include('htmlhead.php');?>
+<?php include('htmlhead.php'); ?>
+
 <body>
-<?php require('navbar.php'); ?>
+    <?php require('navbar.php'); ?>
+    <?php include('mensagemSessao.php') ?>
 
     <div class='.container-fluid'>
         <div class="row justify-content-center pt-5">
             <div class='col-3'>
-                    <?php
-                    if(!isset($_SESSION['logado'])):
-                    ?>
-                <div class="card">
-                    <h5 class="card-header text-dark">Acesse sua conta de lojista</h5>
-                    <div class="card-body">
-                        <div class='col'>
-                            <form action="" method="POST">
-                                <div class="mb-3">
-                                    <label for="email" class="form-label">Email</label>
-                                    <input type="text" name="email" class="form-control" id="email">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="senha" class="form-label">Senha</label>
-                                    <input type="password" name="senha" class="form-control" id="senha">
-                                </div>
-                                <div class="d-grid gap-2 mb-3">
-                                    <button class="btn btn-outline-primary" type="submit">Entrar</button>
-                                </div>
-                                <div class="row">
-                                    <div class="text-center">
-                                        <a href="lojistaCadastro.php" class="link-primary">Nao sou cadastrado</a>
+                <?php
+                if (!isset($_SESSION['logado'])) :
+                ?>
+                    <div class="card">
+                        <h5 class="card-header text-dark">Acesse sua conta de lojista</h5>
+                        <div class="card-body">
+                            <div class='col'>
+                                <form action="" method="POST">
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="text" name="email" class="form-control" id="email">
                                     </div>
-                                </div>
-                            </form>
+                                    <div class="mb-3">
+                                        <label for="senha" class="form-label">Senha</label>
+                                        <input type="password" name="senha" class="form-control" id="senha">
+                                    </div>
+                                    <div class="d-grid gap-2 mb-3">
+                                        <button class="btn btn-outline-primary" type="submit">Entrar</button>
+                                    </div>
+                                    <div class="row">
+                                        <div class="text-center">
+                                            <a href="lojistaCadastro.php" class="link-primary">Nao sou cadastrado</a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
                 <?php
-                 else: 
-                 ?>
-                <h4>Você já está logado</h4>
-                <?php endif?>
+                else :
+                ?>
+                    <h4>Você já está logado</h4>
+                <?php endif ?>
             </div>
         </div>
     </div>
 </body>
+
 </html>

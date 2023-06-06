@@ -25,7 +25,7 @@ if (isset($_POST['email']) || isset($_POST['senha'])) {
             $_SESSION['nao_autenticado'] = true;
             $_SESSION['mensagem_header'] = "Login";
             $_SESSION['mensagem']        = "ERRO: Login ou Senha inválidos.";
-            header('location: index.php');
+            header('location: consumidorLogin.php');
             exit();
         }
     } else {
