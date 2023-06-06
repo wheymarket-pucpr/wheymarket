@@ -4,7 +4,7 @@ include_once('conexao.php');
 
 if (!empty($_SESSION['id'])) {
     $idConsumidor = $_SESSION['id'];
-    $queryPedidos = $conn->query("SELECT * FROM pedido WHERE fk_Consumidor_ID = $idConsumidor");
+    $queryPedidos = $conn->query("SELECT * FROM pedido WHERE fk_Consumidor_ID = $idConsumidor ORDER BY pedido.ID DESC");
 }
 ?>
 

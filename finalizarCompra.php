@@ -3,6 +3,8 @@ session_start();
 include_once('conexao.php');
 $idConsumidor = $_SESSION['id'];
 
+var_dump($idConsumidor);
+
 if (!empty($_GET['idCarrinho']) && !empty($_GET['valorTotal'])) {
     $idCarrinho = $_GET['idCarrinho'];
     $valorTotal  =$_GET['valorTotal'];
