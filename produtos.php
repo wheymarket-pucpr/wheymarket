@@ -135,7 +135,6 @@ $rows = mysqli_num_rows($result);
                                                 </div>
                                                 <div class="modal-body">
                                                     <div class="card-body">
-                                                        <h5 class="card-title" style='display: -webkit-box;height:2.5em;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;'><?php echo $produto['Nome'] ?></h5>
                                                         <img width="10px" class="card-img-top" height="300px" style="object-fit: scale-down; " src="data:image/jpeg;image/png;base64,<?php echo base64_encode($produto['imagem']) ?>" alt="Card image cap">
                                                         <h4 class="card-title">R$ <?php echo $produto['Preco'] ?></h4>
                                                         <p><b>Vendido por: </b><?php echo $produto['Lojista'] ?></p>
