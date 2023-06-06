@@ -40,7 +40,10 @@ if (isset($_POST['email']) || isset($_POST['senha'])) {
 <?php include('htmlhead.php'); ?>
 
 <body>
-<?php require('navbar.php'); ?>
+<?php require('navbar.php'); 
+    include("mensagemSessao.php");
+?>
+
 
     <div class='.container-fluid'>
         <div class="row justify-content-center pt-5">
