@@ -8,7 +8,7 @@ $sql = "SELECT produto.* , lojista.Nome as Lojista FROM produto INNER JOIN lojis
 
 if (!empty($_POST) && isset($_POST['busca']) && $_POST['busca'] != "") {
     $busca = $_POST['busca'];
-    $sql .= " AND nome LIKE '%$busca%'";
+    $sql .= " AND produto.nome LIKE '%$busca%'";
 }
 
 if (!empty($_GET['categorias'])) {
