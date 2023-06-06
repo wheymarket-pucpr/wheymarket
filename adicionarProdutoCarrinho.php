@@ -4,7 +4,7 @@ session_start();
 include_once('conexao.php');
 
 
-if (isset($_SESSION['id']) && $_SESSION['tipoLogado'] == 2) {
+if (isset($_SESSION['id']) && $_SESSION['tipoLogin'] == 2) {
     $idConsumidor = $_SESSION['id'];
 
     if (!empty($_GET['id'])) {
