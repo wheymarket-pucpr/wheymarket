@@ -3,8 +3,13 @@ session_start();
 include_once('conexao.php');
 
 if (!empty($_SESSION['id'])) {
-    $idConsumidor = $_SESSION['id'];
-    $queryPedidos = $conn->query("SELECT * FROM pedido WHERE fk_Consumidor_ID = $idConsumidor");
+    $idLojista = $_SESSION['id'];
+
+    $queryPedidos = $conn->query("SELECT p.ID as idPedido, p.data_pedido, pp.*, prod.imagem, prod.Descricao, prod.preco, prod.idProduto, prod.Nome, prod.Quantidade as Estoque 
+    FROM pedido as p, produto_pedido as pp 
+    INNER JOIN produto as prod 
+    WHERE prod.fk_Lojista_ID = $idLojista and pp.fk_Produto_ID = prod.idProduto and pp.fk_Pedido_ID = p.ID
+    GROUP BY p.ID;");
 }
 ?>
 
@@ -26,11 +31,18 @@ if (!empty($_SESSION['id'])) {
         </figure>
         <div class="row row-cols-1 row-cols-md-1 g-4">
 
-            <?php while ($pedido = mysqli_fetch_assoc($queryPedidos)) : ?>
+            <?php
+            while ($pedido = mysqli_fetch_assoc($queryPedidos)) :
+            ?>
                 <?php
-                $idPedido = $pedido['ID'];
-                $queryProdutosPedido = $conn->query("SELECT pp.quantidade, prod.Nome, prod.Preco, prod.idProduto FROM produto_pedido as pp INNER JOIN produto as prod 
-                    WHERE pp.fk_Pedido_ID = $idPedido and pp.fk_Produto_ID = prod.idProduto");
+                $idPedido = $pedido['idPedido'];
+                $queryProdutosPedido = $conn->query("SELECT pp.quantidade, prod.* FROM produto_pedido as pp INNER JOIN produto as prod 
+                    WHERE pp.fk_Pedido_ID = $idPedido and pp.fk_Produto_ID = prod.idProduto and prod.fk_Lojista_ID = $idLojista");
+
+                $valorTotal = mysqli_fetch_assoc($conn->query("select sum(round((produto_pedido.quantidade * produto.Preco), 2)) as ValorTotal
+                     from produto_pedido
+                     inner join produto on produto.idProduto = produto_pedido.fk_Produto_ID
+                     where produto_pedido.fk_Pedido_ID = $idPedido and produto.fk_Lojista_ID = $idLojista"));
                 ?>
 
                 <div class="col d-flex justify-content-center">
@@ -38,7 +50,7 @@ if (!empty($_SESSION['id'])) {
                         <div class="card-body">
                             <h5 class="card-title">Pedido #<?php echo $idPedido ?> </h5>
                             <br>
-                            Valor total: R$ <?php echo $pedido['Total'] ?>
+                            Valor total: R$ <?php echo $valorTotal['ValorTotal'] ?>
                             <br>
                             Data/Hora do pedido: <?php echo $pedido['data_pedido'] ?>
                             <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#datatoggle<?php echo $idPedido ?>" aria-expanded="false" aria-controls="datatoggle<?php echo $idPedido ?>">
@@ -78,15 +90,12 @@ if (!empty($_SESSION['id'])) {
                                                         </div>
                                                         <div class="modal-body">
                                                             <div class="card-body">
-                                                                <h5 class="card-title" style='display: -webkit-box;height:2.5em;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;'><?php echo $produto['Nome'] ?></h5>
                                                                 <img width="10px" class="card-img-top" height="300px" style="object-fit: scale-down; " src="data:image/jpeg;image/png;base64,<?php echo base64_encode($produto['imagem']) ?>" alt="Card image cap">
                                                                 <h4 class="card-title">R$ <?php echo $produto['Preco'] ?></h4>
-                                                                <p><b>Vendido por: </b><?php echo $lojista['Nome'] ?></p>
                                                                 <p><b>Descrição:</b></p>
                                                                 <p><?php echo $produto['Descricao'] ?></p>
                                                                 <p><b>Quantidade disponível:</b> <?php echo $produto['Quantidade'] ?></p>
                                                                 <div style="display:flex;flex-direction: column-reverse;flex-wrap: wrap;justify-content: center;gap:10px">
-                                                                    <a href="carrinho.php" class="btn btn-danger">Adicionar ao carrinho</a>
                                                                     <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Voltar</button>
 
                                                                 </div>
@@ -99,19 +108,6 @@ if (!empty($_SESSION['id'])) {
                                             </div>
                                         <?php endwhile; ?>
                                     </tbody>
-                                </table>
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Data</th>
-                                            <th scope="col">Valor Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="table-group-divider">
-                                        <tr>
-                                            <th scope="row"><?php echo $pedido['data_pedido'] ?></th>
-                                            <th scope="row">R$ <?php echo $pedido['Total'] ?></th>
-                                        </tr>
                                 </table>
                             </div>
                         </div>

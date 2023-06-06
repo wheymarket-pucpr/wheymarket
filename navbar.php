@@ -100,7 +100,7 @@ include('conexao.php');
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#"></i><i class="fa-solid fa-clipboard"></i> Minhas vendas</a>
+                        <a class="nav-link" href="minhasVendas.php"></i><i class="fa-solid fa-clipboard"></i> Minhas vendas</a>
                     </li>
                     <?php endif;?>
 
