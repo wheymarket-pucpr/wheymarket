@@ -23,6 +23,7 @@ if (isset($_SESSION['id'])) {
 <body>
     <?php
     require('navbar.php');
+    include('mensagemSessao.php')
     ?>
     <div class="container-fluid">
         <div class="row">

@@ -32,6 +32,7 @@ if (!empty($_GET['id'])) {
 <body>
     <?php
     require('navbar.php');
+    include('mensagemSessao.php')
     ?>
     <div class='.container-fluid'>
         <div class="row justify-content-center pt-5">

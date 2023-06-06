@@ -24,11 +24,14 @@ if (!empty($_POST) && isset($_POST['email']) && isset($_POST['senha']) && isset(
 
 <!DOCTYPE html>
 <html>
-    
-<?php include('htmlhead.php');?>
+
+<?php include('htmlhead.php'); ?>
 
 <body>
-<?php require('navbar.php'); ?>
+    <?php
+    require('navbar.php');
+    include('mensagemSessao.php')
+    ?>
     <div class='.container-fluid'>
         <div class="row justify-content-center pt-5">
             <div class='col-3'>

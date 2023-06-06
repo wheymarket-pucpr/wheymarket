@@ -33,6 +33,7 @@ $_SESSION['mensagem'] = "Ocorreu algum erro !";
 <body>
     <?php
     require('navbar.php');
+     include('mensagemSessao.php')
     ?>
     <div class='.container-fluid'>
         <div class="row justify-content-center pt-5">

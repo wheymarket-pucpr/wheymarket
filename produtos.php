@@ -34,6 +34,7 @@ $rows = mysqli_num_rows($result);
 
 <body>
 <?php require('navbar.php'); ?>
+
     <!-- Se nao tiver nada digitado na barra ou pesquisa vazia -->
     <!-- slider -->
     <?php if (!isset($_POST['busca']) || (isset($_POST['busca']) && $_POST['busca'] === "")) : ?>

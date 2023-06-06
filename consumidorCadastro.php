@@ -8,9 +8,9 @@ if (!empty($_POST) && isset($_POST['email']) && isset($_POST['senha']) && isset(
     $cpf   = $conn->real_escape_string($_POST['CPF']);
     $senha   = $conn->real_escape_string($_POST['senha']);
 
-   $sql = "INSERT INTO consumidor (Nome, CPF, senha, email, fk_Cadastro_Tipo_ID) VALUES ('$nome','$cpf',md5('$senha'),'$email', 2)";
-   
- 
+    $sql = "INSERT INTO consumidor (Nome, CPF, senha, email, fk_Cadastro_Tipo_ID) VALUES ('$nome','$cpf',md5('$senha'),'$email', 2)";
+
+
     if ($result = $conn->query($sql)) {
         $_SESSION['mensagem'] = "Cadastro efetuado com sucesso. Você já pode comprar em nosso site! Basta realizar o login.";
         header('location: index.php');
@@ -40,7 +40,10 @@ if (!empty($_POST) && isset($_POST['email']) && isset($_POST['senha']) && isset(
 </head>
 
 <body>
-<?php require('navbar.php'); ?>
+    <?php 
+    require('navbar.php');
+    include('mensagemSessao.php')
+    ?>
     <div class='.container-fluid'>
         <div class="row justify-content-center pt-5">
             <div class='col-3'>
