@@ -112,10 +112,13 @@ include('conexao.php');
                     <?php if (!empty($_SESSION) && isset($_SESSION['Nome'])) : ?>
                         <li class="nav-item">
                             <span class="nav-link"><span class="text-danger">Olá, <?php echo $_SESSION['Nome']?></span>
-                            <!-- COLOCAR UM IF PARA LOJISTA -->
+                            <?php if($_SESSION['tipoLogin'] == "2"):?>
                              <a href="consumidorEdit.php?id=<?php echo $_SESSION['id']?>"> <i class="fa-solid fa-pen-to-square"></i></a></span>
+                             <?php elseif($_SESSION['tipoLogin'] == "1"):?>
+                            <a href="lojistaEdit.php?id=<?php echo $_SESSION['id']?>"> <i class="fa-solid fa-pen-to-square"></i></a></span>
+                            <?php endif;?>
                         </li>
-                            <!-- importante !!!!!!!!! -->
+
                         <li class="nav-item">
                             <a class="nav-link" href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Sair</a>
                         </li>
