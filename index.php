@@ -1,8 +1,10 @@
 <?php
+
 session_start();
 if(isset($_SESSION['tipoLogin']) && $_SESSION['tipoLogin'] == 1 ){
     header('Location: lojistaPage.php');;
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="Pt-br">
