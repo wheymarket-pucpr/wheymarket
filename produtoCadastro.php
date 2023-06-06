@@ -46,42 +46,14 @@ if (!empty($_POST) && isset($_POST['Nome']) && isset($_POST['Preco']) && isset($
 <?php include('htmlhead.php');?>
 
 <body>
-    <header>
-        <nav class="navigation ">
-            <div class="flex-center-logo">
-                <a href="lojistaPage.php"><img src="src/img/logo.png" width="100px" height="100px"></a>
-                <a href="lojistaPage.php" class="logo">Whey <span>Market</span>
-                    <h6>Area do vendedor</h6>
-                </a>
-
-            </div>
-            <div>
-                <ul class="nav-menu">
-                    <i class='bx bx-search'></i>
-                    <li class="nav-item"><a href="lojistaPage.php">Inicio</a></li>
-                    <li class="nav-item"><a href="#">Minhas vendas</a></li>
-                    <li class="nav-item"><a href="listarProdutos.php">Meus produtos</a></li>
-                    <li class="nav-item"><a href="produtoCadastro.php">Cadastrar produto</a></li>
-                    <?php
-                    ?>
-                    <li class="nav-item"><span class='text-red'>Ola, <?php echo $_SESSION['Nome'] ?></span></li>
-                    <li class="nav-item"><a href="logout.php">Sair</a></li>
-                    <?php
-                    ?>
-                </ul>
-            </div>
-            <div class="menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-        </nav>
-    </header>
+<?php
+    require('navbar.php');
+    ?>
     <div class='.container-fluid'>
         <div class="row justify-content-center pt-5">
             <div class='col-10'>
                 <div class="card">
-                    <h3 class="card-header text-dark">Cadastre um produto</h3>
+                    <h5 class="card-header text-dark">Cadastre um produto</h5>
                     <h6><span style="color: red;">* Campos Obrigatórios</span></h6>
                     <div class="card-body">
                         <div class='col'>

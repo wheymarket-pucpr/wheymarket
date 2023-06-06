@@ -40,7 +40,7 @@ include('conexao.php');
                 <?php if(!isset($_SESSION['tipoLogin'])): ?>
                     <li class="nav-item">
                         <form class="d-flex" action="produtos.php" method="POST">
-                            <input class="form-control me-2 inputRounded" type="text" name="busca" placeholder="Pesquisar...">
+                            <input class="form-control me-2 inputRounded" type="text" name="busca" placeholder="Pesquisar por nome...">
                             <button class="btn btn-link buttonHover" type="submit">
                             <i class="fa-solid fa-magnifying-glass text-secondary"></i>
                             </button>
@@ -75,6 +75,7 @@ include('conexao.php');
                     <li class="nav-item">
                         <a class="nav-link" href="index.php"><i class="fa-solid fa-house"></i> Home</a>
                     </li>
+                    
 
                     <li class="nav-item">
                         <a class="nav-link" href="produtos.php"><i class="fa-solid fa-list"></i> Produtos</a>
@@ -93,6 +94,10 @@ include('conexao.php');
 
                     <li class="nav-item">
                         <a class="nav-link" href="lojistaPage.php"><i class="fa-solid fa-house"></i> Meus dados</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="produtoCadastro.php"><i class="fa-solid fa-boxes-packing"></i></i> Cadastrar produto</a>
                     </li>
 
                     <li class="nav-item">

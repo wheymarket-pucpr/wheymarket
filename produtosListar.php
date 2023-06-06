@@ -17,8 +17,9 @@ if ($result = $conn->query($sql)) {
     <div class="container-fluid">
         <div class="row">
             <div class="col p-5">
+            <a class="btn btn-dark "href="produtoCadastro.php"><i class="fa-solid fa-boxes-packing"></i> Cadastrar novo produto</a>
                 <table class="table table-hover table-striped">
-                    <thead>
+                    <thead>s
                         <tr>
                             <th scope="col">Nome</th>
                             <th scope="col">Preço</th>
@@ -28,7 +29,6 @@ if ($result = $conn->query($sql)) {
                             <th scope="col">Anunciado</th>
                             <th scope="col">Imagem</th>
                            
-                            
                             <th></th>
                         </tr>
                     </thead>
