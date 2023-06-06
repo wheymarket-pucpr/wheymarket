@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 05/06/2023 às 23:34
+-- Tempo de geração: 06/06/2023 às 02:01
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -174,7 +174,11 @@ CREATE TABLE `pedido` (
 --
 
 INSERT INTO `pedido` (`ID`, `fk_Consumidor_ID`, `data_pedido`, `Total`) VALUES
-(46, 3, '2023-06-05 00:56:03', 180);
+(46, 3, '2023-06-05 00:56:03', 180),
+(47, 3, '2023-06-05 23:59:22', 30),
+(48, 3, '2023-06-06 01:13:11', 130),
+(49, 3, '2023-06-06 01:44:05', 200),
+(50, 3, '2023-06-06 01:56:31', 235);
 
 -- --------------------------------------------------------
 
@@ -251,7 +255,17 @@ CREATE TABLE `produto_pedido` (
 --
 
 INSERT INTO `produto_pedido` (`ID`, `fk_Pedido_ID`, `fk_Produto_ID`, `quantidade`) VALUES
-(44, 46, 6, 3);
+(44, 46, 6, 3),
+(45, 47, 1, 3),
+(46, 48, 1, 5),
+(47, 48, 2, 2),
+(48, 49, 8, 3),
+(49, 49, 2, 2),
+(50, 50, 22, 1),
+(51, 50, 1, 1),
+(52, 50, 6, 1),
+(53, 50, 13, 1),
+(54, 50, 8, 1);
 
 --
 -- Índices para tabelas despejadas
@@ -377,7 +391,7 @@ ALTER TABLE `lojista`
 -- AUTO_INCREMENT de tabela `pedido`
 --
 ALTER TABLE `pedido`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT de tabela `produto`
@@ -389,13 +403,13 @@ ALTER TABLE `produto`
 -- AUTO_INCREMENT de tabela `produto_carrinho`
 --
 ALTER TABLE `produto_carrinho`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT de tabela `produto_pedido`
 --
 ALTER TABLE `produto_pedido`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- Restrições para tabelas despejadas

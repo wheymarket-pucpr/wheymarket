@@ -33,7 +33,7 @@ $rows = mysqli_num_rows($result);
 <?php include('htmlhead.php'); ?>
 
 <body>
-    <?php require('navbar.php'); ?>
+<?php require('navbar.php'); ?>
     <!-- Se nao tiver nada digitado na barra ou pesquisa vazia -->
     <!-- slider -->
     <?php if (!isset($_POST['busca']) || (isset($_POST['busca']) && $_POST['busca'] === "")) : ?>
@@ -119,9 +119,9 @@ $rows = mysqli_num_rows($result);
                                 <div style="display:flex;flex-direction: column-reverse;flex-wrap: wrap;justify-content: center;gap:10px">
                                     <a href='adicionarProdutoCarrinho.php?&id=<?php echo $produto['idProduto'] ?>' name="idProduto" class="btn btn-outline-danger">Adicionar ao carrinho</a>
 
-                                    <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo $produto['idProduto'] ?>">
-                                        Visualizar
+                                                            <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo $produto['idProduto']?>">
+                                    Visualizar
                                     </button>
 
                                     <!-- Modal -->

@@ -47,7 +47,7 @@ if ($result = $conn->query($sql)) {
                     <td>
 
                         <!-- botao editar -->
-                        <a class='btn btn-sm btn-primary' href='editLojista.php?&id=<?php echo $lojista['ID'] ?>'
+                        <a class='btn btn-sm btn-primary' href='lojistaEdit.php?&id=<?php echo $lojista['ID'] ?>'
                            title='Editar'>
                             <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor'
                                  class='bi bi-pencil' viewBox='0 0 16 16'>

@@ -80,11 +80,11 @@ if ($result = $conn->query($sql)) {
                                                 </div>
 
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-danger">
+                                                    <button type="button" class="btn btn-outline-danger">
                                                         <a href='produtoDelete.php?id=<?php echo $produto['idProduto'] ?>'>Excluir</a>
                                                     </button>
 
-                                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar
+                                                    <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Fechar
                                                     </button>
 
                                                 </div>
