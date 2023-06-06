@@ -31,7 +31,7 @@ if (!empty($_POST) && isset($_POST['Nome']) && isset($_POST['Preco']) && isset($
 
     if ($result = $conn->query($sql)) {
         $_SESSION['mensagem'] = "Cadastro efetuado com sucesso. Você já pode vender em nosso site! ";
-        header('location: listarProdutos.php');
+        header('location: produtosListar.php');
         exit();
     } else {
         $_SESSION['mensagem'] = "Erro executando INSERT: " . $conn->error . " Tente novo cadastro.";
@@ -43,10 +43,10 @@ if (!empty($_POST) && isset($_POST['Nome']) && isset($_POST['Preco']) && isset($
 <!DOCTYPE html>
 <html lang="Pt-br">
 
-<?php include('htmlhead.php');?>
+<?php include('htmlhead.php'); ?>
 
 <body>
-<?php
+    <?php
     require('navbar.php');
     ?>
     <div class='.container-fluid'>
@@ -114,24 +114,24 @@ if (!empty($_POST) && isset($_POST['Nome']) && isset($_POST['Preco']) && isset($
                                 </div>
                                 <!-- Anunciar produto ou nao -->
                                 <div class="form-check">
-                                    <input class="form-check-input" value= "1" type="radio" name="anunciar" id="flexRadioDefault1">
+                                    <input class="form-check-input" value="1" type="radio" name="anunciar" id="flexRadioDefault1">
                                     <label class="form-check-label" for="flexRadioDefault1">
                                         Anunciar produto
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" value= "0" type="radio" name="anunciar" id="flexRadioDefault2" checked>
+                                    <input class="form-check-input" value="0" type="radio" name="anunciar" id="flexRadioDefault2" checked>
                                     <label class="form-check-label" for="flexRadioDefault2">
                                         Não anunciar produto
                                     </label>
                                 </div>
-                                <br>   
+                                <br>
                                 <!-- Selecao de foto -->
                                 <div class="mb-3">
                                     <label for="imgProduto" class="form-label">Selecione uma foto do produto<span style="color: red;">*</span></label>
                                     <input class="form-control" type="file" id="imgProduto" name="imgProduto" required>
                                 </div>
-                               
+
                                 <div class="mb-3">
                                     <button type="submit" class="btn btn-primary">Salvar</button>
                                 </div>

@@ -118,8 +118,8 @@ if (!empty($_SESSION['id'])) {
 
     <?php else : ?>
         <div style="padding: 20px;">
-            <h4>Você nao fez vendas</h4>
-            <a class="btn btn-outline-dark" href="produtoCadastro.php">Cadastre um produto !</a>
+            <h4>Você ainda não fez vendas</h4>
+            <a class="btn btn-outline-dark" href="lojistaPage.php">Voltar</a>
         </div>
     <?php endif; ?>
 
