@@ -11,7 +11,8 @@ O projeto busca desde criação da documentação até a implementação de um m
 - [@alwaystiredbtw](https://www.github.com/alwaystiredbtw)
 - [@eliasfernandescout](https://github.com/eliasfernandescout)
 - [@BadKlein](https://github.com/BadKlein)
-- [@RenMarValerio](https://github.com/RenMarValerio)
+## 
+
 
 
 
